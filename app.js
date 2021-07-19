@@ -8,7 +8,7 @@ const end = section.querySelector('h1');
 const controller = new ScrollMagic.Controller();
 //scene
 const scene = new ScrollMagic.Scene({
-    duration: 3500,
+    duration: 3200,
     triggerElemnt: intro,
     triggerHook: 0
 })
