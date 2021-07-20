@@ -9,7 +9,7 @@ var profPic = document.getElementById('pfp');
 const controller = new ScrollMagic.Controller();
 //scene
 const scene = new ScrollMagic.Scene({
-    duration: 3000,
+    duration: 3100,
     triggerElemnt: intro,
     triggerHook: 0
 })
@@ -22,19 +22,19 @@ const scene = new ScrollMagic.Scene({
 let accelamount = 0.1;
 let scrollpos = 0;
 let delay = 0;
+let imgOpacity = 0;
 
 scene.on('update', e => {
-    scrollpos = e.scrollPos / 1000; //scrollPos is scrollMagic thing not my variable DO NOT CONFUSE
+    scrollpos = e.scrollPos / 1033; //scrollPos is scrollMagic thing not my variable DO NOT CONFUSE
 });
 
 setInterval(() => {
     delay += (scrollpos - delay) * accelamount;
     video.currentTime = delay;
-    if(delay > 2.83){
-        profPic.style.opacity = "1";
-    }else{
-        profPic.style.opacity = "0";
-    }
+    //0.76 - 2.88
+    imgOpacity = (delay - 0.76) / 2.88;
+    profPic.style.opacity = imgOpacity.toString();
+
 }, 33.3)
 
 
