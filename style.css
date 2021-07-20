@@ -4,12 +4,18 @@
     box-sizing: border-box;
 }
 
+.bgColor{
+    background-color: #151233;
+}
+
 body {
     font-family: sans-serif;
+    background-color: #151233;
 }
 
 .intro {
     height: 100vh;
+    background-color: #151233;
 }
 
 .intro video{
@@ -21,6 +27,7 @@ body {
 .about {
     height: 100vh;
     color: black;
+    
 }
 
 .about h1{
@@ -29,10 +36,11 @@ body {
     font-size: 50px;
 }
 
-.about image{
-    height: 50%;
-    width: 50%;
-
+.about img{
+    position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 

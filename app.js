@@ -3,12 +3,13 @@ const video = intro.querySelector('video');
 
 const section = document.querySelector('section');
 const end = section.querySelector('h1');
+var profPic = document.getElementById('pfp');
 
 //scroll stuff
 const controller = new ScrollMagic.Controller();
 //scene
 const scene = new ScrollMagic.Scene({
-    duration: 3200,
+    duration: 3000,
     triggerElemnt: intro,
     triggerHook: 0
 })
@@ -28,8 +29,12 @@ scene.on('update', e => {
 
 setInterval(() => {
     delay += (scrollpos - delay) * accelamount;
-
     video.currentTime = delay;
+    if(delay > 2.83){
+        profPic.style.opacity = "1";
+    }else{
+        profPic.style.opacity = "0";
+    }
 }, 33.3)
 
 
