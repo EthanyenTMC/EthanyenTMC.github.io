@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital@1&family=MonteCarlo&family=Oswald:wght@300&family=Rajdhani:wght@300&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -24,25 +25,32 @@ body {
     object-fit: cover;
 }
 
-.about {
+.name {
     height: 100vh;
-    color: black;
-    
-}
-
-.about h1{
-    padding-top: 300px;
     text-align: center;
-    font-size: 50px;
+    padding-top: 30vh;
 }
 
-.about img{
-    position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+
+
+.name #typewriter{
+  color: #d3d3d3;
+  position:absolute;
+  left:50%;
+  top: 30%;
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  font-size: 120px;
+  
 }
 
+.name #actual{
+  position:absolute;
+  left:50%;
+  top: 55%;
+  transform: translate(-50%, -55%);
+  font-size: 140px;
+}
 
 
 
@@ -59,7 +67,7 @@ body {
 
 .navMenu a {
     font-family: 'Lemon/Milk light Regular';
-    color: #f6f4e6;
+    color: #d7e4ff;
     text-decoration: none;
     font-size: 1.4em;
     text-transform: uppercase;
@@ -116,5 +124,25 @@ body {
 }
 
 
+h1 {
+  /*  leverage cascade for cross-browser gradients  */
+  /*background: radial-gradient(
+    hsl(298, 100%, 66%),
+    hsl(214, 100%, 72%)
+  ) fixed;*/
+  background: conic-gradient(
+    from -10deg,
+    hsl(214, 100%, 72%), 
+    hsl(298, 100%, 66%), 
+    hsl(298, 100%, 66%) 
+  ) fixed;
+  /*background: linear-gradient(hsl(214, 100%, 72%), hsl(298, 100%, 66%)) fixed;*/
+  -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+} 
 
+#empty {
+  height: 100vh;
+}
 
