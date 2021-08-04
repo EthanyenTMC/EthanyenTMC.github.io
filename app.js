@@ -26,9 +26,9 @@ function switchFont(){
         currentFont = 0;
     }
     if(currentFont == 0){
-        myNameIs.style.top = "28%";
+        myNameIs.style.top = "26%";
     }else{
-        myNameIs.style.top = "30%";
+        myNameIs.style.top = "28%";
     }
     myNameIs.style.fontFamily = fonts[currentFont];
     
