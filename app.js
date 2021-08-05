@@ -15,7 +15,7 @@ if(posy < 300){
     }
 } 
 
-var fonts = ["MonteCarlo", "Lobster Two", "Rajdhani", "Oswald"];
+var fonts = ["Dancing Script", "Lobster Two", "Rajdhani", "Oswald"];
 var currentFont = 1;
 var myNameIs = document.getElementById("typewriter");
 myNameIs.style.fontFamily = fonts[currentFont];
@@ -25,11 +25,11 @@ function switchFont(){
     if(currentFont > 3){
         currentFont = 0;
     }
-    if(currentFont == 0){
+    /*if(currentFont == 0){
         myNameIs.style.top = "26%";
     }else{
         myNameIs.style.top = "28%";
-    }
+    }*/
     myNameIs.style.fontFamily = fonts[currentFont];
     
 }

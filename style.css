@@ -1,28 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital@1&family=MonteCarlo&family=Oswald:wght@300&family=Rajdhani:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    overflow-x:hidden;
 }
 
-.bgColor{
-    background-color: #151233;
-}
 
 body {
     font-family: sans-serif;
     background-color: #151233;
 }
 
-.intro {
-    height: 100vh;
-    background-color: #151233;
+
+.shapes{
+  position: absolute;
+  left: -5%;
 }
 
-.intro video{
-    height:100%;
-    width:100%;
-    object-fit: cover;
+body #square {
+  background-color: #555;
+}
+
+body #triangle {
+  border-bottom: 86px solid rgb(66, 66, 66);
+  /* 104 = 120 * 0.866 */
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
 }
 
 .name {
@@ -35,21 +40,14 @@ body {
 
 .name #typewriter{
   color: #d3d3d3;
-  position:absolute;
-  left:50%;
-  top: 28%;
-  -webkit-transform: translate(-50%, 0);
-  transform: translate(-50%, 0);
-  font-size: 640%;
+  position:relative;
+  font-size: 6.4em;
   
 }
 
 .name #actual{
-  position:absolute;
-  left:50%;
-  top: 55%;
-  transform: translate(-50%, -55%);
-  font-size: 700%;
+  position:relative;
+  font-size: 7em;
 }
 
 
@@ -130,13 +128,14 @@ h1 {
     hsl(298, 100%, 66%),
     hsl(214, 100%, 72%)
   ) fixed;*/
-  background: conic-gradient(
+  /*background: conic-gradient(
     from -10deg,
     hsl(214, 100%, 72%), 
     hsl(298, 100%, 66%), 
     hsl(298, 100%, 66%) 
-  ) fixed;
-  /*background: linear-gradient(hsl(214, 100%, 72%), hsl(298, 100%, 66%)) fixed;*/
+  ) fixed;*/
+  background: repeating-linear-gradient(to bottom right,hsl(214, 100%, 72%), hsl(214, 100%, 72%), hsl(298, 100%, 66%), hsl(298, 100%, 66%)) fixed;
+  background-blend-mode: difference;
   -webkit-background-clip: text;
     -webkit-text-fill-color: transparent; 
     -moz-text-fill-color: transparent;
