@@ -37,3 +37,19 @@ anime({
     duration: (Math.random()*2000)+3000
 });
 
+var isScrolling = false;;
+
+window.onscroll = function (e) {  
+    // called when the window is scrolled.  
+    isScrolling =true;
+    } 
+
+    setInterval(() => {
+        if(isScrolling){
+            document.getElementById('actual').innerHTML = 'poo';
+        }else{
+            document.getElementById('actual').innerHTML = 'Ethan Yen';
+        }
+        isScrolling = false;
+      }, 100);
+
