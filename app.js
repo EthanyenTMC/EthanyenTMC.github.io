@@ -1,6 +1,6 @@
 var navBar = document.getElementById('navBar');
 
-
+//navbar
 document.onmousemove=getCursorPos;
 var output = document.getElementById('output');
 function getCursorPos(a)
@@ -15,6 +15,7 @@ if(posy < 300){
     }
 } 
 
+//font switch
 var fonts = ["Dancing Script", "Lobster Two", "Rajdhani", "Oswald"];
 var currentFont = 1;
 var myNameIs = document.getElementById("typewriter");
@@ -35,7 +36,6 @@ function switchFont(){
 }
 
 //typewriter effect
-
 document.addEventListener('DOMContentLoaded',function(event){
     // array with texts to type in typewriter
     var dataText = [ "My Name is"];

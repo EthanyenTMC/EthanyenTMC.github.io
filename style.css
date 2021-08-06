@@ -20,14 +20,17 @@ body {
 }
 
 body #square {
-  background-color: #555;
+  background-color: rgb(129, 0, 214);
+  filter: drop-shadow(0em 0em .25em);
+
 }
 
 body #triangle {
-  border-bottom: 86px solid rgb(66, 66, 66);
+  border-bottom: 86px solid rgb(250, 80, 255);
   /* 104 = 120 * 0.866 */
   border-left: 50px solid transparent;
   border-right: 50px solid transparent;
+  filter: drop-shadow(0em 0em .25em);
 }
 
 .name {
@@ -135,7 +138,6 @@ h1 {
     hsl(298, 100%, 66%) 
   ) fixed;*/
   background: repeating-linear-gradient(to bottom right,hsl(214, 100%, 72%), hsl(214, 100%, 72%), hsl(298, 100%, 66%), hsl(298, 100%, 66%)) fixed;
-  background-blend-mode: difference;
   -webkit-background-clip: text;
     -webkit-text-fill-color: transparent; 
     -moz-text-fill-color: transparent;
