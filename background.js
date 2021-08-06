@@ -29,8 +29,8 @@ for( var i = 0; i < shapes.length; i++){
 }
 
 var background1 = anime({
-    //targets: '.shapes',
-    translateX: width + (width*0.1),
+    targets: '.shapes',
+    translateX: [-(width*0.1), (width*1.1)],
     rotate: (Math.random() * 0.4 + 0.1) * 360,
     easing: "linear",
     delay: anime.stagger(Math.random()*2000+1000),
