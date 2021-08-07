@@ -18,23 +18,58 @@ body {
   position: absolute;
 }
 
-body #square {
+.shroup{
+  position: absolute;
+}
+
+#square {
+  position: absolute;
   background-color: rgb(129, 0, 214);
   filter: drop-shadow(0em 0em .25em);
-  background: repeating-linear-gradient(to bottom right,hsl(214, 100%, 72%), hsl(214, 100%, 72%), hsl(298, 100%, 66%), hsl(298, 100%, 66%)) fixed;
-  mask-image: '/white square.jpg';
+  /*background: repeating-linear-gradient(hsl(214, 100%, 72%), hsl(214, 100%, 72%), hsl(298, 100%, 66%), hsl(298, 100%, 66%)) fixed;
+  mask-image: '/white square.jpg';*/
 
 }
 
-body #triangle {
-  /*border-bottom: 86px solid rgb(250, 80, 255);
-  /* 104 = 120 * 0.866 
+#triangle {
+  position: absolute;
+  border-bottom: 86px solid rgb(250, 80, 255);
+  /* 104 = 120 * 0.866 */
   border-left: 50px solid transparent;
-  border-right: 50px solid transparent;*/
+  border-right: 50px solid transparent;
   filter: drop-shadow(0em 0em .25em);
-  background: repeating-linear-gradient(to bottom right,hsl(214, 100%, 72%), hsl(214, 100%, 72%), hsl(298, 100%, 66%), hsl(298, 100%, 66%)) fixed;
-  mask-image: '/white triangle.png';
+  /*background: repeating-linear-gradient(hsl(214, 100%, 72%), hsl(214, 100%, 72%), hsl(298, 100%, 66%), hsl(298, 100%, 66%)) fixed;
+  mask-image: '/white triangle.png';*/
 }
+
+#circle {
+  height: 25px;
+  width: 25px;
+  background-color: rgb(129, 0, 214);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+#pentagon {
+  position: relative;
+  width: 54px;
+  box-sizing: content-box;
+  border-width: 50px 18px 0;
+  border-style: solid;
+  border-color: rgb(129, 0, 214) transparent;
+}
+#pentagon:before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  top: -85px;
+  left: -18px;
+  border-width: 0 45px 35px;
+  border-style: solid;
+  border-color: transparent transparent rrgb(129, 0, 214);
+}
+
 
 .name {
     height: 100vh;
@@ -56,7 +91,14 @@ body #triangle {
   font-size: 7em;
 }
 
+.aboutMe{
+  text-align: center;
+  height: 100vh;
+}
 
+.aboutMe h1{
+  font-size: 4em;
+}
 
 
 .navMenu {
@@ -146,7 +188,4 @@ h1 {
     -moz-text-fill-color: transparent;
 } 
 
-#empty {
-  height: 100vh;
-}
 

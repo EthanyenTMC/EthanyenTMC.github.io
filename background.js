@@ -5,17 +5,24 @@ document.body.clientHeight;
 
 
 var shapes = document.getElementsByClassName('shapes');
+var shapesTop = [];
+var shapesParallaxFactor = [];
 var squareSizeRange = 5;
 var maxSquareSize = 10;
 var squareSize;
 var triangleSizeRange = 5;
 var maxTriangleSize = 10;
 var triangleSize;
+var circleSizeRange = 5;
+var maxCircleSize = 10;
+var circleSize;
 var triangleColor = "rgb(129, 0, 214)";
 
 
 for( var i = 0; i < shapes.length; i++){
-    shapes[i].style.top = (Math.random()*100+1).toString() + "%";
+    shapesTop[i] = (Math.random()*100+1);
+    shapesParallaxFactor[i] = (Math.random()*50+10); 
+    shapes[i].style.top = shapesTop[i].toString() + "%";
     if(shapes[i].id.localeCompare("square") == 0){
         squareSize = (Math.random()*squareSizeRange+(maxSquareSize-squareSizeRange));
         shapes[i].style.height = squareSize.toString()+"em";
@@ -25,21 +32,51 @@ for( var i = 0; i < shapes.length; i++){
         shapes[i].style.borderBottom = (Math.floor(triangleSize*0.866)).toString()+ "em solid " + triangleColor;
         shapes[i].style.borderLeft = (Math.floor(triangleSize/2)).toString()+ "em solid transparent";
         shapes[i].style.borderRight = (Math.floor(triangleSize/2)).toString()+ "em solid transparent";
+    }else if(shapes[i].id.localeCompare("circle") == 0){
+        circleSize = (Math.random()*circleSizeRange+(maxCircleSize-circleSizeRange));
+        shapes[i].style.height = circleSize.toString()+"em";
+        shapes[i].style.width = circleSize.toString()+"em";
     }
+    
 }
 
 var background1 = anime({
-    targets: '.shapes',
+    targets: '.group1',
     translateX: [-(width*0.1), (width*1.1)],
     rotate: (Math.random() * 0.4 + 0.1) * 360,
     easing: "linear",
-    delay: anime.stagger(Math.random()*2000+1000),
+    delay: anime.stagger(Math.random()*500+500),
     loop: true,
     duration: (Math.random()*5000)+5000,
     //background: ['rgb(129, 0, 214)', 'rgb(0, 60, 255)'],
     //borderBottomColor: ['rgb(129, 0, 214)', 'rgb(0, 60, 255)']
+    loopComplete: function(anim) {
+        background2.play();
+      }
+});
+
+var background2 = anime({
+    targets: '.group2',
+    autoplay: false,
+    translateX: [-(width*0.1), (width*1.1)],
+    rotate: (Math.random() * 0.4 + 0.1) * 360,
+    easing: "linear",
+    delay: anime.stagger(Math.random()*500+500, {start: ((shapes.length/2)*750)}),
+    loop: true,
+    duration: (Math.random()*5000)+5000, 
+});
+//.add({ targets: '#squares',  background: ['rgb(129, 0, 214)', 'rgb(0, 60, 255)'], },)
+
+//var shroups = document.getElementsByClassName('shroup');
+
+window.addEventListener('scroll', function(){
+    var value = Math.floor(window.scrollY);
+    //document.getElementById('actual').innerHTML = ((value * 0.25)/window.innerHeight) + shapesTop[0] + "%";
+    for(var i = 0; i < shapes.length; i++){
+        shapes[i].style.top = (((value * (shapesParallaxFactor[i]))/window.innerHeight) + shapesTop[i]).toString() + "%";
+    }
 })
-//.add({ targets: 'squares',  background: ['rgb(129, 0, 214)', 'rgb(0, 60, 255)'], }, 0)
+
 
 /*
 var isScrolling = false;
@@ -91,3 +128,13 @@ setInterval(() => {
   }, 16.6);
 
   */
+
+
+
+
+
+
+
+
+
+
