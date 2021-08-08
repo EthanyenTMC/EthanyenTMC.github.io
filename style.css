@@ -18,7 +18,7 @@ body {
   position: absolute;
 }
 
-.shroup{
+.group1{
   position: absolute;
 }
 
@@ -50,25 +50,7 @@ body {
   display: inline-block;
 }
 
-#pentagon {
-  position: relative;
-  width: 54px;
-  box-sizing: content-box;
-  border-width: 50px 18px 0;
-  border-style: solid;
-  border-color: rgb(129, 0, 214) transparent;
-}
-#pentagon:before {
-  content: "";
-  position: absolute;
-  height: 0;
-  width: 0;
-  top: -85px;
-  left: -18px;
-  border-width: 0 45px 35px;
-  border-style: solid;
-  border-color: transparent transparent rrgb(129, 0, 214);
-}
+
 
 
 .name {

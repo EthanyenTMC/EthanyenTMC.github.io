@@ -20,7 +20,16 @@ var triangleColor = "rgb(129, 0, 214)";
 
 
 for( var i = 0; i < shapes.length; i++){
-    shapesTop[i] = (Math.random()*100+1);
+    var rand = Math.round(Math.random()*3);
+    if(rand == 1){
+        shapesTop[i] = (Math.random()*42+1);
+    }else if (rand == 2){
+        shapesTop[i] = (Math.random()*42+42);
+    }else{
+        shapesTop[i] = (Math.random()*42+84);
+    }
+
+    //shapesTop[i] = (Math.random()*100+1);
     shapesParallaxFactor[i] = (Math.random()*50+10); 
     shapes[i].style.top = shapesTop[i].toString() + "%";
     if(shapes[i].id.localeCompare("square") == 0){
@@ -40,20 +49,49 @@ for( var i = 0; i < shapes.length; i++){
     
 }
 
-var background1 = anime({
+/*var timeline = anime.timeline({
+    autoplay: true,
+    loop: true,
+    easing: "linear",
+    duration: 7500,
+});
+
+timeline.add({
     targets: '.group1',
     translateX: [-(width*0.1), (width*1.1)],
     rotate: (Math.random() * 0.4 + 0.1) * 360,
     easing: "linear",
     delay: anime.stagger(Math.random()*500+500),
+    
+})
+.add({
+    targets: '.group2',
+    translateX: [-(width*0.1), (width*1.1)],
+    rotate: (Math.random() * 0.4 + 0.1) * 360,
+    easing: "linear",
+    delay: anime.stagger(Math.random()*500+500),
+}, '-=7500');*/
+
+
+var background1 = anime({
+    targets: '.group1',
+    translateX: [-(width*0.1), (width*1.1)],
+    rotate: (Math.random() * 0.4 + 0.1) * 360,
+    easing: "linear",
+    delay: anime.stagger(500),
+    autoplay: false,
     loop: true,
-    duration: (Math.random()*5000)+5000,
+    duration: 7500,
+    update: function(anim){
+        document.getElementById('actual').innerHTML = anim.progress;
+        if(anim.progress > 50){
+            background2.play();
+        }
+    }
     //background: ['rgb(129, 0, 214)', 'rgb(0, 60, 255)'],
     //borderBottomColor: ['rgb(129, 0, 214)', 'rgb(0, 60, 255)']
-    loopComplete: function(anim) {
-        background2.play();
-      }
 });
+
 
 var background2 = anime({
     targets: '.group2',
@@ -61,10 +99,18 @@ var background2 = anime({
     translateX: [-(width*0.1), (width*1.1)],
     rotate: (Math.random() * 0.4 + 0.1) * 360,
     easing: "linear",
-    delay: anime.stagger(Math.random()*500+500, {start: ((shapes.length/2)*750)}),
+    delay: anime.stagger(500),
     loop: true,
-    duration: (Math.random()*5000)+5000, 
+    duration: 7500, 
+    update: function(anim){
+        document.getElementById('actual').innerHTML = anim.progress;
+        if(anim.progress > 50){
+            background1.play();
+        }
+    }
 });
+
+background1.play();
 //.add({ targets: '#squares',  background: ['rgb(129, 0, 214)', 'rgb(0, 60, 255)'], },)
 
 //var shroups = document.getElementsByClassName('shroup');
