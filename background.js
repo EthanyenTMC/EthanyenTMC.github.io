@@ -83,7 +83,6 @@ var background1 = anime({
     loop: true,
     duration: 7500,
     update: function(anim){
-        document.getElementById('actual').innerHTML = anim.progress;
         if(anim.progress > 50){
             background2.play();
         }
@@ -103,7 +102,6 @@ var background2 = anime({
     loop: true,
     duration: 7500, 
     update: function(anim){
-        document.getElementById('actual').innerHTML = anim.progress;
         if(anim.progress > 50){
             background1.play();
         }

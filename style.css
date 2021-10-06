@@ -16,6 +16,7 @@ body {
 
 .shapes{
   position: absolute;
+  z-index: -99;
 }
 
 .group1{
@@ -57,6 +58,7 @@ body {
     height: 100vh;
     text-align: center;
     padding-top: 32vh;
+    /*filter: drop-shadow(0 0 0.75em black);*/
 }
 
 
@@ -65,7 +67,7 @@ body {
   color: #d3d3d3;
   position:relative;
   font-size: 6.4em;
-  
+  /*filter: drop-shadow(0 0 0.75em black);*/
 }
 
 .name #actual{
@@ -75,7 +77,8 @@ body {
 
 .aboutMe{
   text-align: center;
-  height: 100vh;
+  height: 75vh;
+  filter: drop-shadow(0 0 1em black);
 }
 
 .aboutMe h1{
@@ -164,6 +167,15 @@ h1 {
     hsl(298, 100%, 66%), 
     hsl(298, 100%, 66%) 
   ) fixed;*/
+  background: repeating-linear-gradient(to bottom right,hsl(214, 100%, 72%), hsl(214, 100%, 72%), hsl(298, 100%, 66%), hsl(298, 100%, 66%)) fixed;
+  -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+} 
+
+p {
+  font-size: 1.5em;
+  font-family: 'sans-serif';
   background: repeating-linear-gradient(to bottom right,hsl(214, 100%, 72%), hsl(214, 100%, 72%), hsl(298, 100%, 66%), hsl(298, 100%, 66%)) fixed;
   -webkit-background-clip: text;
     -webkit-text-fill-color: transparent; 
