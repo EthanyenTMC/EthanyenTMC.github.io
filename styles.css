@@ -11,3 +11,12 @@ div {
     font-size: 50px;
 
 }
+
+#img{
+    width: 200px;
+    height: 200px;
+}
+
+#joshua:hover{
+    transform: scale(2);
+}
