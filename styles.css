@@ -20,3 +20,7 @@ div {
 #joshua:hover{
     transform: scale(2);
 }
+
+#canvas{
+    display:block;
+}

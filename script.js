@@ -12,12 +12,12 @@ const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.inner
 const controls = new OrbitControls( camera, renderer.domElement );
 
 const geometry = new THREE.BoxGeometry();
-			const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			const material = new THREE.MeshBasicMaterial( { color: 0xFFFB00 } );
 			const cube = new THREE.Mesh( geometry, material );
 			scene.add( cube );
 
 //controls.update() must be called after any manual changes to the camera's transform
-camera.position.set( 0, 5, 0 );
+camera.position.set( 2, 2.5, 1 );
 controls.update();
 
 function animate() {
