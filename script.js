@@ -17,10 +17,39 @@ scene.add(light);
 
 loader.load(
 	// resource URL
+	'table.glb',
+	// called when the resource is loaded
+	function ( gltf ) {
+		gltf.scene.position.set(0,0,-0.5);
+		scene.add( gltf.scene );
+
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Group
+		gltf.scenes; // Array<THREE.Group>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
+	},
+	// called while loading is progressing
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened' );
+
+	}
+);
+
+loader.load(
+	// resource URL
 	'chair.glb',
 	// called when the resource is loaded
 	function ( gltf ) {
-
+		gltf.scene.position.set(0,0,0.5);
 		scene.add( gltf.scene );
 
 		gltf.animations; // Array<THREE.AnimationClip>
@@ -46,7 +75,11 @@ loader.load(
 
 
 
+
+
 const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
+
+
 
 const controls = new OrbitControls( camera, renderer.domElement );
 
