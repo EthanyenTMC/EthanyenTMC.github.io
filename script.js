@@ -94,12 +94,12 @@ spotLight.shadow.camera.fov = 30;
 
 //scene.add( spotLight );
 
-const width = 1.6;
-const height = 0.9;
+const width = 0.85;
+const height = 0.53;
 const intensity = 30;
 const rectLight = new THREE.RectAreaLight( 0x7EDFFF, intensity,  width, height );
-rectLight.position.set( 0,2,-0.5 );
-rectLight.lookAt( 0, 2, 0 );
+rectLight.position.set( 0,1.961,-0.545 );
+rectLight.lookAt( 0, 1.961, 0 );
 scene.add( rectLight )
 
 const rectLightHelper = new RectAreaLightHelper( rectLight );
