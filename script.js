@@ -12,8 +12,8 @@ const loader = new GLTFLoader();
 
 const scene = new THREE.Scene();
 renderer.setClearColor (0x000000);
-//var light = new THREE.AmbientLight(0xFFFFFF, 0.1);
-//scene.add(light);
+var light = new THREE.AmbientLight(0xFFFFFF, 0.1);
+scene.add(light);
 
 loader.load(
 	// resource URL
@@ -75,7 +75,7 @@ loader.load(
 
 
 const geoFloor = new THREE.BoxGeometry( 2000, 0.1, 2000 );
-				const matStdFloor = new THREE.MeshStandardMaterial( { color: 0x808080, roughness: 0.1, metalness: 0 } );
+				const matStdFloor = new THREE.MeshStandardMaterial( { color: 0x000000, roughness: 0.1, metalness: 0 } );
 				const mshStdFloor = new THREE.Mesh( geoFloor, matStdFloor );
 				scene.add( mshStdFloor );
 
