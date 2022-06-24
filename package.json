@@ -1,0 +1,23 @@
+{
+  "name": "ethanyentmc.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "dependencies": {
+    "three": "^0.141.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EthanyenTMC/EthanyenTMC.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EthanyenTMC/EthanyenTMC.github.io/issues"
+  },
+  "homepage": "https://github.com/EthanyenTMC/EthanyenTMC.github.io#readme"
+}

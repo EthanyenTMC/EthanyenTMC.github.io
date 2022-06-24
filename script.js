@@ -2,9 +2,10 @@ import * as THREE from 'https://cdn.skypack.dev/three@0.132.2';
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.132.2/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.132.2/examples/jsm/loaders/GLTFLoader.js';
 import { RectAreaLightHelper } from 'https://cdn.skypack.dev/three@0.132.2/examples/jsm/helpers/RectAreaLightHelper.js';
-import { InteractionManager } from "https://cdn.skypack.dev/three@0.132.2/three.interactive";
+import { InteractionManager } from "https://cdn.skypack.dev/three.interactive";
 
 const renderer = new THREE.WebGLRenderer();
+const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
@@ -72,7 +73,7 @@ const buttons = {
 for(const[name, object] of Object.entries(buttons)){
 	object.addEventListener("click", (event) =>{
 		event.stopPropagation();
-		console.log('cube was clicked');
+		console.log(name + ' cube was clicked');
 	});
 	interactionManager.add(object);
 	scene.add(object);
@@ -109,7 +110,8 @@ const rectLightHelper = new RectAreaLightHelper( rectLight );
 rectLight.add( rectLightHelper );
 
 
-const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
+
+
 
 
 // THE CAMERA CONTROL STUFF ############################################################################################################################
