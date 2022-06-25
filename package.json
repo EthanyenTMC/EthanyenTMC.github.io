@@ -1,23 +1,29 @@
 {
-  "name": "ethanyentmc.github.io",
+  "name": "EthanyenTMC.github.io",
   "version": "1.0.0",
   "description": "",
-  "main": "script.js",
-  "dependencies": {
-    "three": "^0.141.0"
-  },
-  "devDependencies": {},
+  "main": "index.js",
   "scripts": {
+    "start": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/EthanyenTMC/EthanyenTMC.github.io.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
+  "build": "webpack --watch",
   "bugs": {
     "url": "https://github.com/EthanyenTMC/EthanyenTMC.github.io/issues"
   },
-  "homepage": "https://github.com/EthanyenTMC/EthanyenTMC.github.io#readme"
+  "homepage": "https://github.com/EthanyenTMC/EthanyenTMC.github.io#readme",
+  "devDependencies": {
+    "@tweenjs/tween.js": "^18.6.4",
+    "three": "^0.141.0",
+    "three.interactive": "^1.4.0",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  }
 }

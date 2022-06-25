@@ -1,8 +1,11 @@
-import * as THREE from 'https://cdn.skypack.dev/three@0.132.2';
-import { OrbitControls } from 'https://cdn.skypack.dev/three@0.132.2/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.132.2/examples/jsm/loaders/GLTFLoader.js';
-import { RectAreaLightHelper } from 'https://cdn.skypack.dev/three@0.132.2/examples/jsm/helpers/RectAreaLightHelper.js';
-import { InteractionManager } from "https://cdn.skypack.dev/three.interactive";
+import * as THREE from 'three';
+import * as TWEEN from '@tweenjs/tween.js';
+import { InteractionManager } from "three.interactive";
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
+import { GLTFLoader } from  'three/examples/jsm/loaders/GLTFLoader';
+import animate from "/animate.js";
+
 
 const renderer = new THREE.WebGLRenderer();
 const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
@@ -53,8 +56,8 @@ function loadModel(name, x, y, z){
 		}
 	);
 }
-loadModel('table.glb',0,-1,-0.5);
-loadModel('chair.glb',0,-1,0.5);
+loadModel('/3dmodels/table.glb',0,-1,-0.5);
+loadModel('/3dmodels/chair.glb',0,-1,0.5);
 
 function createCube({ color, x, y, z }) {
 	const geometry = new THREE.BoxGeometry();
@@ -74,6 +77,14 @@ for(const[name, object] of Object.entries(buttons)){
 	object.addEventListener("click", (event) =>{
 		event.stopPropagation();
 		console.log(name + ' cube was clicked');
+		const coords = {x: camera.position.x, y: camera.position.y, z: camera.position.z};
+		/*new TWEEN.Tween(coords)
+			.to({x:6, y:4.5, z:6})
+			.easing(TWEEN.Easing.Quadratic.Out)
+			.onUpdate(() =>
+				camera.position.set(coords.x,coords.y,coords.z)
+			)
+			.start();*/
 	});
 	interactionManager.add(object);
 	scene.add(object);
@@ -142,7 +153,7 @@ function onWindowResize() {
 
 }
 
-function animate() {
+/*function animate() {
 
 	requestAnimationFrame( animate );
 
@@ -150,7 +161,14 @@ function animate() {
 	controls.update();
 
 	renderer.render( scene, camera );
+	TWEEN.update(time);
+}*/
 
-}
+animate((time) => {
+	renderer.render(scene, camera);
+	interactionManager.update();
+	controls.update();
+	//TWEEN.update(time);
+  });
 
 window.onload(animate());
