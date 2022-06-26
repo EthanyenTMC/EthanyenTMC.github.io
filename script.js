@@ -55,6 +55,7 @@ function loadModel(name, x, y, z){
 	
 		}
 	);
+	//return gltf;
 }
 loadModel('/3dmodels/table.glb',0,-1,-0.5);
 loadModel('/3dmodels/chair.glb',0,-1,0.5);
@@ -73,18 +74,48 @@ const buttons = {
 	blue: createCube({color: 0x0000FF, x:1,y: 0, z:5})
 };
 
+const orbitTarget = {x: 0, y: 0.5, z:0};
+
 for(const[name, object] of Object.entries(buttons)){
 	object.addEventListener("click", (event) =>{
 		event.stopPropagation();
 		console.log(name + ' cube was clicked');
-		const coords = {x: camera.position.x, y: camera.position.y, z: camera.position.z};
-		/*new TWEEN.Tween(coords)
+		const pos = {x: camera.position.x, y: camera.position.y, z: camera.position.z};
+		const target = orbitTarget;
+		if(name === "red"){
+			new TWEEN.Tween(target)
+			.to({x:-3, y:1, z:4})
+			.easing(TWEEN.Easing.Quadratic.Out)
+			.onUpdate(() =>
+				controls.target = new THREE.Vector3(orbitTarget.x, orbitTarget.y, orbitTarget.z)
+			)
+			.start();
+			new TWEEN.Tween(pos)
+			.to({x:7, y:3, z:1})
+			.easing(TWEEN.Easing.Quadratic.Out)
+			.onUpdate(() =>
+				camera.position.set(pos.x,pos.y,pos.z)
+			)
+			.start();
+		}
+
+		if(name === "blue"){
+			new TWEEN.Tween(target)
+			.to({x:0, y:0.5, z:0})
+			.easing(TWEEN.Easing.Quadratic.Out)
+			.onUpdate(() =>
+				controls.target = new THREE.Vector3(orbitTarget.x, orbitTarget.y, orbitTarget.z)
+			)
+			.start();
+			new TWEEN.Tween(pos)
 			.to({x:6, y:4.5, z:6})
 			.easing(TWEEN.Easing.Quadratic.Out)
 			.onUpdate(() =>
-				camera.position.set(coords.x,coords.y,coords.z)
+				camera.position.set(pos.x,pos.y,pos.z)
 			)
-			.start();*/
+			.start();
+		}
+		
 	});
 	interactionManager.add(object);
 	scene.add(object);
@@ -132,7 +163,7 @@ controls.minDistance = 4;
 controls.maxDistance = 15;
 controls.minPolarAngle = 0.5;
 controls.maxPolarAngle = 1.65;
-controls.target = new THREE.Vector3(0,0.5,0);
+controls.target = new THREE.Vector3(orbitTarget.x, orbitTarget.y, orbitTarget.z);
 controls.enableDamping = true;
 /*const geometry = new THREE.BoxGeometry();
 			const material = new THREE.MeshBasicMaterial( { color: 0xFFFB00 } );
@@ -167,8 +198,9 @@ function onWindowResize() {
 animate((time) => {
 	renderer.render(scene, camera);
 	interactionManager.update();
+	TWEEN.update(time);
 	controls.update();
-	//TWEEN.update(time);
+	
   });
 
 window.onload(animate());
