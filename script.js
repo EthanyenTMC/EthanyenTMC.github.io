@@ -7,12 +7,15 @@ import { GLTFLoader } from  'three/examples/jsm/loaders/GLTFLoader';
 import animate from "/animate.js";
 
 
-const renderer = new THREE.WebGLRenderer();
+
+const renderer = new THREE.WebGLRenderer({
+	canvas: document.getElementById("viewport")}
+);
 const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-const loader = new GLTFLoader();
+
 
 const interactionManager = new InteractionManager(
 	renderer,
@@ -25,6 +28,7 @@ renderer.setClearColor (0x010101);
 var light = new THREE.AmbientLight(0xFFFFFF, 1);
 scene.add(light);
 
+var loader = new GLTFLoader();
 
 function loadModel(name, x, y, z){
 	loader.load(
@@ -58,7 +62,42 @@ function loadModel(name, x, y, z){
 	//return gltf;
 }
 loadModel('/3dmodels/table.glb',0,-1,-0.5);
-loadModel('/3dmodels/chair.glb',0,-1,0.5);
+//loadModel('/3dmodels/chair.glb',0,-1,0.5);
+let chair;
+loader.load(
+	// resource URL
+	'/3dmodels/chair.glb',
+	// called when the resource is loaded
+	function ( gltf ) {
+		chair = gltf.scene;
+		chair.position.set(0,-1,0.5);
+		scene.add( gltf.scene );
+
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Group
+		gltf.scenes; // Array<THREE.Group>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
+
+	},
+	// called while loading is progressing
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened' );
+
+	}
+);
+
+
+
+
 
 function createCube({ color, x, y, z }) {
 	const geometry = new THREE.BoxGeometry();
@@ -76,44 +115,100 @@ const buttons = {
 
 const orbitTarget = {x: 0, y: 0.5, z:0};
 
+var projView = false;
+
+function projectView(pos, target){
+	projView = true;
+	new TWEEN.Tween(target)
+	.to({x:0, y:1, z:0}) //{x:-3, y:1, z:4}
+	.easing(TWEEN.Easing.Quadratic.Out)
+	.onUpdate(() =>
+		controls.target = new THREE.Vector3(orbitTarget.x, orbitTarget.y, orbitTarget.z)
+	)
+	.start();
+	new TWEEN.Tween(pos)
+	.to({x:0, y:1.5, z:5}) // {x:5.6, y:3, z:9.3}
+	.easing(TWEEN.Easing.Quadratic.Out)
+	.onUpdate(() =>
+		camera.position.set(pos.x,pos.y,pos.z)
+	)
+	.start();
+	if(chair){
+		let chairPos = chair.position;
+	new TWEEN.Tween(chairPos)
+	.to({x:1.5, y:-1, z:1})
+	.easing(TWEEN.Easing.Quadratic.Out)
+	.onUpdate(() =>
+		chair.position.set(chairPos.x,chairPos.y,chairPos.z)
+	)
+	.start();
+	}
+
+	let chairRot = chair.rotation;
+	new TWEEN.Tween(chairRot)
+	.to({x:0, y:2, z:0})
+	.easing(TWEEN.Easing.Quadratic.Out)
+	.onUpdate(() =>
+		chair.rotation.set(chairRot.x, chairRot.y, chairRot.z)
+	)
+	.start();
+}
+
+function defaultView(pos, target){
+	projView = false;
+	new TWEEN.Tween(target)
+	.to({x:0, y:0.5, z:0})
+	.easing(TWEEN.Easing.Quadratic.Out)
+	.onUpdate(() =>
+		controls.target = new THREE.Vector3(orbitTarget.x, orbitTarget.y, orbitTarget.z)
+	)
+	.start();
+	new TWEEN.Tween(pos)
+	.to({x:6, y:4.5, z:6})
+	.easing(TWEEN.Easing.Quadratic.Out)
+	.onUpdate(() =>
+		camera.position.set(pos.x,pos.y,pos.z)
+	)
+	.start();
+
+	if(chair){
+		let chairPos = chair.position;
+	new TWEEN.Tween(chairPos)
+	.to({x:0, y:-1, z:0.5})
+	.easing(TWEEN.Easing.Quadratic.Out)
+	.onUpdate(() =>
+		chair.position.set(chairPos.x,chairPos.y,chairPos.z)
+	)
+	.start();
+
+	let chairRot = chair.rotation;
+	new TWEEN.Tween(chairRot)
+	.to({x:0, y:0, z:0})
+	.easing(TWEEN.Easing.Quadratic.Out)
+	.onUpdate(() =>
+		chair.rotation.set(chairRot.x, chairRot.y, chairRot.z)
+	)
+	.start();
+
+	}
+}
+
 for(const[name, object] of Object.entries(buttons)){
 	object.addEventListener("click", (event) =>{
 		event.stopPropagation();
 		console.log(name + ' cube was clicked');
 		const pos = {x: camera.position.x, y: camera.position.y, z: camera.position.z};
 		const target = orbitTarget;
-		if(name === "red"){
-			new TWEEN.Tween(target)
-			.to({x:-3, y:1, z:4})
-			.easing(TWEEN.Easing.Quadratic.Out)
-			.onUpdate(() =>
-				controls.target = new THREE.Vector3(orbitTarget.x, orbitTarget.y, orbitTarget.z)
-			)
-			.start();
-			new TWEEN.Tween(pos)
-			.to({x:7, y:3, z:1})
-			.easing(TWEEN.Easing.Quadratic.Out)
-			.onUpdate(() =>
-				camera.position.set(pos.x,pos.y,pos.z)
-			)
-			.start();
-		}
 
-		if(name === "blue"){
-			new TWEEN.Tween(target)
-			.to({x:0, y:0.5, z:0})
-			.easing(TWEEN.Easing.Quadratic.Out)
-			.onUpdate(() =>
-				controls.target = new THREE.Vector3(orbitTarget.x, orbitTarget.y, orbitTarget.z)
-			)
-			.start();
-			new TWEEN.Tween(pos)
-			.to({x:6, y:4.5, z:6})
-			.easing(TWEEN.Easing.Quadratic.Out)
-			.onUpdate(() =>
-				camera.position.set(pos.x,pos.y,pos.z)
-			)
-			.start();
+		if(name === "red"){
+			projectView(pos, target);
+			controls.enabled = false;
+			controls.maxDistance = 999;
+		}else if(name === "blue"){
+			defaultView(pos, target);
+			controls.enabled = true;
+			controls.maxDistance = 15;
+			
 		}
 		
 	});
@@ -148,8 +243,8 @@ rectLight.position.set( 0,0.961,-0.545 );
 rectLight.lookAt( 0, 0.961, 0 );
 scene.add( rectLight )
 
-const rectLightHelper = new RectAreaLightHelper( rectLight );
-rectLight.add( rectLightHelper );
+//const rectLightHelper = new RectAreaLightHelper( rectLight );
+//rectLight.add( rectLightHelper );
 
 
 
@@ -175,6 +270,22 @@ camera.position.set( 6, 4.5, 6 );
 controls.update();
 
 window.addEventListener( 'resize', onWindowResize );
+//window.addEventListener( 'scroll', updateCamera);
+let lastKnownScrollPosition = 0;
+let ticking = false;
+window.addEventListener('scroll', function(e) {
+	lastKnownScrollPosition = window.scrollY;
+  
+	if (!ticking) {
+	  window.requestAnimationFrame(function() {
+		updateCamera();
+		ticking = false;
+	  });
+  
+	  ticking = true;
+	}
+  });
+
 
 function onWindowResize() {
 
@@ -182,6 +293,21 @@ function onWindowResize() {
 	camera.aspect = ( window.innerWidth / window.innerHeight );
 	camera.updateProjectionMatrix();
 
+}
+
+function updateCamera(){
+	if(projView){
+		var pos = camera.position;
+
+		new TWEEN.Tween(pos)
+		.to({x:0, y:1.5, z:window.scrollY/50 + 4})
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.onUpdate(() =>
+		camera.position.set(0,1.5,pos.z),
+	)
+	.start();
+		console.log(window.scrollY);
+	}
 }
 
 /*function animate() {
@@ -197,6 +323,7 @@ function onWindowResize() {
 
 animate((time) => {
 	renderer.render(scene, camera);
+	//console.log(camera.position);
 	interactionManager.update();
 	TWEEN.update(time);
 	controls.update();
