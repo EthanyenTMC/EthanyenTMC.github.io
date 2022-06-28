@@ -5,13 +5,15 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
 import { GLTFLoader } from  'three/examples/jsm/loaders/GLTFLoader';
 import animate from "/animate.js";
+import { Vector3 } from 'three';
 
 
 
 const renderer = new THREE.WebGLRenderer({
+	antialias: true, //maybe replace this with fxaa post processing instead? don't know the difference though
 	canvas: document.getElementById("viewport")}
 );
-const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
+const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 10000 );
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
@@ -29,40 +31,40 @@ var light = new THREE.AmbientLight(0xFFFFFF, 1);
 scene.add(light);
 
 var loader = new GLTFLoader();
+let table;
+loader.load(
+	// resource URL
+	'/3dmodels/table.glb',
+	// called when the resource is loaded
+	function ( gltf ) {
+		table = gltf.scene;
+		table.position.set(0,-1,-0.5);
+		scene.add( gltf.scene );
 
-function loadModel(name, x, y, z){
-	loader.load(
-		// resource URL
-		name,
-		// called when the resource is loaded
-		function ( gltf ) {
-			gltf.scene.position.set(x,y,z);
-			scene.add( gltf.scene );
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Group
+		gltf.scenes; // Array<THREE.Group>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
+	},
+	// called while loading is progressing
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened' + error);
+
+	}
+);
 	
-			gltf.animations; // Array<THREE.AnimationClip>
-			gltf.scene; // THREE.Group
-			gltf.scenes; // Array<THREE.Group>
-			gltf.cameras; // Array<THREE.Camera>
-			gltf.asset; // Object
-	
-		},
-		// called while loading is progressing
-		function ( xhr ) {
-	
-			console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-	
-		},
-		// called when loading has errors
-		function ( error ) {
-	
-			console.log( 'An error happened' );
-	
-		}
-	);
-	//return gltf;
-}
-loadModel('/3dmodels/table.glb',0,-1,-0.5);
-//loadModel('/3dmodels/chair.glb',0,-1,0.5);
+
+
+
 let chair;
 loader.load(
 	// resource URL
@@ -90,7 +92,7 @@ loader.load(
 	// called when loading has errors
 	function ( error ) {
 
-		console.log( 'An error happened' );
+		console.log( 'An error happened:' + error);
 
 	}
 );
@@ -113,6 +115,16 @@ const buttons = {
 	blue: createCube({color: 0x0000FF, x:1,y: 0, z:5})
 };
 
+const projects = {
+	first: createCube({color: 0xFFFFFF, x:1.5, y:0.75, z:-10}),
+	second: createCube({color: 0xFFFFFF, x:-1.5, y:0.75, z:-20}),
+}
+
+for(const[name,object] of Object.entries(projects)){
+	scene.add(object);
+	object.visible = false;
+}
+
 const orbitTarget = {x: 0, y: 0.5, z:0};
 
 var projView = false;
@@ -120,14 +132,14 @@ var projView = false;
 function projectView(pos, target){
 	projView = true;
 	new TWEEN.Tween(target)
-	.to({x:0, y:1, z:0}) //{x:-3, y:1, z:4}
+	.to({x:0, y:1, z:-50}) //{x:-3, y:1, z:4}
 	.easing(TWEEN.Easing.Quadratic.Out)
 	.onUpdate(() =>
 		controls.target = new THREE.Vector3(orbitTarget.x, orbitTarget.y, orbitTarget.z)
 	)
 	.start();
 	new TWEEN.Tween(pos)
-	.to({x:0, y:1.5, z:5}) // {x:5.6, y:3, z:9.3}
+	.to({x:0, y:0.95, z:3}) // {x:5.6, y:3, z:9.3}
 	.easing(TWEEN.Easing.Quadratic.Out)
 	.onUpdate(() =>
 		camera.position.set(pos.x,pos.y,pos.z)
@@ -243,8 +255,8 @@ rectLight.position.set( 0,0.961,-0.545 );
 rectLight.lookAt( 0, 0.961, 0 );
 scene.add( rectLight )
 
-//const rectLightHelper = new RectAreaLightHelper( rectLight );
-//rectLight.add( rectLightHelper );
+const rectLightHelper = new RectAreaLightHelper( rectLight );
+rectLight.add( rectLightHelper );
 
 
 
@@ -300,13 +312,14 @@ function updateCamera(){
 		var pos = camera.position;
 
 		new TWEEN.Tween(pos)
-		.to({x:0, y:1.5, z:window.scrollY/50 + 4})
-		.easing(TWEEN.Easing.Quadratic.Out)
+		.to({x:0, y:0.95, z:-(window.scrollY/100 - 5)})
+		.easing(TWEEN.Easing.Cubic.Out)
 		.onUpdate(() =>
-		camera.position.set(0,1.5,pos.z),
+		camera.position.set(0,0.95,pos.z),
+		camera.target = new Vector3(0,0.95,pos.z-10)
 	)
 	.start();
-		console.log(window.scrollY);
+		//console.log(window.scrollY);
 	}
 }
 
@@ -321,9 +334,30 @@ function updateCamera(){
 	TWEEN.update(time);
 }*/
 
+function updateProjectView(){
+	if(camera.position.z <= 0.05){
+		table.visible = false;
+		chair.visible = false;
+		for(const[name,object] of Object.entries(projects)){
+			scene.add(object);
+			object.visible = true;
+		}
+	}else{
+		table.visible = true;
+		chair.visible = true;
+		for(const[name,object] of Object.entries(projects)){
+			scene.add(object);
+			object.visible = false;
+		}
+	}
+}
+
 animate((time) => {
+	if(projView){
+		updateProjectView();
+	}
 	renderer.render(scene, camera);
-	//console.log(camera.position);
+	console.log(camera.position.z < 0);
 	interactionManager.update();
 	TWEEN.update(time);
 	controls.update();
