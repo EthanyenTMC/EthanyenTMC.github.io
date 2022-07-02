@@ -320,7 +320,7 @@ function onWindowResize(width, height) {
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	camera.aspect = ( window.innerWidth / window.innerHeight );
 	camera.updateProjectionMatrix();
-	resizePortal();
+	//resizePortal();
 	
 }
 
@@ -402,6 +402,8 @@ var portalMat = new THREE.MeshBasicMaterial({
 	//color: 0xFF00FF
 	map:projectCameraTexture.texture
 });
+portalMat.wrapS = THREE.MirroredRepeatWrapping;
+portalMat.wrapT = THREE.MirroredRepeatWrapping;
 
 
 var portalBack = new THREE.Mesh(
@@ -434,7 +436,7 @@ animate((time) => {
 		renderDefault();
 	}
 	
-	console.log("hi meara");
+	console.log("hi meara 2");
 	
 	//composer.render(time);
 	interactionManager.update();
