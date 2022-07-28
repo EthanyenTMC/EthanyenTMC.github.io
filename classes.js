@@ -1,4 +1,5 @@
 export class Component{
+    
     constructor(xLoc,yLoc, wide,heit){
         this.x = xLoc;
         this.y = yLoc;

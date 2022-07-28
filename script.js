@@ -1,14 +1,15 @@
 import * as THREE from 'three';
 import * as TWEEN from '@tweenjs/tween.js';
 import { InteractionManager } from "three.interactive";
+import { GLTFLoader } from  'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
-import { GLTFLoader } from  'three/examples/jsm/loaders/GLTFLoader';
 import animate from "/animate.js";
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js';
-import { BoxBufferGeometry, CameraHelper, Vector3, Vector2 } from 'three';
+import { BoxBufferGeometry, CameraHelper, Vector3, Vector2, SpotLightHelper, Object3D } from 'three';
 import {drawSquare, updateCanvas} from '/laptopScreen.js';
-import { mouseMove } from './laptopScreen';
+import { mouseMove, onCanvasClick } from './laptopScreen';
+import { loadModel } from './utils.js';
 
 
 const renderer = new THREE.WebGLRenderer({
@@ -25,6 +26,8 @@ document.body.appendChild( renderer.domElement );
 
 const scene = new THREE.Scene();
 const projectScene = new THREE.Scene();
+
+
 
 var mouse, raycaster;
 mouse = new THREE.Vector2();
@@ -53,16 +56,69 @@ function onMouseMove( event ) {
 	
 	if(lapView){
 		mouseMove(calculateLaptopMousePosition());
+	}else if(projView){
+
+	}else{
+		/*
+		raycaster.setFromCamera(mouse, camera);
+		const intersect = raycaster.intersectObject(projectButton);
+		if(intersect[0]){
+			projectButton.lookAt(camera.position);
+		}*/
 	}
 	//console.log(camera.position);
 }
 
+export function getCameraPos(){
+	return camera.position;
+}
+
+export function getCameraTarget(){
+	return controls.target;
+}
+
 
 function onClick(event){
+	var temp;
 	raycaster.setFromCamera(mouse,camera);
 	const intersects = raycaster.intersectObjects(scene.children);
-	if(intersects.length > 0){
+	for(var i = 0; i < intersects.length; i++){
+		intersects[i].object.traverse( function (child){
+			temp = child.name.substring(0,5);
+			console.log(temp);
+		});
+		switch(temp){
+			case 'projt':
+				projectView(camera.position, orbitTarget);
+				controls.enabled = false;
+				controls.maxDistance = 999;
+				break;
+			case 'about':
+				controls.enabled = false; // MAKE SURE TO CHANGE THIS LATER BECAUSE YOU WILL FORGET
+				laptopView(camera.position, orbitTarget);
+
+				break;
+			case 'lptpS':
+				//console.log(intersects[0].point);
+				//mousePointer.position.set(intersects[0].point.x, intersects[0].point.y, intersects[0].point.z);
+				onCanvasClick(calculateLaptopMousePosition());
+				break;
+			default:
+				if(!lapView && !projView){
+					defaultView(camera.position, orbitTarget);
+				}
+				break;
+	}
+	}
+	if(intersects.length == 0){
+		if(!lapView && !projView){
+			defaultView(getCameraPos(), getCameraTarget());
+		}
+	}
+	/*
+	if(intersects[0]){
 		var temp = intersects[0].object.name;
+		console.log(temp);
 		const pos = {x: camera.position.x, y: camera.position.y, z: camera.position.z};
 		const target = orbitTarget;
 
@@ -72,20 +128,20 @@ function onClick(event){
 				controls.enabled = false;
 				controls.maxDistance = 999;
 				break;
-			case 'blue':
-				defaultView(pos, target);
-				controls.enabled = true;
-				controls.maxDistance = 15;
-				break;
-			case 'green':
+			case aboutButton:
 				controls.enabled = false; // MAKE SURE TO CHANGE THIS LATER BECAUSE YOU WILL FORGET
 				laptopView(pos, target);
 
 				break;
-			case 'laptopScreen':
+			case laptopScreen:
 				//console.log(intersects[0].point);
 				//mousePointer.position.set(intersects[0].point.x, intersects[0].point.y, intersects[0].point.z);
-				drawSquare(calculateLaptopMousePosition());
+				onCanvasClick(calculateLaptopMousePosition());
+				break;
+			default:
+				if(!lapView && !projView){
+					defaultView(getCameraPos(), getCameraTarget());
+				}
 				break;
 		}
 
@@ -102,8 +158,12 @@ function onClick(event){
 			controls.enabled = false; // MAKE SURE TO CHANGE THIS LATER BECAUSE YOU WILL FORGET
 			laptopView(pos, target);
 			
-		}*/
-	}
+		}
+	}else{
+		if(!lapView && !projView){
+			defaultView(getCameraPos(), getCameraTarget());
+		}
+	}*/
 }
 
 
@@ -125,11 +185,12 @@ const interactionManager = new InteractionManager(
 
 
 
-renderer.setClearColor (0x010101);
-var light = new THREE.AmbientLight(0xFFFFFF, 10);
+renderer.setClearColor (0x000000);
+var light = new THREE.AmbientLight(0xFFFFFF, 0.1);
 scene.add(light);
 var light2 = new THREE.AmbientLight(0xFFFFFF, 1);
 projectScene.add(light2);
+
 
 //var loader = new GLTFLoader();
 
@@ -140,7 +201,126 @@ new GLTFLoader().load(
 	// called when the resource is loaded
 	function ( gltf ) {
 		table = gltf.scene;
+		table.name = "table";
 		table.position.set(0,0,0);
+		scene.add( gltf.scene );
+
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Group
+		gltf.scenes; // Array<THREE.Group>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
+	},
+	// called while loading is progressing
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened ETHAN HERE' + error);
+
+	}
+);
+
+let projectButton;
+new GLTFLoader().load(
+	// resource URL
+	'/3dmodels/projectButton.glb',
+	// called when the resource is loaded
+	function ( gltf ) {
+		projectButton = gltf.scene;
+		projectButton.position.set(-1.05*camera.aspect/(16/9),1.5,1.2);
+		projectButton.scale.x = 0.3;
+		projectButton.scale.y = 0.3;
+		projectButton.scale.z = 0.3;
+		projectButton.name = 'projects';
+		gltf.asset.name = 'projects';
+		scene.add( projectButton );
+
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Group
+		gltf.scenes; // Array<THREE.Group>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
+	},
+	// called while loading is progressing
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened ETHAN HERE' + error);
+
+	}
+);
+if(projectButton){
+	
+console.log(projectButton.name);
+}
+const projButtonLight = new THREE.RectAreaLight( 0x7EDFFF, 1,  1.2, 0.2 );
+projButtonLight.position.set( -1.2,1.5,1.3 );
+projButtonLight.lookAt( -1.2,1.5,1.2 );
+scene.add( projButtonLight )
+
+const projButtonLightHelper = new RectAreaLightHelper( projButtonLight );
+//projButtonLight.add( projButtonLightHelper );
+
+let aboutButton;
+new GLTFLoader().load(
+	// resource URL
+	'/3dmodels/aboutButton.glb',
+	// called when the resource is loaded
+	function ( gltf ) {
+		aboutButton = gltf.scene;
+		aboutButton.position.set(1*camera.aspect/(16/9),1.5,1.2);
+		aboutButton.scale.x = 0.3;
+		aboutButton.scale.y = 0.3;
+		aboutButton.scale.z = 0.3;
+		scene.add( aboutButton );
+
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Group
+		gltf.scenes; // Array<THREE.Group>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
+	},
+	// called while loading is progressing
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened ETHAN HERE' + error);
+
+	}
+);
+const aboutButtonLight = new THREE.RectAreaLight( 0x7EDFFF, 1,  1.2, 0.2 );
+aboutButtonLight.position.set( 1.2,1.5,1.3 );
+aboutButtonLight.lookAt( 1.2,1.5,1.2 );
+scene.add( aboutButtonLight )
+
+
+let title;
+new GLTFLoader().load(
+	// resource URL
+	'/3dmodels/name title.glb',
+	// called when the resource is loaded
+	function ( gltf ) {
+		title = gltf.scene;
+		title.position.set(0,3,-3);
+		recalculateTitleDist(camera.aspect);
 		scene.add( gltf.scene );
 
 		gltf.animations; // Array<THREE.AnimationClip>
@@ -166,6 +346,7 @@ new GLTFLoader().load(
 	
 
 let chair;
+/*
 new GLTFLoader().load(
 	// resource URL
 	'/3dmodels/chair.glb',
@@ -195,7 +376,7 @@ new GLTFLoader().load(
 		console.log( 'An error happened:' + error);
 
 	}
-);
+);*/
 
 
 var numCodingProjects = 1;
@@ -240,13 +421,23 @@ function createCube({ color, x, y, z }) {
 	return cube;
   }
 
+const opacityCube = createCube({color: 0xFFFFFF, x:0,y:0,z:0});
+opacityCube.material.transparent = true;
+opacityCube.material.opacity = 1;
+opacityCube.name = 'pee';
+scene.add(opacityCube);
+
 const buttons = {
 	red: createCube({color: 0xFF0000, x:1,y: 1, z:4}),
 	blue: createCube({color: 0x0000FF, x:1,y: 1, z:5}),
 	green: createCube({color: 0x00FF00,x:1,y:1,z:6})
 };
 
-
+const clickable = {
+	laptopScreen,
+	projectButton, 
+	aboutButton
+};
 
 const projects = {
 	first: createCube({color: 0xFFFFFF, x:1.5, y:0.75, z:-10}),
@@ -262,8 +453,12 @@ const orbitTarget = {x: 0, y: 1.5, z:0.545};
 var projView = false;
 var lapView = false;
 
+
+
+
 function projectView(pos, target){
 	projView = true;
+	controls.enabled = false;
 	new TWEEN.Tween(target)
 	.to({x:0, y:2, z:-15}) //{x:-3, y:1, z:4}
 	.easing(TWEEN.Easing.Quadratic.Out)
@@ -272,7 +467,7 @@ function projectView(pos, target){
 	)
 	.start();
 	new TWEEN.Tween(pos)
-	.to({x:0, y:1.95, z:3}) // {x:5.6, y:3, z:9.3}
+	.to({x:0, y:1.95, z:4}) // {x:5.6, y:3, z:9.3}
 	.easing(TWEEN.Easing.Quadratic.Out)
 	.onUpdate(() =>
 		camera.position.set(pos.x,pos.y,pos.z)
@@ -299,19 +494,21 @@ function projectView(pos, target){
 	.start();
 }
 
-function defaultView(pos, target){
+export function defaultView(pos, target){
+	controls.enabled = true;
+	controls.maxDistance = 15;
 	projView = false;
 	lapView = false;
 	new TWEEN.Tween(target)
-	.to({x:0, y:1.5, z:0})
-	.easing(TWEEN.Easing.Quadratic.Out)
+	.to({x:0, y:2, z:0})
+	.easing(TWEEN.Easing.Circular.Out)
 	.onUpdate(() =>
-		controls.target = new THREE.Vector3(orbitTarget.x, orbitTarget.y, orbitTarget.z)
+		controls.target = new THREE.Vector3(target.x, target.y, target.z)
 	)
 	.start();
 	new TWEEN.Tween(pos)
-	.to({x:6, y:5.5, z:6})
-	.easing(TWEEN.Easing.Quadratic.Out)
+	.to({x:0, y:2.50, z:3.3}) //6, 5.5, 6
+	.easing(TWEEN.Easing.Circular.Out)
 	.onUpdate(() =>
 		camera.position.set(pos.x,pos.y,pos.z)
 	)
@@ -362,8 +559,25 @@ function laptopView(pos, target){
 	)
 	.start();
 
-	//camera.position.set(-0.4158,0.0725, -0.74869),
-	controls.update()
+	if(chair){
+		let chairPos = chair.position;
+	new TWEEN.Tween(chairPos)
+	.to({x:1.5, y:0, z:1})
+	.easing(TWEEN.Easing.Quadratic.Out)
+	.onUpdate(() =>
+		chair.position.set(chairPos.x,chairPos.y,chairPos.z)
+	)
+	.start();
+	}
+
+	let chairRot = chair.rotation;
+	new TWEEN.Tween(chairRot)
+	.to({x:0, y:2, z:0})
+	.easing(TWEEN.Easing.Quadratic.Out)
+	.onUpdate(() =>
+		chair.rotation.set(chairRot.x, chairRot.y, chairRot.z)
+	)
+	.start();
 }
 
 
@@ -380,18 +594,83 @@ const geoFloor = new THREE.BoxGeometry( 2000, 0, 2000 );
 				mshStdFloor.position.set(0,-0.1,0);
 				mshStdFloor.renderOrder = -1;
 				scene.add( mshStdFloor );
-
-
+				mshStdFloor.name = 'floor';
+/*
 const spotLight = new THREE.SpotLight( 0xffffff );
-spotLight.position.set( 100, 1000, 100 );
+
 spotLight.castShadow = true;
 spotLight.shadow.mapSize.width = 1024;
 spotLight.shadow.mapSize.height = 1024;
-spotLight.shadow.camera.near = 500;
-spotLight.shadow.camera.far = 4000;
+spotLight.shadow.camera.near = 0.1;
+spotLight.shadow.camera.far = 99;
 spotLight.shadow.camera.fov = 30;
 
-//scene.add( spotLight );
+
+
+const lightTarget = new THREE.Object3D();
+scene.add(lightTarget);
+spotLight.target = lightTarget;
+spotLight.target.position.set(0,2,3);
+spotLight.position.set(0,1.5,-3);
+
+spotLight.target = new THREE.Object3D();
+spotLight.target.position.set(0,2,3);
+spotLight.position.set(0,1.5,-3);
+scene.add(spotLight.target);
+console.log(spotLight.target.position);
+
+scene.add( spotLight );
+/*
+spotLight.position.set( 0, 5, 0 );
+const testCube = new THREE.Mesh(
+	new THREE.BoxGeometry(0.01,0.01,0.01),
+	new THREE.MeshBasicMaterial({color: 0xFF0000, opacity: 0})
+);
+testCube.add(spotLight);
+testCube.position.set(0,1.75,0);
+testCube.rotateOnAxis(new Vector3(1,0,0), -Math.PI/3);
+scene.add(testCube);
+*/
+
+const testObjectBack = new THREE.Object3D();
+var spotLightBack = new THREE.SpotLight();
+spotLightBack.power = 1;
+spotLightBack.castShadow = true;
+spotLightBack.position.set(0,3,0);
+testObjectBack.add(spotLightBack);
+scene.add(testObjectBack);
+testObjectBack.position.set(0,1.75,0);
+testObjectBack.rotateOnAxis(new Vector3(1,0,0), -3*Math.PI/8);
+var lightHelperBack = new SpotLightHelper(spotLightBack);
+scene.add(lightHelperBack);
+
+const testObjectLeft = new THREE.Object3D();
+var spotLightLeft = new THREE.SpotLight(0x17c0ec);
+spotLightLeft.power = 2.5;
+spotLightLeft.position.set(-5.1,0,0);
+testObjectLeft.add(spotLightLeft);
+scene.add(testObjectLeft);
+testObjectLeft.position.set(0,1,0);
+testObjectLeft.rotateOnAxis(new Vector3(0,0,1), -Math.PI/6);
+var lightHelperLeft = new SpotLightHelper(spotLightLeft);
+//scene.add(lightHelperLeft);
+
+const testObjectRight = new THREE.Object3D();
+var spotLightRight = new THREE.SpotLight(0xc228ec);
+spotLightRight.power = 2.5;
+spotLightRight.position.set(5.1,0,0);
+testObjectRight.add(spotLightRight);
+scene.add(testObjectRight);
+testObjectRight.position.set(0,1,0);
+testObjectRight.rotateOnAxis(new Vector3(0,0,-1), -Math.PI/6);
+var lightHelperRight = new SpotLightHelper(spotLightRight);
+//scene.add(lightHelperRight);
+
+
+
+
+
+
 
 const width = 0.85;
 const height = 0.53;
@@ -412,11 +691,12 @@ const rectLightHelper = new RectAreaLightHelper( rectLight );
 // THE CAMERA CONTROL STUFF ############################################################################################################################
 var controls = new OrbitControls( camera, renderer.domElement );
 controls.enablePan = false;
+controls.rotateSpeed = 0.1;
 //controls.minDistance = 4;
 controls.maxDistance = 999;
 controls.minPolarAngle = 0.5;
 controls.maxPolarAngle = 1.65;
-controls.target = new THREE.Vector3(orbitTarget.x, orbitTarget.y, orbitTarget.z);
+//controls.target = new THREE.Vector3(orbitTarget.x, orbitTarget.y, orbitTarget.z);
 controls.enableDamping = true;
 /*const geometry = new THREE.BoxGeometry();
 			const material = new THREE.MeshBasicMaterial( { color: 0xFFFB00 } );
@@ -424,7 +704,8 @@ controls.enableDamping = true;
 			scene.add( cube );*/
 
 //controls.update() must be called after any manual changes to the camera's transform
-camera.position.set( 6.545, 5.5, 6.545 );
+//camera.position.set( 6.545, 5.5, 6.545 );
+defaultView(getCameraPos(), getCameraTarget());
 controls.update();
 
 window.addEventListener( 'resize', onWindowResize );
@@ -452,6 +733,8 @@ function onWindowResize(width, height) {
 	camera.aspect = ( window.innerWidth / window.innerHeight );
 	camera.updateProjectionMatrix();
 	recalculateLaptopDistance();
+	recalculateTitleDist(camera.aspect);
+	recalculateButtonDist(camera.aspect);
 	//resizePortal();
 	
 }
@@ -460,6 +743,26 @@ function resizeWindow(width, height){
 	renderer.setSize( width, height );
 	camera.aspect = ( width / height );
 	camera.updateProjectionMatrix();
+}
+
+function recalculateTitleDist(aspect){
+	var factor = Math.min(aspect/(16/9)*1.5, 1);
+	//var factor = aspect/(16/9)*1.5;
+	title.scale.x = factor;
+	title.scale.y = factor;
+	console.log(title.scale);
+}
+if(projectButton && aboutButton){
+	
+recalculateButtonDist(camera.aspect);
+console.log("recalculated");
+}
+function recalculateButtonDist(aspect){
+	//var factor = Math.max(aspect/(16/9)*1.5, 1);
+	var factor = aspect/(16/9);
+	aboutButton.position.set(1*factor,1.5,1.2);
+	projectButton.position.set(-1.1*factor,1.5,1.2);
+	
 }
 
 function resizePortal(){
@@ -535,7 +838,7 @@ function processLaptopClick(pointPos){
 function updateCamera(){
 	if(projView){
 		var pos = camera.position;
-		var tweenTarget = -(window.scrollY/175 - 3);
+		var tweenTarget = -(window.scrollY/175 - 4);
 		
 		
 		
@@ -543,10 +846,10 @@ function updateCamera(){
 		
 		new TWEEN.Tween(pos)
 		.to({x:0, y:1.95, z:tweenTarget})
-		.easing(TWEEN.Easing.Quadratic.Out)
+		.easing(TWEEN.Easing.Quadratic.In)
 		.onUpdate(() =>
 		camera.position.set(0,1.95,pos.z),
-		camera.target = new Vector3(0,1.95,pos.z-1)
+
 	)
 	.start();
 		//console.log(window.scrollY);
@@ -572,18 +875,19 @@ laptopMat.wrapS = THREE.MirroredRepeatWrapping;
 laptopMat.wrapT = THREE.MirroredRepeatWrapping;
 laptopMat.map = new THREE.CanvasTexture(canvas);
 laptopMat.map.needsUpdate = true;
-var lsWidth = 0.35;
+
 var laptopScreen = new THREE.Mesh(
-	new THREE.BoxGeometry(lsWidth*1.5, lsWidth, 0.007),
+	new THREE.BoxGeometry(0.5235, 0.345, 0.002),
 	laptopMat
 );
-laptopScreenPos.addScaledVector(laptopCameraDirection, 0.006);
-laptopScreenPos.y += 0.01;
+laptopScreenPos.addScaledVector(laptopCameraDirection, 0.002);
+laptopScreenPos.addScaledVector(laptopVectorY, -0.009);
+laptopScreenPos.addScaledVector(laptopVectorX, -0.0005);
 laptopScreen.position.set(laptopScreenPos.x, laptopScreenPos.y, laptopScreenPos.z);
 laptopScreen.rotation.set(0, 0, 0); //(5.773, -0.58, 0)
 laptopScreen.rotateOnAxis(new THREE.Vector3(0,1,0), 0.5846853);
 laptopScreen.rotateOnAxis(new THREE.Vector3(1,0,0), -0.331613);
-laptopScreen.name = 'laptopScreen';
+laptopScreen.name = 'lptpS';
 scene.add(laptopScreen);
 
 
@@ -697,6 +1001,5 @@ function renderDefault(){
 	renderer.clear();
 	renderer.render(scene,camera);
 }
+
 animate();
-controls.enabled = false;
-laptopView({x: camera.position.x, y: camera.position.y, z: camera.position.z}, orbitTarget);
