@@ -82,39 +82,42 @@ function onClick(event){
 	var temp;
 	raycaster.setFromCamera(mouse,camera);
 	const intersects = raycaster.intersectObjects(scene.children);
-	for(var i = 0; i < intersects.length; i++){
-		intersects[i].object.traverse( function (child){
-			temp = child.name.substring(0,5);
-			console.log(temp);
-		});
-		switch(temp){
-			case 'projt':
-				projectView(camera.position, orbitTarget);
-				controls.enabled = false;
-				controls.maxDistance = 999;
-				break;
-			case 'about':
-				controls.enabled = false; // MAKE SURE TO CHANGE THIS LATER BECAUSE YOU WILL FORGET
-				laptopView(camera.position, orbitTarget);
-
-				break;
-			case 'lptpS':
-				//console.log(intersects[0].point);
-				//mousePointer.position.set(intersects[0].point.x, intersects[0].point.y, intersects[0].point.z);
-				onCanvasClick(calculateLaptopMousePosition());
-				break;
-			default:
-				if(!lapView && !projView){
-					defaultView(camera.position, orbitTarget);
-				}
-				break;
-	}
-	}
 	if(intersects.length == 0){
 		if(!lapView && !projView){
 			defaultView(getCameraPos(), getCameraTarget());
 		}
+	}else{
+		for(var i = 0; i < intersects.length; i++){
+			intersects[i].object.traverse( function (child){
+				temp = child.name.substring(0,5);
+				console.log(temp);
+			});
+			switch(temp){
+				case 'projt':
+					projectView(camera.position, orbitTarget);
+					controls.enabled = false;
+					controls.maxDistance = 999;
+					break;
+				case 'about':
+					controls.enabled = false; // MAKE SURE TO CHANGE THIS LATER BECAUSE YOU WILL FORGET
+					laptopView(camera.position, orbitTarget);
+	
+					break;
+				case 'lptpS':
+					//console.log(intersects[0].point);
+					//mousePointer.position.set(intersects[0].point.x, intersects[0].point.y, intersects[0].point.z);
+					onCanvasClick(calculateLaptopMousePosition());
+					break;
+				default:
+					if(!lapView && !projView){
+						defaultView(camera.position, orbitTarget);
+					}
+					break;
+		}
+		}
 	}
+	
+	
 	/*
 	if(intersects[0]){
 		var temp = intersects[0].object.name;
@@ -174,13 +177,6 @@ var planelikeGeometry = new THREE.BoxGeometry( 5, 5, 0.1 );
 var plane = new THREE.Mesh( planelikeGeometry, new THREE.MeshBasicMaterial( { map: renderTarget } ) );
 plane.position.set(0,0,-5);
 scene.add(plane);*/
-
-
-const interactionManager = new InteractionManager(
-	renderer,
-	camera,
-	renderer.domElement
-  );
 
 
 
@@ -345,38 +341,6 @@ new GLTFLoader().load(
 );
 	
 
-let chair;
-/*
-new GLTFLoader().load(
-	// resource URL
-	'/3dmodels/chair.glb',
-	// called when the resource is loaded
-	function ( gltf ) {
-		chair = gltf.scene;
-		chair.position.set(0,0,1);
-		scene.add( gltf.scene );
-
-		gltf.animations; // Array<THREE.AnimationClip>
-		gltf.scene; // THREE.Group
-		gltf.scenes; // Array<THREE.Group>
-		gltf.cameras; // Array<THREE.Camera>
-		gltf.asset; // Object
-
-
-	},
-	// called while loading is progressing
-	function ( xhr ) {
-
-		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-	},
-	// called when loading has errors
-	function ( error ) {
-
-		console.log( 'An error happened:' + error);
-
-	}
-);*/
 
 
 var numCodingProjects = 1;
@@ -461,38 +425,22 @@ function projectView(pos, target){
 	controls.enabled = false;
 	new TWEEN.Tween(target)
 	.to({x:0, y:2, z:-15}) //{x:-3, y:1, z:4}
-	.easing(TWEEN.Easing.Quadratic.Out)
+	.easing(TWEEN.Easing.Sinusoidal.Out)
 	.onUpdate(() =>
 		controls.target = new THREE.Vector3(orbitTarget.x, orbitTarget.y, orbitTarget.z)
 	)
 	.start();
 	new TWEEN.Tween(pos)
 	.to({x:0, y:1.95, z:4}) // {x:5.6, y:3, z:9.3}
-	.easing(TWEEN.Easing.Quadratic.Out)
+	.easing(TWEEN.Easing.Sinusoidal.Out)
 	.onUpdate(() =>
 		camera.position.set(pos.x,pos.y,pos.z)
 	)
 	.start();
-	if(chair){
-		let chairPos = chair.position;
-	new TWEEN.Tween(chairPos)
-	.to({x:1.5, y:0, z:1})
-	.easing(TWEEN.Easing.Quadratic.Out)
-	.onUpdate(() =>
-		chair.position.set(chairPos.x,chairPos.y,chairPos.z)
-	)
-	.start();
-	}
-
-	let chairRot = chair.rotation;
-	new TWEEN.Tween(chairRot)
-	.to({x:0, y:2, z:0})
-	.easing(TWEEN.Easing.Quadratic.Out)
-	.onUpdate(() =>
-		chair.rotation.set(chairRot.x, chairRot.y, chairRot.z)
-	)
-	.start();
 }
+
+ var defaultTween;
+
 
 export function defaultView(pos, target){
 	controls.enabled = true;
@@ -506,7 +454,7 @@ export function defaultView(pos, target){
 		controls.target = new THREE.Vector3(target.x, target.y, target.z)
 	)
 	.start();
-	new TWEEN.Tween(pos)
+	defaultTween = new TWEEN.Tween(pos)
 	.to({x:0, y:2.50, z:3.3}) //6, 5.5, 6
 	.easing(TWEEN.Easing.Circular.Out)
 	.onUpdate(() =>
@@ -514,26 +462,6 @@ export function defaultView(pos, target){
 	)
 	.start();
 
-	if(chair){
-		let chairPos = chair.position;
-	new TWEEN.Tween(chairPos)
-	.to({x:0, y:0, z:0.5})
-	.easing(TWEEN.Easing.Quadratic.Out)
-	.onUpdate(() =>
-		chair.position.set(chairPos.x,chairPos.y,chairPos.z)
-	)
-	.start();
-
-	let chairRot = chair.rotation;
-	new TWEEN.Tween(chairRot)
-	.to({x:0, y:0, z:0})
-	.easing(TWEEN.Easing.Quadratic.Out)
-	.onUpdate(() =>
-		chair.rotation.set(chairRot.x, chairRot.y, chairRot.z)
-	)
-	.start();
-
-	}
 }
 
 
@@ -559,25 +487,6 @@ function laptopView(pos, target){
 	)
 	.start();
 
-	if(chair){
-		let chairPos = chair.position;
-	new TWEEN.Tween(chairPos)
-	.to({x:1.5, y:0, z:1})
-	.easing(TWEEN.Easing.Quadratic.Out)
-	.onUpdate(() =>
-		chair.position.set(chairPos.x,chairPos.y,chairPos.z)
-	)
-	.start();
-	}
-
-	let chairRot = chair.rotation;
-	new TWEEN.Tween(chairRot)
-	.to({x:0, y:2, z:0})
-	.easing(TWEEN.Easing.Quadratic.Out)
-	.onUpdate(() =>
-		chair.rotation.set(chairRot.x, chairRot.y, chairRot.z)
-	)
-	.start();
 }
 
 
@@ -765,20 +674,6 @@ function recalculateButtonDist(aspect){
 	
 }
 
-function resizePortal(){
-	var aspect = camera.aspect;
-	var portalWidth,portalHeight;
-	//scene.remove(portal);
-	
-	if(aspect > (16/9)){
-		portalWidth = 0.942;
-		portalHeight = 0.942/aspect;
-	}else{
-		portalWidth = 0.53*aspect;
-		portalHeight = 0.53;
-	}
-	portal.scale.set(portalWidth/0.942, portalHeight/0.53, 1);
-}//just take the regular 
 
 var laptopCameraPos = new THREE.Vector3(-0.6549889818652388, 1.889011900159804, 0.4124323790132744);
 var laptopScreenPos = new THREE.Vector3(-0.92052, 1.7232, 0.022561);
@@ -817,7 +712,6 @@ function calculateLaptopMousePosition(){
 	raycaster.setFromCamera(mouse,camera);
 	const intersect = raycaster.intersectObject(laptopScreen);
 	if(intersect[0]){
-
 		var relativePos = new THREE.Vector3().subVectors(intersect[0].point, laptopScreenPos);
 		return new THREE.Vector2((relativePos.dot(laptopVectorX)+screenMaxX)/(2*screenMaxX), (relativePos.dot(laptopVectorY)+screenMaxY)/(2*screenMaxY));
 	}else{
@@ -838,8 +732,10 @@ function processLaptopClick(pointPos){
 function updateCamera(){
 	if(projView){
 		var pos = camera.position;
-		var tweenTarget = -(window.scrollY/175 - 4);
 		
+		var tweenTarget = -(window.scrollY/175 - 4);
+		console.log(-(window.scrollY/175 - 4));
+		console.log(camera.position.z);
 		
 		
 
@@ -849,9 +745,8 @@ function updateCamera(){
 		.easing(TWEEN.Easing.Quadratic.In)
 		.onUpdate(() =>
 		camera.position.set(0,1.95,pos.z),
-
-	)
-	.start();
+		)
+		.start();
 		//console.log(window.scrollY);
 	}
 }
@@ -943,7 +838,6 @@ animate((time) => {
 	}
 	
 	//composer.render(time);
-	interactionManager.update();
 	TWEEN.update(time);
 	controls.update();
 	
