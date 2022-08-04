@@ -2,10 +2,14 @@ import { Component } from "/classes.js";
 import { Vector2, Vector3 } from 'three';
 import { defaultView } from '/script.js';
 import { getCameraPos, getCameraTarget } from "./script";
+import { getText } from "./utils.js";
+import { TextComponent } from "./classes";
 // screen size is 1620 1080
 var canvas, drawingContext, backButton;
 var click, hover;
 var test;
+var about = true;
+
 function init(){
     canvas = document.getElementById("aboutMe");
     drawingContext = canvas.getContext( '2d' );
@@ -64,7 +68,18 @@ export function updateCanvas(time){
     hover.draw(drawingContext);
     backButton.draw(drawingContext);
     //console.log(click.x + "      " + click.y);
-    
+    if(about){//
+        drawAboutMe(drawingContext);
+    }
+}
+
+const aboutTitle = new TextComponent(getText("aboutTitle"), 50, 50, 30, "Arial");
+aboutTitle.setColor("#808080");
+const aboutText = new TextComponent(getText("aboutText0"), 50, 80, 30, "Arial");
+aboutTitle.setColor("#808080");
+function drawAboutMe(){
+    aboutTitle.draw(drawingContext);
+    aboutText.draw(drawingContext);
 }
 
 init();

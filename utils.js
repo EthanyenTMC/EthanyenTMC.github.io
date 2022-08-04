@@ -1,35 +1,16 @@
 
 
-export function loadModel(name, scene, loader, thing){
 
-        
-loader.load(
-	// resource URL
-	name,
-	// called when the resource is loaded
-	function ( gltf ) {
-		thing = gltf.scene;
-		scene.add( thing );
 
-		gltf.animations; // Array<THREE.AnimationClip>
-		gltf.scene; // THREE.Group
-		gltf.scenes; // Array<THREE.Group>
-		gltf.cameras; // Array<THREE.Camera>
-		gltf.asset; // Object
 
-	},
-	// called while loading is progressing
-	function ( xhr ) {
+export function getText(id){
+    switch(id){
+        case "aboutTitle":
+            return "About Me:";
+        case "aboutNum":
+            return 1;
+        case "aboutText0":
+            return "Hello! My name is Ethan! I love league of legends!";
 
-		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
-	},
-	// called when loading has errors
-	function ( error ) {
-
-		console.log( 'An error happened ETHAN HERE' + error);
-
-	}
-);
-
+    }
 }

@@ -1,10 +1,19 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body{
     background-color: cornflowerblue;
+    overflow: hidden;
 }
 
 p { 
     font-size: 50px;
 
+}
+
+.box{
+    transform: translateZ(0);
 }
 
 div { 

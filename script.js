@@ -9,7 +9,6 @@ import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js';
 import { BoxBufferGeometry, CameraHelper, Vector3, Vector2, SpotLightHelper, Object3D } from 'three';
 import {drawSquare, updateCanvas} from '/laptopScreen.js';
 import { mouseMove, onCanvasClick } from './laptopScreen';
-import { loadModel } from './utils.js';
 
 
 const renderer = new THREE.WebGLRenderer({
@@ -18,6 +17,8 @@ const renderer = new THREE.WebGLRenderer({
 );
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.shadowMap.enabled = true;
+
 const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.01, 10000 );
 document.body.appendChild( renderer.domElement );
 
@@ -45,28 +46,20 @@ window.addEventListener('click', onClick);
 
 function onMouseMove( event ) {
 
-	// calculate pointer position in normalized device coordinates
-	// (-1 to +1) for both components
+
 
 	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 	
-	//controls.target = new THREE.Vector3(-0.92192, 0.723, -0.2706);
-	//camera.position.set(-0.4158, 1.0725, 0.83869),
+
 	
 	if(lapView){
 		mouseMove(calculateLaptopMousePosition());
 	}else if(projView){
 
 	}else{
-		/*
-		raycaster.setFromCamera(mouse, camera);
-		const intersect = raycaster.intersectObject(projectButton);
-		if(intersect[0]){
-			projectButton.lookAt(camera.position);
-		}*/
+
 	}
-	//console.log(camera.position);
 }
 
 export function getCameraPos(){
@@ -104,8 +97,6 @@ function onClick(event){
 	
 					break;
 				case 'lptpS':
-					//console.log(intersects[0].point);
-					//mousePointer.position.set(intersects[0].point.x, intersects[0].point.y, intersects[0].point.z);
 					onCanvasClick(calculateLaptopMousePosition());
 					break;
 				default:
@@ -118,77 +109,16 @@ function onClick(event){
 	}
 	
 	
-	/*
-	if(intersects[0]){
-		var temp = intersects[0].object.name;
-		console.log(temp);
-		const pos = {x: camera.position.x, y: camera.position.y, z: camera.position.z};
-		const target = orbitTarget;
-
-		switch(temp){
-			case 'red':
-				projectView(pos, target);
-				controls.enabled = false;
-				controls.maxDistance = 999;
-				break;
-			case aboutButton:
-				controls.enabled = false; // MAKE SURE TO CHANGE THIS LATER BECAUSE YOU WILL FORGET
-				laptopView(pos, target);
-
-				break;
-			case laptopScreen:
-				//console.log(intersects[0].point);
-				//mousePointer.position.set(intersects[0].point.x, intersects[0].point.y, intersects[0].point.z);
-				onCanvasClick(calculateLaptopMousePosition());
-				break;
-			default:
-				if(!lapView && !projView){
-					defaultView(getCameraPos(), getCameraTarget());
-				}
-				break;
-		}
-
-		/*if(temp === "red"){
-			projectView(pos, target);
-			controls.enabled = false;
-			controls.maxDistance = 999;
-		}else if(temp === "blue"){
-			defaultView(pos, target);
-			controls.enabled = true;
-			controls.maxDistance = 15;
-			
-		}else if (temp === "green"){
-			controls.enabled = false; // MAKE SURE TO CHANGE THIS LATER BECAUSE YOU WILL FORGET
-			laptopView(pos, target);
-			
-		}
-	}else{
-		if(!lapView && !projView){
-			defaultView(getCameraPos(), getCameraTarget());
-		}
-	}*/
 }
 
 
 
-//const renderTarget = new THREE.WebGLRenderTarget( 512, 512, { format: THREE.RGBFormat } );
-/*
-var planelikeGeometry = new THREE.BoxGeometry( 5, 5, 0.1 );
-var plane = new THREE.Mesh( planelikeGeometry, new THREE.MeshBasicMaterial( { map: renderTarget } ) );
-plane.position.set(0,0,-5);
-scene.add(plane);*/
-
-
-
-
 renderer.setClearColor (0x000000);
-var light = new THREE.AmbientLight(0xFFFFFF, 0.1);
+var light = new THREE.AmbientLight(0xFFFFFF, 0);
 scene.add(light);
 var light2 = new THREE.AmbientLight(0xFFFFFF, 1);
 projectScene.add(light2);
 
-
-//var loader = new GLTFLoader();
 
 let table;
 new GLTFLoader().load(
@@ -198,6 +128,8 @@ new GLTFLoader().load(
 	function ( gltf ) {
 		table = gltf.scene;
 		table.name = "table";
+		table.castShadow = true;
+		table.receiveShadow = true;
 		table.position.set(0,0,0);
 		scene.add( gltf.scene );
 
@@ -223,20 +155,20 @@ new GLTFLoader().load(
 );
 
 let projectButton;
+
+const projButtonLight = new THREE.RectAreaLight( 0x7EDFFF, 1.5,  1.2, 0.2 );
 new GLTFLoader().load(
 	// resource URL
 	'/3dmodels/projectButton.glb',
 	// called when the resource is loaded
 	function ( gltf ) {
 		projectButton = gltf.scene;
-		projectButton.position.set(-1.05*camera.aspect/(16/9),1.5,1.2);
-		projectButton.scale.x = 0.3;
-		projectButton.scale.y = 0.3;
+		recalculateButton(projectButton, projButtonLight);
 		projectButton.scale.z = 0.3;
 		projectButton.name = 'projects';
 		gltf.asset.name = 'projects';
 		scene.add( projectButton );
-
+		scene.add( projButtonLight );
 		gltf.animations; // Array<THREE.AnimationClip>
 		gltf.scene; // THREE.Group
 		gltf.scenes; // Array<THREE.Group>
@@ -257,31 +189,22 @@ new GLTFLoader().load(
 
 	}
 );
-if(projectButton){
-	
-console.log(projectButton.name);
-}
-const projButtonLight = new THREE.RectAreaLight( 0x7EDFFF, 1,  1.2, 0.2 );
-projButtonLight.position.set( -1.2,1.5,1.3 );
-projButtonLight.lookAt( -1.2,1.5,1.2 );
-scene.add( projButtonLight )
 
-const projButtonLightHelper = new RectAreaLightHelper( projButtonLight );
-//projButtonLight.add( projButtonLightHelper );
+
+
 
 let aboutButton;
+const aboutButtonLight = new THREE.RectAreaLight( 0x7EDFFF, 1.5,  1.2, 0.2 );
 new GLTFLoader().load(
 	// resource URL
 	'/3dmodels/aboutButton.glb',
 	// called when the resource is loaded
 	function ( gltf ) {
 		aboutButton = gltf.scene;
-		aboutButton.position.set(1*camera.aspect/(16/9),1.5,1.2);
-		aboutButton.scale.x = 0.3;
-		aboutButton.scale.y = 0.3;
+		recalculateButton(aboutButton, aboutButtonLight);
 		aboutButton.scale.z = 0.3;
 		scene.add( aboutButton );
-
+		scene.add( aboutButtonLight )
 		gltf.animations; // Array<THREE.AnimationClip>
 		gltf.scene; // THREE.Group
 		gltf.scenes; // Array<THREE.Group>
@@ -302,10 +225,8 @@ new GLTFLoader().load(
 
 	}
 );
-const aboutButtonLight = new THREE.RectAreaLight( 0x7EDFFF, 1,  1.2, 0.2 );
-aboutButtonLight.position.set( 1.2,1.5,1.3 );
-aboutButtonLight.lookAt( 1.2,1.5,1.2 );
-scene.add( aboutButtonLight )
+
+
 
 
 let title;
@@ -315,7 +236,7 @@ new GLTFLoader().load(
 	// called when the resource is loaded
 	function ( gltf ) {
 		title = gltf.scene;
-		title.position.set(0,3,-3);
+		title.position.set(0,3.1,-3);
 		recalculateTitleDist(camera.aspect);
 		scene.add( gltf.scene );
 
@@ -385,11 +306,7 @@ function createCube({ color, x, y, z }) {
 	return cube;
   }
 
-const opacityCube = createCube({color: 0xFFFFFF, x:0,y:0,z:0});
-opacityCube.material.transparent = true;
-opacityCube.material.opacity = 1;
-opacityCube.name = 'pee';
-scene.add(opacityCube);
+
 
 const buttons = {
 	red: createCube({color: 0xFF0000, x:1,y: 1, z:4}),
@@ -412,7 +329,7 @@ for(const[name,object] of Object.entries(projects)){
 	projectScene.add(object);
 }*/
 
-const orbitTarget = {x: 0, y: 1.5, z:0.545};
+const orbitTarget = {x: 0, y: 2, z:0};
 
 var projView = false;
 var lapView = false;
@@ -439,9 +356,6 @@ function projectView(pos, target){
 	.start();
 }
 
- var defaultTween;
-
-
 export function defaultView(pos, target){
 	controls.enabled = true;
 	controls.maxDistance = 15;
@@ -454,7 +368,7 @@ export function defaultView(pos, target){
 		controls.target = new THREE.Vector3(target.x, target.y, target.z)
 	)
 	.start();
-	defaultTween = new TWEEN.Tween(pos)
+	new TWEEN.Tween(pos)
 	.to({x:0, y:2.50, z:3.3}) //6, 5.5, 6
 	.easing(TWEEN.Easing.Circular.Out)
 	.onUpdate(() =>
@@ -498,48 +412,26 @@ for(const[name, object] of Object.entries(buttons)){
 
 
 const geoFloor = new THREE.BoxGeometry( 2000, 0, 2000 );
-				const matStdFloor = new THREE.MeshStandardMaterial( { color: 0x000000, roughness: 0.1, metalness: 0 } );
+				const matStdFloor = new THREE.MeshStandardMaterial( { color: 0x010101, roughness: 0.1, metalness: 0 } );
 				const mshStdFloor = new THREE.Mesh( geoFloor, matStdFloor );
 				mshStdFloor.position.set(0,-0.1,0);
 				mshStdFloor.renderOrder = -1;
 				scene.add( mshStdFloor );
 				mshStdFloor.name = 'floor';
+
 /*
-const spotLight = new THREE.SpotLight( 0xffffff );
-
-spotLight.castShadow = true;
-spotLight.shadow.mapSize.width = 1024;
-spotLight.shadow.mapSize.height = 1024;
-spotLight.shadow.camera.near = 0.1;
-spotLight.shadow.camera.far = 99;
-spotLight.shadow.camera.fov = 30;
-
-
-
-const lightTarget = new THREE.Object3D();
-scene.add(lightTarget);
-spotLight.target = lightTarget;
-spotLight.target.position.set(0,2,3);
-spotLight.position.set(0,1.5,-3);
-
-spotLight.target = new THREE.Object3D();
-spotLight.target.position.set(0,2,3);
-spotLight.position.set(0,1.5,-3);
-scene.add(spotLight.target);
-console.log(spotLight.target.position);
-
-scene.add( spotLight );
-/*
-spotLight.position.set( 0, 5, 0 );
-const testCube = new THREE.Mesh(
-	new THREE.BoxGeometry(0.01,0.01,0.01),
-	new THREE.MeshBasicMaterial({color: 0xFF0000, opacity: 0})
-);
-testCube.add(spotLight);
-testCube.position.set(0,1.75,0);
-testCube.rotateOnAxis(new Vector3(1,0,0), -Math.PI/3);
-scene.add(testCube);
-*/
+const testObjectFront = new THREE.Object3D();
+var spotLightFront = new THREE.SpotLight();
+spotLightFront.power = 1;
+spotLightFront.castShadow = true;
+spotLightFront.position.set(0,3,0);
+spotLightFront.far = 1;
+testObjectFront.add(spotLightFront);
+scene.add(testObjectFront);
+testObjectFront.position.set(0,1.75,0);
+testObjectFront.rotateOnAxis(new Vector3(1,0,0), 5*Math.PI/12);
+var lightHelperFront = new SpotLightHelper(spotLightFront);
+scene.add(lightHelperFront);*/
 
 const testObjectBack = new THREE.Object3D();
 var spotLightBack = new THREE.SpotLight();
@@ -550,36 +442,34 @@ testObjectBack.add(spotLightBack);
 scene.add(testObjectBack);
 testObjectBack.position.set(0,1.75,0);
 testObjectBack.rotateOnAxis(new Vector3(1,0,0), -3*Math.PI/8);
-var lightHelperBack = new SpotLightHelper(spotLightBack);
-scene.add(lightHelperBack);
+//var lightHelperBack = new SpotLightHelper(spotLightBack);
+//scene.add(lightHelperBack);
 
 const testObjectLeft = new THREE.Object3D();
 var spotLightLeft = new THREE.SpotLight(0x17c0ec);
 spotLightLeft.power = 2.5;
-spotLightLeft.position.set(-5.1,0,0);
+spotLightLeft.castShadow = true;
+spotLightLeft.position.set(-5.6,0,0);
 testObjectLeft.add(spotLightLeft);
 scene.add(testObjectLeft);
 testObjectLeft.position.set(0,1,0);
 testObjectLeft.rotateOnAxis(new Vector3(0,0,1), -Math.PI/6);
-var lightHelperLeft = new SpotLightHelper(spotLightLeft);
+testObjectLeft.rotateOnAxis(new Vector3(0,1,0), Math.PI/6);
+//var lightHelperLeft = new SpotLightHelper(spotLightLeft);
 //scene.add(lightHelperLeft);
 
 const testObjectRight = new THREE.Object3D();
 var spotLightRight = new THREE.SpotLight(0xc228ec);
 spotLightRight.power = 2.5;
-spotLightRight.position.set(5.1,0,0);
+spotLightRight.castShadow = true;
+spotLightRight.position.set(5.6,0,0);
 testObjectRight.add(spotLightRight);
 scene.add(testObjectRight);
 testObjectRight.position.set(0,1,0);
 testObjectRight.rotateOnAxis(new Vector3(0,0,-1), -Math.PI/6);
-var lightHelperRight = new SpotLightHelper(spotLightRight);
+testObjectLeft.rotateOnAxis(new Vector3(0,1,0), -Math.PI/6);
+//var lightHelperRight = new SpotLightHelper(spotLightRight);
 //scene.add(lightHelperRight);
-
-
-
-
-
-
 
 const width = 0.85;
 const height = 0.53;
@@ -601,40 +491,25 @@ const rectLightHelper = new RectAreaLightHelper( rectLight );
 var controls = new OrbitControls( camera, renderer.domElement );
 controls.enablePan = false;
 controls.rotateSpeed = 0.1;
-//controls.minDistance = 4;
 controls.maxDistance = 999;
 controls.minPolarAngle = 0.5;
 controls.maxPolarAngle = 1.65;
-//controls.target = new THREE.Vector3(orbitTarget.x, orbitTarget.y, orbitTarget.z);
 controls.enableDamping = true;
-/*const geometry = new THREE.BoxGeometry();
-			const material = new THREE.MeshBasicMaterial( { color: 0xFFFB00 } );
-			const cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );*/
 
-//controls.update() must be called after any manual changes to the camera's transform
-//camera.position.set( 6.545, 5.5, 6.545 );
+
 defaultView(getCameraPos(), getCameraTarget());
 controls.update();
 
 window.addEventListener( 'resize', onWindowResize );
-//window.addEventListener( 'scroll', updateCamera);
 let lastKnownScrollPosition = 0;
 let ticking = false;
 
-window.addEventListener('scroll', function(e) {
-  
-	if (!ticking) {
-	  window.requestAnimationFrame(function() {
-		updateCamera();
-		ticking = false;
-	  });
-  
-	  ticking = true;
-	}
-	lastKnownScrollPosition = window.scrollY;
-  });
+window.addEventListener('scroll', onScroll);
 
+function onScroll(event){
+	console.log(event.deltaY);
+	updateCamera();
+}
 
 function onWindowResize(width, height) {
 
@@ -643,7 +518,7 @@ function onWindowResize(width, height) {
 	camera.updateProjectionMatrix();
 	recalculateLaptopDistance();
 	recalculateTitleDist(camera.aspect);
-	recalculateButtonDist(camera.aspect);
+	recalculateButtons(camera.aspect);
 	//resizePortal();
 	
 }
@@ -655,24 +530,36 @@ function resizeWindow(width, height){
 }
 
 function recalculateTitleDist(aspect){
-	var factor = Math.min(aspect/(16/9)*1.5, 1);
+	var factor = Math.min(aspect/(16/9)*1.5, 1.3);
 	//var factor = aspect/(16/9)*1.5;
 	title.scale.x = factor;
 	title.scale.y = factor;
 	console.log(title.scale);
 }
-if(projectButton && aboutButton){
-	
-recalculateButtonDist(camera.aspect);
-console.log("recalculated");
+
+function recalculateButtons(){
+	recalculateButton(projectButton, projButtonLight);
+	recalculateButton(aboutButton, aboutButtonLight);
 }
-function recalculateButtonDist(aspect){
-	//var factor = Math.max(aspect/(16/9)*1.5, 1);
-	var factor = aspect/(16/9);
-	aboutButton.position.set(1*factor,1.5,1.2);
-	projectButton.position.set(-1.1*factor,1.5,1.2);
-	
+
+
+function recalculateButton(button, light){
+	var thing = 1;
+	if(button === aboutButton){
+		thing = -1;
+	}
+	var factor = 0.9*camera.aspect/2*thing;
+	button.position.set(-1.1*factor,1.5,1.2);
+	var sizeFactor = Math.max(camera.aspect/2, 0.35);
+	button.scale.x = 0.3*sizeFactor;
+	button.scale.y = 0.3*sizeFactor;
+
+	light.position.set( -1.1*factor,1.5,1.3 );
+	light.lookAt( -1.1*factor,1.5,1.2 );
+	light.width = 1.2*sizeFactor;
+	light.height = 0.2*sizeFactor;
 }
+
 
 
 var laptopCameraPos = new THREE.Vector3(-0.6549889818652388, 1.889011900159804, 0.4124323790132744);
@@ -690,12 +577,7 @@ function recalculateLaptopDistance(){
 	laptopCameraPos = laptopScreenPos.clone();
 	
 
-	/*
-	if(aspect > (0.261/0.174)){
-		laptopCameraPos.add(offset);
-	}else{
-		laptopCameraPos.add(offset);
-	}*/
+	
 	laptopCameraPos.add(offset);
 	if(lapView){
 		camera.position.set(laptopCameraPos.x, laptopCameraPos.y, laptopCameraPos.z);
@@ -719,48 +601,19 @@ function calculateLaptopMousePosition(){
 	}
 	
 }
-/*
-function processLaptopClick(pointPos){
-	var relativePos = new THREE.Vector3().subVectors(pointPos, laptopScreenPos);
-	var clickPos = new THREE.Vector2((relativePos.dot(laptopVectorX)+screenMaxX)/(2*screenMaxX), (relativePos.dot(laptopVectorY)+screenMaxY)/(2*screenMaxY));
-	
-	drawSquare(clickPos);
-	//console.log(clickPos);
-
-}*/
 
 function updateCamera(){
 	if(projView){
 		var pos = camera.position;
 		
-		var tweenTarget = -(window.scrollY/175 - 4);
+		var tweenTarget = -(window.scrollY/250 - 4);
 		console.log(-(window.scrollY/175 - 4));
 		console.log(camera.position.z);
-		
+		camera.position.set(0,1.95,-(window.scrollY/250 - 4));
 		
 
-		
-		new TWEEN.Tween(pos)
-		.to({x:0, y:1.95, z:tweenTarget})
-		.easing(TWEEN.Easing.Quadratic.In)
-		.onUpdate(() =>
-		camera.position.set(0,1.95,pos.z),
-		)
-		.start();
-		//console.log(window.scrollY);
 	}
 }
-
-/*function animate() {
-
-	requestAnimationFrame( animate );
-
-	// required if controls.enableDamping or controls.autoRotate are set to true
-	controls.update();
-
-	renderer.render( scene, camera );
-	TWEEN.update(time);
-}*/
 
 const canvas = document.getElementById("aboutMe");
 
@@ -775,6 +628,7 @@ var laptopScreen = new THREE.Mesh(
 	new THREE.BoxGeometry(0.5235, 0.345, 0.002),
 	laptopMat
 );
+laptopScreen.castShadow = true;
 laptopScreenPos.addScaledVector(laptopCameraDirection, 0.002);
 laptopScreenPos.addScaledVector(laptopVectorY, -0.009);
 laptopScreenPos.addScaledVector(laptopVectorX, -0.0005);
@@ -820,24 +674,33 @@ portal.position.set(0,1.961,-0.045);
 scene.add(portal);
 //resizePortal();
 
-
-
-animate((time) => {
+function portalView(z){
 	if(projView){
-		if(camera.position.z <= 0.550){
-			renderer.setRenderTarget(null);
-			renderer.clear();
-			renderer.render(projectScene, camera);
+		if(z < 0.55){
+			return true;
 		}else{
-			renderDefault();
+			return false;
 		}
 	}else{
-		renderDefault();
-		//renderer.render(scene, testCamera);
-
+		return false;
 	}
 	
-	//composer.render(time);
+}
+
+animate((time) => {
+
+	if(portalView(camera.position.z)){
+		renderer.setRenderTarget(null);
+		renderer.clear();
+		renderer.render(projectScene, camera);
+	}else{
+		renderDefault();
+	}
+
+	//testObjectLeft.rotation.y = time/10000;
+	//testObjectRight.rotation.y = time/10000;
+
+
 	TWEEN.update(time);
 	controls.update();
 	
@@ -851,35 +714,6 @@ animate((time) => {
 renderer.autoClear = false;
 renderer.autoClearStencil = false;
 
-/*
-const testCamera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 10000 );
-testCamera.position.set(0,0,0.5);
-const cameraHelper = new THREE.CameraHelper(testCamera);
-scene.add(cameraHelper);
-testCamera
-const testCube = new THREE.Mesh(
-	new THREE.BoxGeometry(0.01,0.01,0.01),
-	new THREE.MeshBasicMaterial({color: 0xFF0000})
-);
-testCube.add(testCamera);
-testCube.position.set(-0.92052, 1.7232, 0.022561);
-testCube.rotation.set(2.7394687939303,2.58173919262736,3.3594);
-scene.add(testCube);
-
-const gui = new GUI();
-const laptopCam = gui.addFolder('laptopCam');
-laptopCam.add(testCube.rotation, 'x', 0, 2*Math.PI);
-
-laptopCam.add(testCube.rotation, 'y', 2.5, 2.64522101432261);
-laptopCam.add(testCube.rotation, 'z', 3.3, 3.5);
-
-laptopCam.add(testCamera.position, 'z' ,0, 1);
-
-laptopCam.open();
-var camPos = new THREE.Vector3();
-testCamera.getWorldPosition(camPos);
-console.log(camPos);
-*/
 function renderDefault(){
 	resizeWindow(1920,1080);
 	renderer.setRenderTarget(bufferTexture);
