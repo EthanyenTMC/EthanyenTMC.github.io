@@ -16,7 +16,7 @@ const renderer = new THREE.WebGLRenderer({
 	canvas: document.getElementById("viewport")}
 );
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setSize( window.innerWidth/3, window.innerHeight/3 );
 renderer.shadowMap.enabled = true;
 
 const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.01, 10000 );
