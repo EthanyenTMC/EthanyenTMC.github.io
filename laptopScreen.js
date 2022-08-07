@@ -29,8 +29,11 @@ function init(){
 
  
 export function mouseMove(clickPos){
+    if(clickPos){
+        
     hover.x = clickPos.x*canvas.width;
     hover.y = clickPos.y*canvas.height;
+    }
 }
 
 function drawSquare(pos){
@@ -50,7 +53,7 @@ export function onCanvasClick(clickPos){
 }
 
 function back(){
-    defaultView(getCameraPos(), getCameraTarget());
+    defaultView();
 
 }
 

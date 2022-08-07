@@ -58,7 +58,65 @@ function onMouseMove( event ) {
 	}else if(projView){
 
 	}else{
+		buttonHover(findHover());
+	}
+	
+}
 
+function findHover(){
+	var temp;
+	raycaster.setFromCamera(mouse,camera);
+	const intersects = raycaster.intersectObjects(scene.children);
+	for(var i = 0; i < intersects.length; i++){
+		intersects[i].object.traverse( function (child){
+			temp = child.name.substring(0,5);
+		});
+		switch(temp){
+			case 'projt':
+				return 'projt';
+			case 'about':
+				return 'about';
+			case 'lptpS':
+				return 'lptpS'
+			default:
+				return 'default';
+	}
+	}
+}
+
+function buttonHover(name){
+	if(name === 'projt'){
+		lightUpButton(projButtonLight);
+	}else if(name === 'about'){
+		lightUpButton(aboutButtonLight);
+	}else{
+		unLightUpButton(projButtonLight);
+		unLightUpButton(aboutButtonLight);	
+
+	}
+}
+
+function lightUpButton(light){
+	if(!light.userData.hover){
+
+		new TWEEN.Tween(light)
+		.to({intensity: 2}, 350) //6, 5.5, 6
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.onUpdate(render)
+		.start();
+
+		light.userData.hover = true;
+	}
+}
+
+function unLightUpButton(light){
+	if(light.userData.hover){
+		new TWEEN.Tween(light)
+		.to({intensity:1}, 750)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.onUpdate(render)
+		.start();
+		light.userData.hover = false;
 	}
 }
 
@@ -72,42 +130,27 @@ export function getCameraTarget(){
 
 
 function onClick(event){
-	var temp;
-	raycaster.setFromCamera(mouse,camera);
-	const intersects = raycaster.intersectObjects(scene.children);
-	if(intersects.length == 0){
-		if(!lapView && !projView){
-			defaultView(getCameraPos(), getCameraTarget());
-		}
-	}else{
-		for(var i = 0; i < intersects.length; i++){
-			intersects[i].object.traverse( function (child){
-				temp = child.name.substring(0,5);
-				console.log(temp);
-			});
-			switch(temp){
-				case 'projt':
-					projectView(camera.position, orbitTarget);
-					controls.enabled = false;
-					controls.maxDistance = 999;
-					break;
-				case 'about':
-					controls.enabled = false; // MAKE SURE TO CHANGE THIS LATER BECAUSE YOU WILL FORGET
-					laptopView(camera.position, orbitTarget);
 	
-					break;
-				case 'lptpS':
-					onCanvasClick(calculateLaptopMousePosition());
-					break;
-				default:
-					if(!lapView && !projView){
-						defaultView(camera.position, orbitTarget);
-					}
-					break;
-		}
-		}
-	}
-	
+	switch(findHover()){
+		case 'projt':
+			projectView(camera.position, orbitTarget);
+			controls.enabled = false;
+			controls.maxDistance = 999;
+			break;
+		case 'about':
+			controls.enabled = false; // MAKE SURE TO CHANGE THIS LATER BECAUSE YOU WILL FORGET
+			laptopView(camera.position, orbitTarget);
+
+			break;
+		case 'lptpS':
+			onCanvasClick(calculateLaptopMousePosition());
+			break;
+		default:
+			if(!lapView && !projView){
+				defaultView();
+			}
+			break;
+}
 	
 }
 
@@ -128,8 +171,6 @@ new GLTFLoader().load(
 	function ( gltf ) {
 		table = gltf.scene;
 		table.name = "table";
-		table.castShadow = true;
-		table.receiveShadow = true;
 		table.position.set(0,0,0);
 		scene.add( gltf.scene );
 
@@ -156,7 +197,8 @@ new GLTFLoader().load(
 
 let projectButton;
 
-const projButtonLight = new THREE.RectAreaLight( 0x7EDFFF, 1.5,  1.2, 0.2 );
+const projButtonLight = new THREE.RectAreaLight( 0x7EDFFF, 1,  1.2, 0.2 );
+projButtonLight.userData.hover = false;
 new GLTFLoader().load(
 	// resource URL
 	'/3dmodels/projectButton.glb',
@@ -194,7 +236,8 @@ new GLTFLoader().load(
 
 
 let aboutButton;
-const aboutButtonLight = new THREE.RectAreaLight( 0x7EDFFF, 1.5,  1.2, 0.2 );
+const aboutButtonLight = new THREE.RectAreaLight( 0x7EDFFF, 1,  1.2, 0.2 );
+aboutButtonLight.userData.hover = false;
 new GLTFLoader().load(
 	// resource URL
 	'/3dmodels/aboutButton.glb',
@@ -320,20 +363,11 @@ const clickable = {
 	aboutButton
 };
 
-const projects = {
-	first: createCube({color: 0xFFFFFF, x:1.5, y:0.75, z:-10}),
-	second: createCube({color: 0xFFFFFF, x:-1.5, y:0.75, z:-20}),
-}
-/*
-for(const[name,object] of Object.entries(projects)){
-	projectScene.add(object);
-}*/
 
 const orbitTarget = {x: 0, y: 2, z:0};
 
 var projView = false;
 var lapView = false;
-
 
 
 
@@ -356,49 +390,38 @@ function projectView(pos, target){
 	.start();
 }
 
-export function defaultView(pos, target){
-	controls.enabled = true;
+export function defaultView(){
 	controls.maxDistance = 15;
 	projView = false;
 	lapView = false;
-	new TWEEN.Tween(target)
-	.to({x:0, y:2, z:0})
+	new TWEEN.Tween(controls)
+	.to({target:{x:0, y:2, z:0}}, 750)
 	.easing(TWEEN.Easing.Circular.Out)
-	.onUpdate(() =>
-		controls.target = new THREE.Vector3(target.x, target.y, target.z)
-	)
 	.start();
-	new TWEEN.Tween(pos)
-	.to({x:0, y:2.50, z:3.3}) //6, 5.5, 6
+
+	new TWEEN.Tween(camera)
+	.to({position: {x:0, y:2.50, z:3.3}}, 750) //6, 5.5, 6
 	.easing(TWEEN.Easing.Circular.Out)
-	.onUpdate(() =>
-		camera.position.set(pos.x,pos.y,pos.z)
-	)
+	.onStart(function temp(){controls.dampingFactor = 0; controls.enabled = false; controls.enableDamping = false; controls.update();})
+	.onComplete(function temp(){
+		controls.enabled = true; 
+		setTimeout(() => {controls.dampingFactor = 0.05; controls.enableDamping = true;}, 1);
+	})
 	.start();
 
 }
 
-
-function laptopView(pos, target){
+function laptopView(){
 	projView = false;
 	lapView = true;
-	
-	new TWEEN.Tween(target)
-	.to({x:-0.92052, y:1.7232, z:0.022561}) //{x:-3, y:1, z:4}
+	new TWEEN.Tween(controls)
+	.to({target: {x:-0.92052, y:1.7232, z:0.022561}}, 750) //{x:-3, y:1, z:4}
 	.easing(TWEEN.Easing.Quadratic.Out)
-	.onUpdate(() =>
-		controls.target = new THREE.Vector3(target.x, target.y, target.z),
-		controls.update()
-	)
 	.start();
 
-	new TWEEN.Tween(pos)
-	.to(laptopCameraPos) // {x:5.6, y:3, z:9.3}
+	new TWEEN.Tween(camera)
+	.to({position: laptopCameraPos}) // {x:5.6, y:3, z:9.3}
 	.easing(TWEEN.Easing.Quadratic.Out)
-	.onUpdate(() =>
-		camera.position.set(pos.x,pos.y,pos.z),
-		controls.update()
-	)
 	.start();
 
 }
@@ -435,7 +458,7 @@ scene.add(lightHelperFront);*/
 
 const testObjectBack = new THREE.Object3D();
 var spotLightBack = new THREE.SpotLight();
-spotLightBack.power = 1;
+spotLightBack.power = 0.5;
 spotLightBack.castShadow = true;
 spotLightBack.position.set(0,3,0);
 testObjectBack.add(spotLightBack);
@@ -495,20 +518,22 @@ controls.maxDistance = 999;
 controls.minPolarAngle = 0.5;
 controls.maxPolarAngle = 1.65;
 controls.enableDamping = true;
+controls.dampingFactor = 0.05;
 
 
-defaultView(getCameraPos(), getCameraTarget());
+defaultView();
 controls.update();
 
 window.addEventListener( 'resize', onWindowResize );
 let lastKnownScrollPosition = 0;
 let ticking = false;
 
-window.addEventListener('scroll', onScroll);
+window.addEventListener('wheel', onScroll, false);
 
 function onScroll(event){
 	console.log(event.deltaY);
-	updateCamera();
+	event.preventDefault();
+	updateCamera(event.deltaY);
 }
 
 function onWindowResize(width, height) {
@@ -519,6 +544,7 @@ function onWindowResize(width, height) {
 	recalculateLaptopDistance();
 	recalculateTitleDist(camera.aspect);
 	recalculateButtons(camera.aspect);
+	render();
 	//resizePortal();
 	
 }
@@ -534,7 +560,6 @@ function recalculateTitleDist(aspect){
 	//var factor = aspect/(16/9)*1.5;
 	title.scale.x = factor;
 	title.scale.y = factor;
-	console.log(title.scale);
 }
 
 function recalculateButtons(){
@@ -602,14 +627,12 @@ function calculateLaptopMousePosition(){
 	
 }
 
-function updateCamera(){
+var scroll = 0;
+function updateCamera(num){
 	if(projView){
-		var pos = camera.position;
+		scroll += num;
 		
-		var tweenTarget = -(window.scrollY/250 - 4);
-		console.log(-(window.scrollY/175 - 4));
-		console.log(camera.position.z);
-		camera.position.set(0,1.95,-(window.scrollY/250 - 4));
+		camera.position.set(0,1.95,-(scroll/250 - 4));
 		
 
 	}
@@ -687,8 +710,7 @@ function portalView(z){
 	
 }
 
-animate((time) => {
-
+function render(){
 	if(portalView(camera.position.z)){
 		renderer.setRenderTarget(null);
 		renderer.clear();
@@ -696,11 +718,15 @@ animate((time) => {
 	}else{
 		renderDefault();
 	}
+}
+
+controls.addEventListener("change", render);
+animate((time) => {
 
 	//testObjectLeft.rotation.y = time/10000;
 	//testObjectRight.rotation.y = time/10000;
 
-
+	console.log(controls.dampingFactor);
 	TWEEN.update(time);
 	controls.update();
 	
