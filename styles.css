@@ -40,7 +40,7 @@ body, html{
     background: -webkit-linear-gradient(rgb(0, 110, 255), rgb(160, 27, 255));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 7vw;
+    font-size: 9vw;
     font-family: lemonmilk;
     white-space: nowrap;
 }
@@ -57,11 +57,12 @@ body, html{
 
 .flex-container-buttons{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
 .captionImg{
-    display:flex;
+    display:inline-flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -83,7 +84,7 @@ body, html{
 
 .main .captionImg p{
     color:rgb(128, 143, 255);
-    font-size: 300%;
+    font-size: 3vw;
     font-family: lemonmilklight;
     margin:0;
     padding:0;
@@ -98,10 +99,9 @@ body, html{
     justify-content: left;
     flex-wrap:wrap;
     align-items: center;
-    gap:1vh;
     min-height:7%;
     height:7vh;
-    background-color:rgb(21, 45, 67);
+    background-color:rgb(25, 0, 64);
 }
 
 .taskbar .button{
@@ -111,8 +111,3 @@ body, html{
     background-color:rgba(226, 223, 255, 0.196);
 }
 
-
-.taskbar img{
-    
-    background-image: url(bottom.png);
-}
