@@ -1,40 +1,118 @@
-html {
-    scroll-behavior: smooth;
+@font-face {
+    font-family: lemonmilk;
+    src: url(fonts/LEMONMILK-Medium.otf);
 }
 
-body{
-    background-color: cornflowerblue;
-    overflow: hidden;
+@font-face {
+    font-family: lemonmilklight;
+    src: url(fonts/LEMONMILK-Light.otf);
 }
 
-p { 
-    font-size: 50px;
-
+body, html{
+    padding:0;
+    margin:0;
+    
+    user-select: none;
+    background-color: #100f18;
+}
+.desktop{
+    min-height:100vh;
+    height: 100vh;
+    padding:0;
+    margin:0;
 }
 
-.box{
-    transform: translateZ(0);
+
+
+
+
+
+.name{
+    min-height:25%;
+    height:25vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
-div { 
-    font-size: 50px;
-
+.name p{
+    background: -webkit-linear-gradient(rgb(0, 110, 255), rgb(160, 27, 255));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 7vw;
+    font-family: lemonmilk;
+    white-space: nowrap;
 }
 
-#viewport {
-    position: fixed;
-	margin: 0;
-	padding: 0;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-}
 
-#space {
-    height: 1000vh;
-}
 
-#canvas{
+
+
+.main{
     display:block;
+    min-height:68vh;
+    height:68vh;
+}
+
+.flex-container-buttons{
+    display: flex;
+    justify-content: center;
+}
+
+.captionImg{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 75%;
+    height: 75%;
+    width: 20%;
+}
+
+.captionImg:hover{
+    background-color:rgba(226, 223, 255, 0.196);
+}
+
+.main .captionImg .button{
+    height: 90%;
+    width: 90%;
+    margin-left:1vh;
+    margin-right:1vh;
+}
+
+.main .captionImg p{
+    color:rgb(128, 143, 255);
+    font-size: 300%;
+    font-family: lemonmilklight;
+    margin:0;
+    padding:0;
+    white-space: nowrap;
+}
+
+
+
+
+.taskbar{
+    display:flex;
+    justify-content: left;
+    flex-wrap:wrap;
+    align-items: center;
+    gap:1vh;
+    min-height:7%;
+    height:7vh;
+    background-color:rgb(21, 45, 67);
+}
+
+.taskbar .button{
+    max-width: 5vh;
+}
+.taskbar .button:hover{
+    background-color:rgba(226, 223, 255, 0.196);
+}
+
+
+.taskbar img{
+    
+    background-image: url(bottom.png);
 }
