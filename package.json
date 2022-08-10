@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/EthanyenTMC/EthanyenTMC.github.io/issues"
   },
-  "homepage": "https://github.com/EthanyenTMC/EthanyenTMC.github.io#readme"
+  "homepage": "https://github.com/EthanyenTMC/EthanyenTMC.github.io#readme",
+  "dependencies": {}
 }
