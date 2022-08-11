@@ -18,15 +18,15 @@
         <div class="main">
             <div class="flex-container-buttons">
                 <div class="captionImg">
-                    <img src="icons/files.png" class="button">
+                    <img src="icons/files.png" class="button" onclick="toggleProjects()">
                     <p>Projects</p>
                 </div>
-                <div class="captionImg" onclick="showAboutMe()">
+                <div class="captionImg" onclick="toggleAboutMe()">
                     <img src="icons/ide.png" class="button">
                     <p>About Me</p>
                 </div>
                 <div class="captionImg">
-                    <img src="icons/photoshop.png" class="button">
+                    <img src="icons/photoshop.png" class="button" onclick="toggleExperience()">
                     <p>Experience</p>
                 </div>
             </div>
@@ -35,21 +35,33 @@
 
         <div class="taskbar">
             <img src="icons/OS.png" class="button">
-            <img src="icons/files.png" class="button">
-            <img src="icons/ide.png" class="button">
-            <img src="icons/photoshop.png" class="button">
+            <img src="icons/files.png" class="button" onclick="toggleProjects()">
+            <img src="icons/ide.png" class="button" onclick="toggleAboutMe()">
+            <img src="icons/photoshop.png" class="button" onclick="toggleExperience()">
         </div>
 
-        <div class="aboutMe">
+        <div id="aboutMe" onclick="setHighest(this)">
+            <img src="test.png">
+            <p id="aboutMeText">hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello </p><div id="cursor"></div>
+            
+        </div>    
+
+
+        <div id="projects" onclick="setHighest(this)">
             <img src="test.png">
             <p>hello</p>
-        </div>    
+        </div>   
+
+        <div id="experience" onclick="setHighest(this)">
+            <img src="test.png">
+            <p>hello</p>
+        </div>
 
     </div>
     
 
     <script src = "anime-master\lib\anime.min.js"></script>
-    <script src = "script.js"></script>
+    <script src = "script.js" onload="init()"></script>
 </body>
 
 </html>
