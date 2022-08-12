@@ -1,3 +1,21 @@
+class Vector{
+    constructor(xLoc,yLoc){
+        this.x = xLoc;
+        this.y = yLoc;
+        this.isVector = true;
+    }
+
+    add(other){
+        return new Vector(this.x + other.x, this.y + other.y);
+    }
+
+    sub(other){
+        return new Vector(this.x - other.x, this.y - other.y);
+    }
+
+}
+
+
 var highestLayer=1;
 var activeLayer;
 var projects, aboutMe;
@@ -7,6 +25,8 @@ function init(){
     aboutMe = document.getElementById("aboutMe");
 }
 document.addEventListener('wheel', handleScroll);
+//document.addEventListener('onmousedown', onClick);
+
 
 var aboutV = false;
 
@@ -31,6 +51,7 @@ function toggleAboutMe(){
     }else{ // show
         setHighest(aboutMe);
         activeLayer = "aboutMe";
+        aboutMePos = new Vector(aboutMe.getBoundingClientRect().left,aboutMe.getBoundingClientRect().top);
         console.log(aboutMe.style.zIndex);
         anime({
             targets:'#aboutMe',
@@ -38,7 +59,7 @@ function toggleAboutMe(){
                 {   
                     
                     translateY:'-94vh',
-                    translateX:'15vw',
+                    translateX:'15vw', 
                     duration:1
                 },
                 {   
@@ -169,8 +190,64 @@ function handleScroll(event){
     switch(activeLayer){
         case "aboutMe":
             aboutMeProgress = Math.min(aboutMeBaseText.length, aboutMeProgress+10*event.deltaY/Math.abs(event.deltaY));
-            aboutMeText.innerHTML = aboutMeBaseText.substring(0, aboutMeProgress);
+            aboutMeText.innerHTML = aboutMeBaseText.substring(0, aboutMeBaseText.indexOf(" ", aboutMeProgress-1));
             break;
     }
 
+}
+
+var mouseDown = false;
+
+document.body.onmousedown = onMouseDown;
+document.body.onmousemove = onMouseMove;
+document.body.onmouseup = onMouseUp;
+
+var activeClick;
+var beginPos;
+var mousePos;
+var mouseDragVector;
+var aboutMePos = new Vector(aboutMe.getBoundingClientRect().left,aboutMe.getBoundingClientRect().top);
+var aboutMeDrag = false;
+
+function onMouseDown(event){
+    mouseDown = true;
+    activeClick = event.target;
+    switch(activeClick.id){
+        case "aboutMeTop":
+            beginPos = new Vector(event.clientX, event.clientY);
+            aboutMeDrag = true;
+            break;
+        case "draggableAboutMe":
+            beginPos = new Vector(event.clientX, event.clientY);
+            aboutMeDrag = true;
+            break;
+    }
+    console.log(mousePos);
+}
+
+function onMouseMove(event){
+    mousePos = new Vector(event.clientX, event.clientY);
+    if(mouseDown){
+        mouseDragVector = mousePos.sub(beginPos);
+        switch(activeClick.id){
+            case "aboutMeTop": //15 97
+            
+                aboutMe.style.left = aboutMePos.x+mouseDragVector.x + "px";
+                aboutMe.style.top = aboutMePos.y+mouseDragVector.y + "px";
+                break;
+            case "draggableAboutMe":
+                aboutMe.style.left = aboutMePos.x+mouseDragVector.x + "px";
+                aboutMe.style.top = aboutMePos.y+mouseDragVector.y + "px";
+                break;
+        }
+    }
+}
+
+function onMouseUp(){
+    mouseDown = false;
+    beginPos = null;
+    if(aboutMeDrag){
+        aboutMeDrag = false;
+        aboutMePos = new Vector(aboutMePos.x+mouseDragVector.x, aboutMePos.y+mouseDragVector.y);
+    }
 }

@@ -41,14 +41,29 @@
         </div>
 
         <div id="aboutMe" onclick="setHighest(this)">
-            <img src="test.png">
+            <div class="windowTop" id="aboutMeTop">
+                <img src="icons/ide.png">
+                <p class="windowTopItem hover">File</p>
+                <p class="windowTopItem hover">Edit</p>
+                <p class="windowTopItem hover">View</p>
+                <p class="windowTopItem hover">Help</p>
+                <div class="flexGrow"></div>
+                <p class="windowTopItem" id="draggableAboutMe">About Me - Ethan Yen's Website</p>
+                <div class="flexGrow"></div>
+                <p class="windowTopItem"></p>
+                <img src="icons/minimize.png" class="hover" onclick="toggleAboutMe()">
+                <img src="icons/noname.png" class="hover" onclick="toggleAboutMe()">
+                <img src="icons/x.png" class="hover" onclick="toggleAboutMe()">
+            </div>
             <p id="aboutMeText">hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello </p><div id="cursor"></div>
-            
+            <!-- make sure to put a space at the end of this text, without it scrolling too far will make text disappear. Too lazy to make real solution-->
         </div>    
 
 
         <div id="projects" onclick="setHighest(this)">
-            <img src="test.png">
+            <div class="windowTop" id="projectsTop">
+                <img src="icons/ide.png">
+            </div>
             <p>hello</p>
         </div>   
 
