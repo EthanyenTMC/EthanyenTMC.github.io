@@ -2,7 +2,6 @@ class Vector{
     constructor(xLoc,yLoc){
         this.x = xLoc;
         this.y = yLoc;
-        this.isVector = true;
     }
 
     add(other){
