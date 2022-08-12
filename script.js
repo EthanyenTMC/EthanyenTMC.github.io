@@ -51,7 +51,9 @@ function toggleAboutMe(){
     }else{ // show
         setHighest(aboutMe);
         activeLayer = "aboutMe";
-        aboutMePos = new Vector(aboutMe.getBoundingClientRect().left,aboutMe.getBoundingClientRect().top);
+        if(aboutMePos.x === -999){
+            aboutMePos = new Vector(aboutMe.getBoundingClientRect().left,aboutMe.getBoundingClientRect().top);
+        }
         console.log(aboutMe.style.zIndex);
         anime({
             targets:'#aboutMe',
@@ -189,7 +191,12 @@ function handleScroll(event){
     console.log(aboutMeProgress);
     switch(activeLayer){
         case "aboutMe":
-            aboutMeProgress = Math.min(aboutMeBaseText.length, aboutMeProgress+10*event.deltaY/Math.abs(event.deltaY));
+            var delta = event.deltaY/Math.abs(event.deltaY);
+            if(aboutMeProgress < 0){
+                aboutMeProgress = 0;
+                delta = 0;
+            }
+            aboutMeProgress = Math.min(aboutMeBaseText.length, aboutMeProgress+10*delta);
             aboutMeText.innerHTML = aboutMeBaseText.substring(0, aboutMeBaseText.indexOf(" ", aboutMeProgress-1));
             break;
     }
@@ -206,7 +213,7 @@ var activeClick;
 var beginPos;
 var mousePos;
 var mouseDragVector;
-var aboutMePos = new Vector(aboutMe.getBoundingClientRect().left,aboutMe.getBoundingClientRect().top);
+var aboutMePos = new Vector(-999,0);
 var aboutMeDrag = false;
 
 function onMouseDown(event){
