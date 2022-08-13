@@ -41,14 +41,14 @@
         </div>
 
         <div id="aboutMe" onclick="setHighest(this)">
-            <div class="windowTop" id="aboutMeTop">
+            <div class="windowTop aboutMeTop aboutMeDraggable">
                 <img src="icons/ide.png">
                 <p class="windowTopItem hover">File</p>
                 <p class="windowTopItem hover">Edit</p>
                 <p class="windowTopItem hover">View</p>
                 <p class="windowTopItem hover">Help</p>
                 <div class="flexGrow"></div>
-                <p class="windowTopItem" id="draggableAboutMe">About Me - Ethan Yen's Website</p>
+                <p class="windowTopItem aboutMeDraggable" >About Me - Ethan Yen's Website</p>
                 <div class="flexGrow"></div>
                 <p class="windowTopItem"></p>
                 <img src="icons/minimize.png" class="hover" onclick="toggleAboutMe()">
@@ -61,13 +61,24 @@
 
 
         <div id="projects" onclick="setHighest(this)">
-            <div class="windowTop" id="projectsTop">
-                <img src="icons/ide.png">
+            <div class="windowTop projectsTop projectsDraggable">
+                <img src="icons/files.png">
+                <p class="windowTopItem hover">File</p>
+                <p class="windowTopItem hover">Edit</p>
+                <p class="windowTopItem hover">View</p>
+                <p class="windowTopItem hover">Help</p>
             </div>
             <p>hello</p>
         </div>   
 
         <div id="experience" onclick="setHighest(this)">
+            <div class="windowTop experienceTop experienceDraggable">
+                <img src="icons/files.png">
+                <p class="windowTopItem hover">File</p>
+                <p class="windowTopItem hover">Edit</p>
+                <p class="windowTopItem hover">View</p>
+                <p class="windowTopItem hover">Help</p>
+            </div>
             <img src="test.png">
             <p>hello</p>
         </div>

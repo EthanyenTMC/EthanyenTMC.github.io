@@ -14,6 +14,60 @@ class Vector{
 
 }
 
+class Window{
+    constructor(el, startPos){
+        this.element = el;
+        this.pos = startPos;
+        this.visible = false;
+    }
+
+    toggleVisible(){
+        this.visible = true;
+
+        if(aboutV){ // hide
+            anime({
+                targets: this.element.id,
+                keyframes:[
+                    {   
+                        translateY: this.pos.y-(3*window.innerHeight/100),
+                        duration:100,
+                        easing:'easeOutQuad'
+                    },
+                    {   
+                        
+                        translateY:'30vh',
+                        translateX:'30vw',
+                        duration:1
+                    }
+                ]
+            });
+        }else{ // show
+            highestLayer++;
+            this.element.style.zIndex = highestLayer.toString();
+            activeLayer = this.element.id;
+            anime({
+                targets:this.element.id,
+                keyframes:[
+                    {   
+                        
+                        translateY:this.pos.y-(3*window.innerHeight/100),
+                        translateX:this.pos.x, 
+                        duration:1
+                    },
+                    {   
+                        opacity:100,
+                        translateY:this.pos.y,
+                        duration:250,
+                        easing:'easeOutQuint'
+                    }
+                ]
+            });
+        }
+        this.isVisible = !this.isVisible;
+
+    }
+}
+
 
 var highestLayer=1;
 var activeLayer;
@@ -99,6 +153,9 @@ function toggleProjects(){
     }else{ //show
         setHighest(projects);
         activeLayer="projects";
+        if(projectsPos.x === -999){
+            projectsPos = new Vector(projects.getBoundingClientRect().left,projects.getBoundingClientRect().top);
+        }
         console.log(projects.style.zIndex);
         anime({
             targets:'#projects',
@@ -145,6 +202,9 @@ function toggleExperience(){
     }else{ //show
         setHighest(experience);
         activeLayer = "experience";
+        if(experiencePos.x === -999){
+            experiencePos = new Vector(experience.getBoundingClientRect().left,experience.getBoundingClientRect().top);
+        }
         console.log(experience.style.zIndex);
         anime({
             targets:'#experience',
@@ -213,19 +273,40 @@ var beginPos;
 var mousePos;
 var mouseDragVector;
 var aboutMePos = new Vector(-999,0);
+var projectsPos = new Vector(-999,0);
+var experiencePos = new Vector(-999,0);
 var aboutMeDrag = false;
+var projectsDrag = false;
+var experienceDrag = false;
+
+function returnRelevantClassName(classes){
+    const arr = classes.split(" ");
+    for(var i = 0; i < arr.length; i++){
+        switch(arr[i]){
+            case "aboutMeDraggable":
+                return "aboutMeDraggable";
+            case "projectsDraggable":
+                return "projectsDraggable";
+            case "experienceDraggable":
+                return "experienceDraggable";
+        }
+    }
+}
 
 function onMouseDown(event){
     mouseDown = true;
     activeClick = event.target;
-    switch(activeClick.id){
-        case "aboutMeTop":
-            beginPos = new Vector(event.clientX, event.clientY);
+    console.log(returnRelevantClassName(activeClick.className));
+    beginPos = new Vector(event.clientX, event.clientY);
+    switch(returnRelevantClassName(activeClick.className)){
+        case "aboutMeDraggable":
             aboutMeDrag = true;
             break;
-        case "draggableAboutMe":
-            beginPos = new Vector(event.clientX, event.clientY);
-            aboutMeDrag = true;
+        case "projectsDraggable":
+            projectsDrag = true;
+            break;
+        case "experienceDraggable":
+            experienceDrag = true;
             break;
     }
     console.log(mousePos);
@@ -235,17 +316,17 @@ function onMouseMove(event){
     mousePos = new Vector(event.clientX, event.clientY);
     if(mouseDown){
         mouseDragVector = mousePos.sub(beginPos);
-        switch(activeClick.id){
-            case "aboutMeTop": //15 97
-            
-                aboutMe.style.left = aboutMePos.x+mouseDragVector.x + "px";
-                aboutMe.style.top = aboutMePos.y+mouseDragVector.y + "px";
-                break;
-            case "draggableAboutMe":
-                aboutMe.style.left = aboutMePos.x+mouseDragVector.x + "px";
-                aboutMe.style.top = aboutMePos.y+mouseDragVector.y + "px";
-                break;
+        if(aboutMeDrag){
+            aboutMe.style.left = aboutMePos.x+mouseDragVector.x + "px";
+            aboutMe.style.top = aboutMePos.y+mouseDragVector.y + "px";
+        }else if(projectsDrag){
+            projects.style.left = projectsPos.x+mouseDragVector.x + "px";
+            projects.style.top = projectsPos.y+mouseDragVector.y + "px";
+        }else if(experienceDrag){
+            experience.style.left = experiencePos.x+mouseDragVector.x + "px";
+            experience.style.top = experiencePos.y+mouseDragVector.y + "px";
         }
+
     }
 }
 
@@ -255,5 +336,11 @@ function onMouseUp(){
     if(aboutMeDrag){
         aboutMeDrag = false;
         aboutMePos = new Vector(aboutMePos.x+mouseDragVector.x, aboutMePos.y+mouseDragVector.y);
+    }else if(projectsDrag){
+        projectsDrag = false;
+        projectsPos = new Vector(projectsPos.x +mouseDragVector.x, projectsPos.y+mouseDragVector.y);
+    }else if(experienceDrag){
+        experienceDrag = false;
+        experiencePos = new Vector(experiencePos.x +mouseDragVector.x, experiencePos.y+mouseDragVector.y);
     }
 }

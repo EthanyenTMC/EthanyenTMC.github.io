@@ -140,8 +140,12 @@ body, html{
     align-items:center;
 }
 
-#aboutMeTop{
+.aboutMeTop{
     background-color: #302e40;
+}
+
+.projectsTop{
+    background-color:rgb(160, 27, 255);
 }
 
 .windowTopItem{
