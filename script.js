@@ -75,7 +75,7 @@ var projects, aboutMe;
 
 function init(){
     projects = document.getElementById("projects");
-    aboutMe = document.getElementById("aboutMe");
+    aboutMe = document.getElementById("aboutMe");``
 }
 document.addEventListener('wheel', handleScroll);
 //document.addEventListener('onmousedown', onClick);
@@ -241,8 +241,9 @@ function setHighest(thing){
     thing.style.zIndex = highestLayer.toString();
 }
 
-const aboutMeText = document.getElementById("aboutMeText");
-var aboutMeBaseText = aboutMeText.innerHTML;
+
+const aboutMeText = document.getElementById("aboutMeTextScroll");
+var aboutMeBaseText = aboutMeText.innerHTML.split(" ");
 aboutMeText.innerHTML = "";
 var aboutMeProgress = 0;
 
@@ -255,8 +256,11 @@ function handleScroll(event){
                 aboutMeProgress = 0;
                 delta = 0;
             }
-            aboutMeProgress = Math.min(aboutMeBaseText.length, aboutMeProgress+10*delta);
-            aboutMeText.innerHTML = aboutMeBaseText.substring(0, aboutMeBaseText.indexOf(" ", aboutMeProgress-1));
+            aboutMeProgress = Math.min(aboutMeBaseText.length, aboutMeProgress+2*delta);
+            aboutMeText.innerHTML = "";
+            for(var i = 0; i < aboutMeProgress; i++){
+                aboutMeText.innerHTML += aboutMeBaseText[i]+ " ";
+            }
             break;
     }
 
@@ -301,12 +305,15 @@ function onMouseDown(event){
     switch(returnRelevantClassName(activeClick.className)){
         case "aboutMeDraggable":
             aboutMeDrag = true;
+            setHighest(aboutMe);
             break;
         case "projectsDraggable":
             projectsDrag = true;
+            setHighest(projects);
             break;
         case "experienceDraggable":
             experienceDrag = true;
+            setHighest(experience);
             break;
     }
     console.log(mousePos);

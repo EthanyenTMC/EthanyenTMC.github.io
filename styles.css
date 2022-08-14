@@ -23,6 +23,10 @@ body, html{
     margin:0;
 }
 
+.green{
+    color:#21c953;
+}
+
 .square{
     background-color: red;
     height:10%;
@@ -121,28 +125,30 @@ body, html{
     position:absolute;
     background-color: blue;
     min-height:80vh;
-    min-width:80vh;
+    min-width:900px;
+    /*80vw*/
     font-size: 2vw;
+    font-family:"Consolas";
+
     width: 80%;
     height: 80%;
     margin:0;
 }
 
-#aboutMeText::after{
-    font-weight: bold;
-    content: "|";
-    animation: blinker 1s linear infinite;
-}
+
 
 .windowTop{
     display:flex;
     justify-content:space-between;
+    color:rgb(173, 173, 173);
     align-items:center;
+
 }
 
 .aboutMeTop{
-    background-color: #302e40;
+    background-color: #302e40; 
 }
+
 
 .projectsTop{
     background-color:rgb(160, 27, 255);
@@ -164,7 +170,7 @@ body, html{
 
 
 .windowTop p{
-    font-size: 3vh;
+    font-size: 50%;
     margin-top: 0;
     margin-bottom: 0;
 }
@@ -178,6 +184,143 @@ body, html{
       opacity: 0;
     }
   }
+
+.windowBody{
+    margin:0;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:nowrap;
+    justify-content:flex-start;
+    align-items:flex-start;
+    color:rgb(173, 173, 173);
+    height:100%;
+}
+
+.aboutMeBody{
+    background-color:#28263b;
+}
+
+.verticalIconPanel{
+    margin:0;
+    display:flex;
+    flex-direction: column;
+    width: 4%;
+    height: 100%;
+}
+
+.aboutMeIconPanel{
+    background-color:rgb(57, 54, 77);
+}
+
+.mainBody{
+    margin:0;
+    padding:0;
+    height:100%;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainBody p{
+    margin:0;
+}
+
+#aboutMeText{
+    height:100%;
+    background-color:#100f2a;
+    font-size:80%;
+}
+
+#aboutMeTextScroll::after{
+    font-weight: bold;
+    content: "|";
+    animation: blinker 1s linear infinite;
+}
+
+
+.iconTextPair{
+    margin:0;
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+.verticalTextPanel .iconTextPair img{
+    min-width:20%;
+    width:20%;
+    margin:0;
+}
+
+.horizontalTextPanel .iconTextPair img{
+    min-height:100%;
+    height:100%;
+
+    margin:0;
+}
+
+.horizontalTextPanel .iconTextPair p{
+    margin-right:10%;
+}
+
+.horizontalTextPanel .iconTextPair{
+    height:100%;
+    width:10%;
+    background-color: #212129;
+}
+
+#scriptTag{
+    background-color: #100f2a;
+}
+
+
+.verticalTextPanel{
+    margin:0;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    min-width:10%;
+    width: 10%;
+    font-size:40%;
+    
+    height: 100%;
+}
+
+.horizontalTextPanel{
+    margin:0;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    min-height:5%;
+    width: 100%;
+    font-size:40%;
+    height: 5%;
+    gap:0.3%;
+}
+
+
+
+.aboutMeTextPanel{
+    background-color:#1e1c30;
+    
+    font-family:"Consolas";
+}
+
+.aboutMeTextPanel p{
+    margin:5%;
+
+}
+
+.aboutMeTextPanel p1{
+    margin:5%;
+    font-weight: bold;
+    font-size:100%;
+}
+
+.aboutMeTextPanel img{
+    margin-left:5%;
+
+}
 
 #projects{
     position:absolute;
