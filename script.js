@@ -259,7 +259,11 @@ function handleScroll(event){
             aboutMeProgress = Math.min(aboutMeBaseText.length, aboutMeProgress+2*delta);
             aboutMeText.innerHTML = "";
             for(var i = 0; i < aboutMeProgress; i++){
-                aboutMeText.innerHTML += aboutMeBaseText[i]+ " ";
+                if(i == aboutMeProgress -1){     
+                    aboutMeText.innerHTML += aboutMeBaseText[i];
+                }else{
+                    aboutMeText.innerHTML += aboutMeBaseText[i]+ " ";
+                }
             }
             break;
     }
