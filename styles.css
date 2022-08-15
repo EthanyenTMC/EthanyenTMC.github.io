@@ -68,6 +68,8 @@ body, html{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items:center;
+    align-content: center;
 }
 
 .captionImg{
@@ -75,14 +77,15 @@ body, html{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+}
+
+.mainButtons{
     min-height: 75%;
     height: 75%;
     width: 20%;
 }
 
-.captionImg:hover{
-    background-color:rgba(226, 223, 255, 0.196);
-}
 
 .main .captionImg .button{
     height: 90%;
@@ -151,7 +154,7 @@ body, html{
 
 
 .projectsTop{
-    background-color:rgb(160, 27, 255);
+    background-color:rgb(73, 0, 125);
 }
 
 .windowTopItem{
@@ -160,6 +163,10 @@ body, html{
 }
 
 .hover:hover{
+    background-color:rgba(226, 223, 255, 0.196);
+}
+
+.highlighted{
     background-color:rgba(226, 223, 255, 0.196);
 }
 
@@ -279,12 +286,17 @@ body, html{
     display:flex;
     flex-direction: column;
     align-items: center;
-    min-width:10%;
-    width: 10%;
-    font-size:40%;
+    
     
     height: 100%;
 }
+
+.aboutMeTextPanel{
+    min-width:10%;
+    width: 10%;
+    font-size:40%;
+}
+
 
 .horizontalTextPanel{
     margin:0;
@@ -292,12 +304,15 @@ body, html{
     flex-direction: row;
     align-items: center;
     min-height:5%;
+    
+}
+
+.fileTabs{
     width: 100%;
     font-size:40%;
     height: 5%;
     gap:0.3%;
 }
-
 
 
 .aboutMeTextPanel{
@@ -324,12 +339,148 @@ body, html{
 
 #projects{
     position:absolute;
-    background-color:green;
+    display:flex;
+    flex-direction:column;
+    background-color:rgb(46, 42, 90);
     min-height:80vh;
     min-width:80vh;
     width: 90%;
     height: 80%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.projectsTop{
+    font-size:3rem;
+}
+
+.projectsTextPanel{
+    background-color:rgb(4, 0, 29);
+    width:8%;
+    min-width:150px;
+    color:#7970c0;
+}
+
+.projectsTextPanel .iconTextPair{
+    margin:0;
+    margin-left:13%;
+    height:auto;
+}
+
+.projectsTextPanel .desktopFile{
+    margin-left:6%;
+}
+
+.projectsTextPanel .iconTextPair img{
+    margin:3%;
+}
+
+
+.projectsAddressBar{
+    height:6%;
+    display:flex;
+    align-content: center;
+    align-items: center;
+    background-color:#100a4e;
+    gap:3px;
+    
+    color:#7970c0;
+}
+
+.projectsAddressBar img{
+    height:100%;
+}
+
+.fileAddress{
+    display:flex;
+    align-content: center;
+    align-items: center;
+    border-style: solid;
+    height:70%;    
+    border-width: 2px;
+    flex-grow: 10;
+}
+
+.searchBar{
+    display:flex;
+    align-content: center;
+    align-items: center;
+    border-style: solid;
+    height:70%;    
+    border-width: 2px;
+    width:20%;
+    margin-right:3px;
+    gap:3%;
+}
+
+.fileAddress p{
+    margin:0%;
+    margin-left:1%;
+}
+
+
+.fileDisplay{
+    background-color:rgb(8, 0, 62);
+    height:100%;
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    flex-grow: 2;
+    min-width:50%;
+    align-content:flex-start;
+}
+
+.project{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    align-content:center;
+    min-width:30%;
+    max-width:30%;
+    min-height:35%;
+    max-height:35%;
+    margin:1%;
+}
+
+.project img{
+    width:80%;
+    margin:0;
+}
+.project p{
+    margin:0;
+}
+
+.projectDisplay{
+    min-width:40%;
+    height:100%;
+    background-color:rgb(30, 25, 81);
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    
+    color:#7970c0;
+}
+
+#projectTitle{
+    font-size:300%;
+    margin:0;
+    
+}
+
+.projectDisplay img{
+    width:40%;
+    margin:0;
+}
+
+#projectDescription{
+    color:#9f9ac6;
+    font-size:140%;
+    margin-left: 5%;
+    margin-right:5%;
+    text-align: center;
+}
+
+
+
 
 #experience{
     position:absolute;

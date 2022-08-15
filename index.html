@@ -17,15 +17,15 @@
 
         <div class="main">
             <div class="flex-container-buttons">
-                <div class="captionImg">
+                <div class="captionImg mainButtons hover">
                     <img src="icons/files.png" class="button" onclick="toggleProjects()">
                     <p>Projects</p>
                 </div>
-                <div class="captionImg" onclick="toggleAboutMe()">
+                <div class="captionImg mainButtons hover" onclick="toggleAboutMe()">
                     <img src="icons/ide.png" class="button">
                     <p>About Me</p>
                 </div>
-                <div class="captionImg">
+                <div class="captionImg mainButtons hover">
                     <img src="icons/photoshop.png" class="button" onclick="toggleExperience()">
                     <p>Experience</p>
                 </div>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="mainBody">
-                    <div class="horizontalTextPanel">
+                    <div class="horizontalTextPanel fileTabs">
                         <div id="scriptTag" class="iconTextPair hover">
                             <img src="icons/JS.png">
                             <p>script.js</p>
@@ -112,13 +112,81 @@
         <div id="projects" onclick="setHighest(this)">
             <div class="windowTop projectsTop projectsDraggable">
                 <img src="icons/files.png">
-                <p class="windowTopItem hover">File</p>
-                <p class="windowTopItem hover">Edit</p>
-                <p class="windowTopItem hover">View</p>
-                <p class="windowTopItem hover">Help</p>
+                <p class="windowTopItem">File Explorer</p>
+                <div class="flexGrow"></div>
+                <img src="icons/minimize.png" class="hover" onclick="toggleProjects()">
+                <img src="icons/noname.png" class="hover" onclick="toggleProjects()">
+                <img src="icons/x.png" class="hover" onclick="toggleProjects()">
             </div>
-            <p>hello</p>
+            <div class="horizontalTextPanel projectsAddressBar">
+                <img src="icons/leftArrow.png">
+                <img src="icons/rightArrow.png">
+                <img src="icons/upArrow.png">
+                <div class="fileAddress">
+                    <img src="icons/files.png">
+                    <p>> This PC > Local Disk (C:) > Projects</p>
+                    <div class="flexGrow"></div>
+                    <img src="icons/open up.png">
+                    <img src="icons/reload.png">
+                </div>
+                <div class="searchBar">
+                    <img src="icons/search.png">
+                    <p>Search Projects</p>
+                </div>
+            </div>
+            <div class="windowBody projectsBody">
+                <div class="verticalTextPanel projectsTextPanel">
+                    <div class="iconTextPair desktopFile">
+                        <img src="icons/thisPC.png">
+                        <p>This PC</p>
+                    </div>
+                    <div class="iconTextPair">
+                        <img src="icons/desktop.png">
+                        <p>Desktop</p>
+                    </div>
+                    <div class="iconTextPair">
+                        <img src="icons/documents.png">
+                        <p>Documents</p>
+                    </div>
+                    <div class="iconTextPair">
+                        <img src="icons/folder.png">
+                        <p>Projects</p>
+                    </div>
+                </div>
+                <div class="fileDisplay">
+
+                    <div class="project hover" id="currentWebsite" onclick="updateProjectView(this)">
+                        <img src="icons/website.png">
+                        <p>This Website!</p>
+                    </div>
+
+                    <div class="project hover" id="game" onclick="updateProjectView(this)">
+                        <img src="test2.png">
+                        <p>This Game</p>
+                    </div>
+
+                </div>
+
+
+                <div class="projectDisplay">
+                    <p id="projectTitle">Title</p>
+                    <img src="test2.png" id="projectImage">
+                    <p id="projectDescription">This project was very cool, I used html, css and javascript. I made this website to have a centralized location where I can display my projects, talk about my experience, and post general information about myself to potential employers or to those who are just curious.</p>
+                </div>
+
+
+            </div>
         </div>   
+
+
+
+
+
+
+
+
+
+
 
         <div id="experience" onclick="setHighest(this)">
             <div class="windowTop experienceTop experienceDraggable">

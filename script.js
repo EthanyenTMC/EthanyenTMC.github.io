@@ -355,3 +355,35 @@ function onMouseUp(){
         experiencePos = new Vector(experiencePos.x +mouseDragVector.x, experiencePos.y+mouseDragVector.y);
     }
 }
+
+var projectTitle = document.getElementById("projectTitle");
+var projectImage = document.getElementById("projectImage");
+var projectDescription = document.getElementById("projectDescription");
+var activeProject = document.getElementById("currentWebsite");
+updateProjectView(activeProject);
+
+function updateProjectView(element){
+    var title, projectI, projectD;
+    switch(element.id){
+
+        case "currentWebsite":
+            title = "This Website";
+            projectI = "icons/website.png";
+            projectD = "This project was very cool, I used html, css and javascript. I made this website to have a centralized location where I can display my projects, talk about my experience, and post general information about myself to potential employers or to those who are just curious.";
+            break;
+
+        case "game":
+                title = "Game";
+                projectI = "test2.png";
+                projectD = "I love league of legends";
+            break;
+
+    }
+
+    projectTitle.innerHTML = title;
+    projectImage.src = projectI;
+    projectDescription.innerHTML = projectD;
+    activeProject.classList.remove("highlighted");
+    activeProject = element;
+    activeProject.classList.add("highlighted");
+}
