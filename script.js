@@ -89,7 +89,7 @@ function toggleAboutMe(){
             targets:'#aboutMe',
             keyframes:[
                 {   
-                    translateY:'-94vh',
+                    translateY:'-92vh',
                     duration:100,
                     easing:'easeOutQuad'
                 },
@@ -113,13 +113,13 @@ function toggleAboutMe(){
             keyframes:[
                 {   
                     
-                    translateY:'-94vh',
+                    translateY:'-92vh',
                     translateX:'15vw', 
                     duration:1
                 },
                 {   
                     opacity:100,
-                    translateY:'-97vh',
+                    translateY:'-95vh',
                     duration:250,
                     easing:'easeOutQuint'
                 }
@@ -236,9 +236,13 @@ function hideAllWindows(){
     toggleProjects();
 }
 
+var taskbar = document.getElementsByClassName("taskbar");
+taskbar = taskbar[0];
+
 function setHighest(thing){
     highestLayer++;
     thing.style.zIndex = highestLayer.toString();
+    taskbar.style.zIndex = (highestLayer+1).toString();
 }
 
 
