@@ -14,58 +14,15 @@ class Vector{
 
 }
 
-class Window{
-    constructor(el, startPos){
+class Draggable{
+    constructor(el, posx, posy){
         this.element = el;
-        this.pos = startPos;
-        this.visible = false;
+        this.x = posx;
+        this.y = posy
+        this.drag = false;
     }
 
-    toggleVisible(){
-        this.visible = true;
-
-        if(aboutV){ // hide
-            anime({
-                targets: this.element.id,
-                keyframes:[
-                    {   
-                        translateY: this.pos.y-(3*window.innerHeight/100),
-                        duration:100,
-                        easing:'easeOutQuad'
-                    },
-                    {   
-                        
-                        translateY:'30vh',
-                        translateX:'30vw',
-                        duration:1
-                    }
-                ]
-            });
-        }else{ // show
-            highestLayer++;
-            this.element.style.zIndex = highestLayer.toString();
-            activeLayer = this.element.id;
-            anime({
-                targets:this.element.id,
-                keyframes:[
-                    {   
-                        
-                        translateY:this.pos.y-(3*window.innerHeight/100),
-                        translateX:this.pos.x, 
-                        duration:1
-                    },
-                    {   
-                        opacity:100,
-                        translateY:this.pos.y,
-                        duration:250,
-                        easing:'easeOutQuint'
-                    }
-                ]
-            });
-        }
-        this.isVisible = !this.isVisible;
-
-    }
+    
 }
 
 
@@ -107,7 +64,6 @@ function toggleAboutMe(){
         if(aboutMePos.x === -999){
             aboutMePos = new Vector(aboutMe.getBoundingClientRect().left,aboutMe.getBoundingClientRect().top);
         }
-        console.log(aboutMe.style.zIndex);
         anime({
             targets:'#aboutMe',
             keyframes:[
@@ -293,16 +249,101 @@ var experienceDrag = false;
 
 function returnRelevantClassName(classes){
     const arr = classes.split(" ");
-    for(var i = 0; i < arr.length; i++){
-        switch(arr[i]){
-            case "aboutMeDraggable":
-                return "aboutMeDraggable";
-            case "projectsDraggable":
-                return "projectsDraggable";
-            case "experienceDraggable":
-                return "experienceDraggable";
+    if(arr.length > 1){
+        for(var i = 0; i < arr.length; i++){
+            switch(arr[i]){
+                case "aboutMeDraggable":
+                    return "aboutMeDraggable";
+                case "projectsDraggable":
+                    return "projectsDraggable";
+                case "experienceDraggable":
+                    return "experienceDraggable";
+                case "drawing":
+                    return "drawing";
+                case "canvasDrag":
+                    return "canvasDrag";
+            }
         }
+    }else{
+        return arr[0];
     }
+    
+}
+
+var drawing;
+var canvas = document.getElementById("canvas");
+var canvasBackground = document.getElementsByClassName("experienceCanvas")[0];
+var context = canvas.getContext("2d");
+var canvasRect = canvas.getBoundingClientRect();
+
+resizeCanvas();
+
+setInterval(handleCanvas, 17)
+
+
+function handleCanvas(){
+    resizeCanvas();
+    checkCanvasBounds();
+}
+
+
+function resizeCanvas(){
+    var rect = canvasBackground.getBoundingClientRect();
+    canvas.width = (rect.right - rect.left) * 0.8;
+    canvas.height = (rect.bottom - rect.top) * 0.8;
+    canvasRect = canvas.getBoundingClientRect();
+}
+
+function checkCanvasBounds(){
+    var experienceRect = experience.getBoundingClientRect();
+    for(var i = 0; i < canvasDraggable.length; i++){
+        if(!canvasDraggable[i].drag){
+            var temp = canvasDraggable[i].element.getBoundingClientRect();
+            canvasDraggable[i].element.style.left = Math.max(Math.min(canvasDraggable[i].x, canvasRect.right-temp.width - experienceRect.left), canvasRect.left - experienceRect.left) + "px";
+            canvasDraggable[i].element.style.top = Math.max(Math.min(canvasDraggable[i].y, canvasRect.bottom-temp.height - experienceRect.top), canvasRect.top - experienceRect.top) + "px";
+              
+        }
+              
+    }
+    //console.log(bound.right + " " + canvasDraggable[0].element.getBoundingClientRect().right);
+}
+
+function onWindowResize(){
+    
+}
+
+function handleDrawing(event){
+    var target = event.target;
+    var rect = target.getBoundingClientRect();
+    context.fillStyle = "#FF0000";
+    if(mouseDown){
+
+        context.fillRect(event.clientX - rect.left, event.clientY - rect.top, 2, 2);
+    }
+}
+
+var testDrag;
+
+function returnDraggable(index){
+    return new Draggable(document.getElementById("canvasDrag" + index), document.getElementById("canvasDrag" + index).getBoundingClientRect.x, document.getElementById("canvasDrag" + index).getBoundingClientRect.y);
+}
+
+var canvasDraggable = new Array();
+canvasDraggable.length = 3;
+
+for(var i = 0; i < 3; i++){
+    canvasDraggable[i] = returnDraggable(i+1);
+}
+
+console.log(canvasDraggable.toString());
+
+for(var i = 0; i < canvasDraggable.length;i++){
+    canvasDraggable[i].element.ondragstart = returnFalse;
+    canvasDraggable[i].x = -999;
+}
+
+function returnFalse(){
+    return false;
 }
 
 function onMouseDown(event){
@@ -323,12 +364,24 @@ function onMouseDown(event){
             experienceDrag = true;
             setHighest(experience);
             break;
+        case "canvasDrag":
+            for(var i = 0; i < canvasDraggable.length; i++){
+                if(event.target.id === canvasDraggable[i].element.id){
+                    canvasDraggable[i].drag = true;
+                    if(canvasDraggable[i].x == -999){
+                        canvasDraggable[i].x = canvasDraggable[i].element.getBoundingClientRect().left - experience.getBoundingClientRect().left;
+                    
+                        canvasDraggable[i].y = canvasDraggable[i].element.getBoundingClientRect().top - experience.getBoundingClientRect().top;
+                    }
+                }
+            }
+            break;
     }
-    console.log(mousePos);
 }
 
 function onMouseMove(event){
     mousePos = new Vector(event.clientX, event.clientY);
+    var experienceRect = experience.getBoundingClientRect();
     if(mouseDown){
         mouseDragVector = mousePos.sub(beginPos);
         if(aboutMeDrag){
@@ -340,8 +393,20 @@ function onMouseMove(event){
         }else if(experienceDrag){
             experience.style.left = experiencePos.x+mouseDragVector.x + "px";
             experience.style.top = experiencePos.y+mouseDragVector.y + "px";
+        }else if(testDrag){
+            testDragElement.style.left = experiencePos.x+mouseDragVector.x + "px";
+            testDragElement.style.top = experiencePos.x+mouseDragVector.y + "px";
+        }else{
+            for(var i = 0; i < canvasDraggable.length; i++){
+                if(canvasDraggable[i].drag){
+                    var temp = canvasDraggable[i].element.getBoundingClientRect();
+                    
+                    canvasDraggable[i].element.style.left = Math.max(Math.min(canvasDraggable[i].x+mouseDragVector.x, canvasRect.right-temp.width - experienceRect.left), canvasRect.left - experienceRect.left) + "px";
+                    canvasDraggable[i].element.style.top = Math.max(Math.min(canvasDraggable[i].y+mouseDragVector.y, canvasRect.bottom-temp.height - experienceRect.top), canvasRect.top - experienceRect.top) + "px";
+                }
+            }
         }
-
+        
     }
 }
 
@@ -357,6 +422,17 @@ function onMouseUp(){
     }else if(experienceDrag){
         experienceDrag = false;
         experiencePos = new Vector(experiencePos.x +mouseDragVector.x, experiencePos.y+mouseDragVector.y);
+    }else{
+        var experienceRect = experience.getBoundingClientRect();
+        for(var i = 0; i < canvasDraggable.length; i++){
+            if(canvasDraggable[i].drag){
+                var temp = canvasDraggable[i].element.getBoundingClientRect();
+                canvasDraggable[i].drag = false;
+                canvasDraggable[i].x = Math.max(Math.min(canvasDraggable[i].x+mouseDragVector.x, canvasRect.right-temp.width - experienceRect.left), canvasRect.left - experienceRect.left);
+                canvasDraggable[i].y = Math.max(Math.min(canvasDraggable[i].y+mouseDragVector.y, canvasRect.bottom-temp.height - experienceRect.top), canvasRect.top - experienceRect.top);
+                break;
+            }
+        }
     }
 }
 
