@@ -197,7 +197,12 @@
             <p class="windowTopItem hover">File</p>
             <p class="windowTopItem hover">Edit</p>
             <p class="windowTopItem hover">Image</p>
+            <p class="windowTopItem hover">Layer</p>
+            <p class="windowTopItem hover">Type</p>
+            <p class="windowTopItem hover">Select</p>
+            <p class="windowTopItem hover">Filter</p>
             <p class="windowTopItem hover">View</p>
+            <p class="windowTopItem hover">Window</p>
             <p class="windowTopItem hover">Help</p>
             <div class="flexGrow"></div>
             <img src="icons/minimize.png" class="hover" onclick="toggleExperience()">
@@ -206,34 +211,73 @@
         </div>
 
         <div class="horizontalIconPanel experienceSubHorizontalPanel">
-            <img src="test2.png">
-            <img src="test2.png">
-            <img src="test2.png">
+            <img src="icons/home.png">
+            <img src="icons/divider.png">
+            <img src="icons/align1.png">
+            <img src="icons/align2.png">
+            <img src="icons/align3.png">
+            <img src="icons/divider.png">
+            <img src="icons/align4.png">
+            <img src="icons/align5.png">
+            <img src="icons/align6.png">
         </div>
 
         <div class="windowBody experienceBody">
             <div class="verticalIconPanel experienceIconPanel">
-                <img src="test2.png">
-                <img src="test2.png">
-                <img src="test2.png">
-                <img src="test2.png">
-                <img src="test2.png">
-                <img src="test2.png">
-                <img src="test2.png">
-                <img src="test2.png">
+                <img src="icons/moveTool.png">
+                <img src="icons/marque.png">
+                <img src="icons/lasso.png">
+                <img src="icons/magicWand.png">
+                <img src="icons/eyedropper.png">
+                <img src="icons/brush.png">
+                <img src="icons/eraser.png">
+                <img src="icons/shape.png">
+                <img src="icons/expand.png">
             </div>
             <div class="experienceCanvas">
-                <canvas id="canvas" class="drawing" width="300" height="300"></canvas>
-                <img src="test2.png" class="canvasDrag" id="canvasDrag1"> 
-                <p class="canvasDrag" id="canvasDrag2">Hello</p>
-                <p class="canvasDrag" id="canvasDrag3">pee</p>
+                <canvas id="canvas" class="canvas"></canvas>
+                
             </div>
             <div class="experienceRightPanel">
-                <div class="colorPanel">
-                    <p>hello</p>
+                <div class="colorPanel"> <!--COLORS TAB JUST REUSING THE CLASS-->
+                    <div class="layerTab">
+                        <p>Colors</p>
+                    </div>
+                    <div class="colors">``
+                        <img src="icons/colorSample.png" id="colorSample">
+                        <img src="icons/colorSwatch.png" id="colorSquare">
+                        <img src="icons/colorWheel.png" id="colorWheel">
+                    </div>
                 </div>
                 <div class="layersPanel">
-                    <p>hello</p>
+                    <div class="layerTab">
+                        <p>Layers</p>
+                    </div>
+                    <div class="layer highlighted">
+                        <img src="icons/visibleEye.png">
+                        <img src="test2.png">
+                        <p>Layer 1</p>
+                    </div>
+                    <div class="layer">
+                        <img src="icons/visibleEye.png">
+                        <img src="test2.png">
+                        <p>Layer 2</p>
+                    </div>
+                    <div class="layer">
+                        <img src="icons/visibleEye.png">
+                        <img src="test2.png">
+                        <p>Layer 3</p>
+                    </div>
+                    <div class="layer">
+                        <img src="icons/visibleEye.png">
+                        <img src="test2.png">
+                        <p>Layer 4</p>
+                    </div>
+                    <div class="layer">
+                        <img src="icons/visibleEye.png">
+                        <img src="test2.png">
+                        <p>Layer 5</p>
+                    </div>
                 </div>
             </div>
 

@@ -431,7 +431,8 @@ body, html{
     flex-direction:row;
     flex-wrap: wrap;
     flex-grow: 2;
-    min-width:50%;
+    min-width:65%;
+    width:65%;
     align-content:flex-start;
 }
 
@@ -440,16 +441,16 @@ body, html{
     flex-direction:column;
     align-items: center;
     align-content:center;
-    min-width:30%;
-    max-width:30%;
-    min-height:35%;
-    max-height:35%;
+
+    width:18%;
+    height:27%;
     margin:1%;
 }
 
 .project img{
-    width:80%;
+    width:60%;
     margin:0;
+    margin-top:5%;
 }
 .project p{
     margin:0;
@@ -513,9 +514,10 @@ body, html{
 }
 
 .experienceIconPanel{
-    width:3%;
+    min-width:2.5%;
+    width:2.5%;
     height:100%;
-    background-color:rgb(57, 55, 63);
+    background-color:rgb(44, 40, 57);
 }
 
 .experienceSubHorizontalPanel{
@@ -525,7 +527,7 @@ body, html{
 }
 
 .experienceCanvas{
-    background-color: rgb(54, 45, 63);
+    background-color: rgb(15, 13, 17);
     flex-grow:2;
     
     height:100%;
@@ -548,24 +550,68 @@ body, html{
 }
 
 .colorPanel{
-    background-color: rgb(44, 39, 56);
+    background-color:#231e2c;
+    display:flex;
+    flex-direction:column;
     height:50%;
+    gap:1%;
 }
+
+.colors{
+    display:flex;
+    flex-direction:row;
+    height:100%;
+    width:100%;
+    gap:3%;
+    background-color: rgb(44, 39, 56);
+}
+
+#colorSquare{
+    width:60%;
+    height:75%;
+}
+
+#colorSample{
+    height:10%;
+    margin-left:5%;
+}
+
+#colorWheel{
+    height:80%;
+}
+
+
 
 .layersPanel{
-    background-color:rgb(44, 39, 56);
-    
+    background-color:#231e2c;
+    display:flex;
+    flex-direction:column;
     height:50%;
+    gap:1%;
 }
 
-.canvasDrag{
-    position:absolute;
-    margin:0;
-    padding:0;
+.layerTab{
+    height:10%;
+    width:20%;
+    background-color:rgb(44, 39, 56);
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#canvasDrag1{
-    height:100px;
-    width:100px;
+.layer{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    background-color:#100f18;
+    height:15%;
+    gap:5%;
 }
+
+.layer img{
+    height:70%;
+}
+
+
+
 

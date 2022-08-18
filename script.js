@@ -14,16 +14,7 @@ class Vector{
 
 }
 
-class Draggable{
-    constructor(el, posx, posy){
-        this.element = el;
-        this.x = posx;
-        this.y = posy
-        this.drag = false;
-    }
 
-    
-}
 
 
 var highestLayer=1;
@@ -32,7 +23,7 @@ var projects, aboutMe;
 
 function init(){
     projects = document.getElementById("projects");
-    aboutMe = document.getElementById("aboutMe");``
+    aboutMe = document.getElementById("aboutMe");
 }
 document.addEventListener('wheel', handleScroll);
 //document.addEventListener('onmousedown', onClick);
@@ -153,7 +144,9 @@ function toggleExperience(){
                     translateX:'30vw',
                     duration:1
                 }
-            ]
+            ],
+            
+            complete:resizeCanvas
         });
     }else{ //show
         setHighest(experience);
@@ -162,6 +155,7 @@ function toggleExperience(){
             experiencePos = new Vector(experience.getBoundingClientRect().left,experience.getBoundingClientRect().top);
         }
         console.log(experience.style.zIndex);
+        
         anime({
             targets:'#experience',
             keyframes:[
@@ -177,7 +171,7 @@ function toggleExperience(){
                     duration:250,
                     easing:'easeOutQuint'
                 }
-            ]
+            ],
         });
     }
     expV = !expV;
@@ -260,8 +254,7 @@ function returnRelevantClassName(classes){
                     return "experienceDraggable";
                 case "drawing":
                     return "drawing";
-                case "canvasDrag":
-                    return "canvasDrag";
+
             }
         }
     }else{
@@ -270,76 +263,88 @@ function returnRelevantClassName(classes){
     
 }
 
+function wrapText(text, x, y, maxWidth, lineHeight) {
+    var words = text.split(' ');
+    var line = '';
+
+    for(var n = 0; n < words.length; n++) {
+      var testLine = line + words[n] + ' ';
+      var metrics = context.measureText(testLine);
+      var testWidth = metrics.width;
+      if (testWidth > maxWidth && n > 0) {
+        context.fillText(line, x, y);
+        line = words[n] + ' ';
+        y += lineHeight;
+      }
+      else {
+        line = testLine;
+      }
+    }
+    context.fillText(line, x, y);
+}
+
 var drawing;
 var canvas = document.getElementById("canvas");
+
+var context = canvas.getContext('2d');
+canvas.addEventListener('pointermove', handleDrawing);
 var canvasBackground = document.getElementsByClassName("experienceCanvas")[0];
-var context = canvas.getContext("2d");
 var canvasRect = canvas.getBoundingClientRect();
+window.onresize = resizeCanvas;
 
+//setInterval(handleCanvas, 17);
 resizeCanvas();
+function resizeCanvas(){
+    canvas.width = canvasBackground.getBoundingClientRect().width * 0.8;
+    canvas.height = canvasBackground.getBoundingClientRect().height * 0.8;
+    
+    context.fillStyle = "#FF0000";
+    wrapText("hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello ",10, 10, canvas.width, 30);
 
-setInterval(handleCanvas, 17)
-
+    console.log(canvasBackground.getBoundingClientRect().height);
+}
 
 function handleCanvas(){
     resizeCanvas();
-    checkCanvasBounds();
-}
-
-
-function resizeCanvas(){
-    var rect = canvasBackground.getBoundingClientRect();
-    canvas.width = (rect.right - rect.left) * 0.8;
-    canvas.height = (rect.bottom - rect.top) * 0.8;
-    canvasRect = canvas.getBoundingClientRect();
-}
-
-function checkCanvasBounds(){
-    var experienceRect = experience.getBoundingClientRect();
-    for(var i = 0; i < canvasDraggable.length; i++){
-        if(!canvasDraggable[i].drag){
-            var temp = canvasDraggable[i].element.getBoundingClientRect();
-            canvasDraggable[i].element.style.left = Math.max(Math.min(canvasDraggable[i].x, canvasRect.right-temp.width - experienceRect.left), canvasRect.left - experienceRect.left) + "px";
-            canvasDraggable[i].element.style.top = Math.max(Math.min(canvasDraggable[i].y, canvasRect.bottom-temp.height - experienceRect.top), canvasRect.top - experienceRect.top) + "px";
-              
-        }
-              
-    }
-    //console.log(bound.right + " " + canvasDraggable[0].element.getBoundingClientRect().right);
-}
-
-function onWindowResize(){
+    
     
 }
 
-function handleDrawing(event){
-    var target = event.target;
-    var rect = target.getBoundingClientRect();
-    context.fillStyle = "#FF0000";
-    if(mouseDown){
 
-        context.fillRect(event.clientX - rect.left, event.clientY - rect.top, 2, 2);
+
+function handleDrawing(event){
+    context.fillStyle = "#FF0000";
+    var rect = canvas.getBoundingClientRect();
+    const events = event.getCoalescedEvents();
+    for(var i = 0; i < events.length; i++){
+        if(mouseDown){
+            console.log(rect.left);
+            if(i > 0){
+                /*if(events[i].clientX - events[i-1].clientX > 2 || events[i].clientY - events[i-1].clientY > 2){
+                    var difference = new Vector(events[i].clientX-events[i-1].clientX, events[i].clientY-events[i-1].clientY);
+                    for(var j = 0; j <= 2; j++){
+                        context.fillRect(events[i].clientX-(j*difference.x) - rect.left , events[i].clientY-(j*difference.y) - rect.top, 3, 3);
+                    }
+                }*/
+                var difference = new Vector(events[i].clientX-events[i-1].clientX, events[i].clientY-events[i-1].clientY);
+                    for(var j = 0; j <= 10; j++){
+                        context.fillRect(events[i].clientX-(j*difference.x/5) - rect.left , events[i].clientY-(j*difference.y/5) - rect.top, 3, 3);
+                    }
+            }
+            context.fillRect(events[i].clientX-  rect.left , events[i].clientY - rect.top, 3, 3);
+            
+        }
     }
 }
 
-var testDrag;
-
-function returnDraggable(index){
-    return new Draggable(document.getElementById("canvasDrag" + index), document.getElementById("canvasDrag" + index).getBoundingClientRect.x, document.getElementById("canvasDrag" + index).getBoundingClientRect.y);
-}
-
-var canvasDraggable = new Array();
-canvasDraggable.length = 3;
-
-for(var i = 0; i < 3; i++){
-    canvasDraggable[i] = returnDraggable(i+1);
-}
-
-console.log(canvasDraggable.toString());
-
-for(var i = 0; i < canvasDraggable.length;i++){
-    canvasDraggable[i].element.ondragstart = returnFalse;
-    canvasDraggable[i].x = -999;
+function draw(prevX, prevY, currX, currY) {
+    context.beginPath();
+    context.moveTo(prevX, prevY);
+    context.lineTo(currX, currY);
+    context.strokeStyle = 3;
+    context.lineWidth = 3;
+    context.stroke();
+    context.closePath();
 }
 
 function returnFalse(){
@@ -364,53 +369,31 @@ function onMouseDown(event){
             experienceDrag = true;
             setHighest(experience);
             break;
-        case "canvasDrag":
-            for(var i = 0; i < canvasDraggable.length; i++){
-                if(event.target.id === canvasDraggable[i].element.id){
-                    canvasDraggable[i].drag = true;
-                    if(canvasDraggable[i].x == -999){
-                        canvasDraggable[i].x = canvasDraggable[i].element.getBoundingClientRect().left - experience.getBoundingClientRect().left;
-                    
-                        canvasDraggable[i].y = canvasDraggable[i].element.getBoundingClientRect().top - experience.getBoundingClientRect().top;
-                    }
-                }
-            }
-            break;
+
     }
 }
 
 function onMouseMove(event){
     mousePos = new Vector(event.clientX, event.clientY);
-    var experienceRect = experience.getBoundingClientRect();
     if(mouseDown){
         mouseDragVector = mousePos.sub(beginPos);
-        if(aboutMeDrag){
-            aboutMe.style.left = aboutMePos.x+mouseDragVector.x + "px";
-            aboutMe.style.top = aboutMePos.y+mouseDragVector.y + "px";
-        }else if(projectsDrag){
-            projects.style.left = projectsPos.x+mouseDragVector.x + "px";
-            projects.style.top = projectsPos.y+mouseDragVector.y + "px";
-        }else if(experienceDrag){
-            experience.style.left = experiencePos.x+mouseDragVector.x + "px";
-            experience.style.top = experiencePos.y+mouseDragVector.y + "px";
-        }else if(testDrag){
-            testDragElement.style.left = experiencePos.x+mouseDragVector.x + "px";
-            testDragElement.style.top = experiencePos.x+mouseDragVector.y + "px";
-        }else{
-            for(var i = 0; i < canvasDraggable.length; i++){
-                if(canvasDraggable[i].drag){
-                    var temp = canvasDraggable[i].element.getBoundingClientRect();
-                    
-                    canvasDraggable[i].element.style.left = Math.max(Math.min(canvasDraggable[i].x+mouseDragVector.x, canvasRect.right-temp.width - experienceRect.left), canvasRect.left - experienceRect.left) + "px";
-                    canvasDraggable[i].element.style.top = Math.max(Math.min(canvasDraggable[i].y+mouseDragVector.y, canvasRect.bottom-temp.height - experienceRect.top), canvasRect.top - experienceRect.top) + "px";
-                }
+        if(mouseDragVector.x > 10 || mouseDragVector.y > 10){
+            if(aboutMeDrag){
+                aboutMe.style.left = aboutMePos.x+mouseDragVector.x + "px";
+                aboutMe.style.top = aboutMePos.y+mouseDragVector.y + "px";
+            }else if(projectsDrag){
+                projects.style.left = projectsPos.x+mouseDragVector.x + "px";
+                projects.style.top = projectsPos.y+mouseDragVector.y + "px";
+            }else if(experienceDrag){
+                experience.style.left = experiencePos.x+mouseDragVector.x + "px";
+                experience.style.top = experiencePos.y+mouseDragVector.y + "px";
             }
         }
-        
+       
     }
 }
 
-function onMouseUp(){
+function onMouseUp(event){
     mouseDown = false;
     beginPos = null;
     if(aboutMeDrag){
@@ -422,19 +405,9 @@ function onMouseUp(){
     }else if(experienceDrag){
         experienceDrag = false;
         experiencePos = new Vector(experiencePos.x +mouseDragVector.x, experiencePos.y+mouseDragVector.y);
-    }else{
-        var experienceRect = experience.getBoundingClientRect();
-        for(var i = 0; i < canvasDraggable.length; i++){
-            if(canvasDraggable[i].drag){
-                var temp = canvasDraggable[i].element.getBoundingClientRect();
-                canvasDraggable[i].drag = false;
-                canvasDraggable[i].x = Math.max(Math.min(canvasDraggable[i].x+mouseDragVector.x, canvasRect.right-temp.width - experienceRect.left), canvasRect.left - experienceRect.left);
-                canvasDraggable[i].y = Math.max(Math.min(canvasDraggable[i].y+mouseDragVector.y, canvasRect.bottom-temp.height - experienceRect.top), canvasRect.top - experienceRect.top);
-                break;
-            }
-        }
     }
 }
+
 
 var projectTitle = document.getElementById("projectTitle");
 var projectImage = document.getElementById("projectImage");
