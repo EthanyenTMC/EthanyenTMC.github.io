@@ -25,7 +25,7 @@ function init(){
     projects = document.getElementById("projects");
     aboutMe = document.getElementById("aboutMe");
 }
-document.addEventListener('mousewheel', handleScroll);
+document.addEventListener('wheel', handleScroll);
 //document.addEventListener('onmousedown', onClick);
 
 
@@ -202,11 +202,16 @@ aboutMeText.innerHTML = "";
 var aboutMeProgress = 0;
 
 function handleScroll(event){
-    console.log(aboutMeProgress);
-    event.preventDefault();
+    //console.log(event.deltaY);
     switch(activeLayer){
         case "aboutMe":
             var delta = event.deltaY/Math.abs(event.deltaY);
+            if(delta){
+                delta = event.deltaY/Math.abs(event.deltaY);
+            }else{
+                delta = 0;
+            }
+            console.log(aboutMeProgress);
             if(aboutMeProgress < 0){
                 aboutMeProgress = 0;
                 delta = 0;
