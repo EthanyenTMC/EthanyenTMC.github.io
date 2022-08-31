@@ -25,7 +25,7 @@ function init(){
     projects = document.getElementById("projects");
     aboutMe = document.getElementById("aboutMe");
 }
-document.addEventListener('wheel', handleScroll);
+document.addEventListener('mousewheel', handleScroll);
 //document.addEventListener('onmousedown', onClick);
 
 
@@ -203,6 +203,7 @@ var aboutMeProgress = 0;
 
 function handleScroll(event){
     console.log(aboutMeProgress);
+    event.preventDefault();
     switch(activeLayer){
         case "aboutMe":
             var delta = event.deltaY/Math.abs(event.deltaY);
