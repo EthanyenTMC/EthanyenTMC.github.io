@@ -5,6 +5,20 @@ var ended = false;
 var flyCount = 0;
 var dragonCount = 0;
 var timeLeft = 3600;
+
+let fly, dragonfly, garbage, frog, swamp;
+function preload(){
+    swamp = loadImage("swamp.png");
+    fly = loadImage("fly.png");
+    dragonfly = loadImage("dragonfly.png");
+    frog = loadImage("frog.png");
+    garbage = [
+        loadImage("can1.png"),
+        loadImage("can2.png"),
+        loadImage("plasticbag.png")
+    ];
+}
+
 const food = {
     id: "",
     x: 0,
@@ -18,16 +32,15 @@ const food = {
     diffY: 0,
     stuck: false,
     draw:function () {
-        //image(frog, this.x - this.w/2, this.y - this.h/2, this.w, this.h);
         if(this.id =="fly"){
-            fill(color(255, 204, 0));
-            circle(this.x, this.y, this.h);
+            //fill(color(255, 204, 0));
+            //circle(this.x, this.y, this.h);
+            image(fly, this.x, this.y, this.w*3, this.h*3);
         }else if (this.id == "dragonfly"){
-            fill(color(255, 15, 0));
-            circle(this.x, this.y, this.h);
+            //fill(color(255, 15, 0));
+            //circle(this.x, this.y, this.h);
+            image(dragonfly, this.x, this.y, this.w*3, this.h*3);
         }
-        
-        
 
     },
     setup:function(id,x,y,w,h){
@@ -111,11 +124,14 @@ const food = {
     w: 10,
     h: 10,
     vx: 0,
+    pic: 0,
     draw:function () {
-        //image(frog, this.x - this.w/2, this.y - this.h/2, this.w, this.h);
-        rect(this.x,this.y,this.w, this.h)
+        //rect(this.x,this.y,this.w, this.h);
+        image(garbage[this.pic], this.x+2*this.w/3, this.y+this.h/3, this.w*1.5, this.h*1.5);
+        
     },
     setup:function(x,y,w,h,vx){
+        this.pic = Math.floor(random(0,3));
       this.x = x-w/2;
       this.y = y-h/2;
       this.w = w;
@@ -134,12 +150,14 @@ const food = {
   let objects = [];
 
 
+let ctx;
 function setup(){
     let c = createCanvas(720,480);
     c.parent("canvasContainer");
     c.mouseClicked(onMouseClick);
     frameRate(60);
     textSize(20);
+    imageMode(CENTER);
     textAlign(CENTER);
     objects.push(Object.create(button))
     objects[0].setup(360,240, 100, 30, function(){
@@ -151,18 +169,18 @@ function setup(){
 }
 
 var frogX = 355;
-var frogY = 20;
+var frogY = 40;
 
 function draw(){
     
-    background(0,0,0);
-    
-    fill(245,181,181);
-    circle(frogX, frogY, 10);
-    fill(255,255,255);
-    circle(mouseX, mouseY, 10);
+    //background(0,0,0);
+    image(swamp,360,240,720,530);
+    //circle(frogX, frogY, 10);
     tongue.update();
     tongue.draw();
+    image(frog, frogX, frogY-50, 150, 150);
+
+    
     stroke(0);
     strokeWeight(1);
     for(var i = 0; i < objects.length; i++){
@@ -343,3 +361,4 @@ function onMouseClick(){
         console.log("shoot");
     }
 }
+
