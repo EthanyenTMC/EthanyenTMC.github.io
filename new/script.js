@@ -48,12 +48,14 @@ function run(){
     draw();
 }
 //socket.on(`updateCanvasImage`, src => {update = false; bg.src = src});
+
+var progress = 50;
 function draw(){
 
         //console.log(imageSrc[Math.floor((imageSrc.length) * calculateProgress())]);
         ctx.fillStyle = "#070709";
         ctx.fillRect(0,0,c.width, c.height);
-        ctx.drawImage(bgp[clamp(Math.round((imageSrc.length) * calculateProgress()),1, 239)], (1440-c.height)*9/16/2, 0, c.height*16/9, c.height);
+        ctx.drawImage(bgp[clamp(Math.round((imageSrc.length) * progress),1, 239)], (1440-c.height)*9/16/2, 0, c.height*16/9, c.height);
         //ctx.fillStyle = "rgba(0,0,255,0.3)";
         //ctx.fillRect(20,20,500,300);
     
