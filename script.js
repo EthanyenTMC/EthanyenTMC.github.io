@@ -88,6 +88,8 @@ function update(){
     //OIAEUBF UIOAEFBIOU AEBFOIUEBAOIFU ABEOIUFBOIAEUBFOIAEUBFOIAEBF
     //you wanted to try to highlight the side words when the mouse hits a certain part
     }
+    words[0].style.fontSize = Math.max(10, 10*(0.5+progress.raw)) +"rem";
+    words[2].style.fontSize = Math.max(10, 10/(0.5+progress.raw)) +"rem";
     updateProgress();
     calculateProgress();
     
@@ -101,7 +103,7 @@ function updateProgress(){
     var time = new Date().getTime();
     //progress.actual = (progress.target - tweenInitial)*(1-Math.pow((time - tweenTime)/tweenLength, 2));
     if(Math.abs((progress.target-progress.actual)/8) > 0.0018){
-    progress.actual += (progress.target-progress.actual)/6;
+    progress.actual += (progress.target-progress.actual)/4;
     }else{
         progress.target = progress.actual;
     }

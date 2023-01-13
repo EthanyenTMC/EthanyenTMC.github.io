@@ -1,0 +1,28 @@
+@font-face {
+    font-family: comicsans;
+    src: url(COMIC.TTF);
+}
+
+* {
+    font-family: comicsans;
+    background: black;
+    color:white;
+}
+
+.sidebyside {
+    display:flex;
+    padding: 1vw;
+    gap:1vw;
+}
+
+.thin{
+    width:50%;
+}
+
+#tritter{
+    height: 10%;
+}
+
+img{
+    width: 20%;
+}
