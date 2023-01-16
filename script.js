@@ -102,7 +102,7 @@ var tweenInitial = 0;
 function updateProgress(){
     var time = new Date().getTime();
     //progress.actual = (progress.target - tweenInitial)*(1-Math.pow((time - tweenTime)/tweenLength, 2));
-    if(Math.abs((progress.target-progress.actual)/8) > 0.0018){
+    if(Math.abs((progress.target-progress.actual)/4) > 0.0018){
     progress.actual += (progress.target-progress.actual)/4;
     }else{
         progress.target = progress.actual;
