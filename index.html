@@ -1,20 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ethan Yen</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body> 
-<canvas id="backgroundCanvas"></canvas>
-<div id="nameContainer">
-    <p class="moving">hello</p>
-    <p class="moving">Ethan Yen</p>
-    <p class="moving">hello</p>
-</div>
+<html>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ethan Yen's Website</title>
+        
+    <!--<link rel="icon" type="image/x-icon" href="/logo transparent.ico">-->
+    </head>
+    
+    <body>
+        <div id="screenContainer">
+            <div id="screen"></div>
+        </div>
 
-<script src="script.js"></script>
-</body>
-</html>
+        <div id="content">
+            <img src="ethan.png">
+            <img id="lastname" src="yen.png">
+            <div class="panel"></div>
+        </div>
+
+        <script type="module" src="/animejs/index.js"></script>
+        <script type="module" src="script.js"></script>
+    </body>
+    <link rel="stylesheet" href = 'styles.css'>
+
+    
+    </html>

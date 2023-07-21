@@ -1,122 +1,101 @@
-const c = document.getElementById("backgroundCanvas");
-var ctx = c.getContext("2d");
-document.onmousemove = mouseMove;
-window.onresize = resizeWindow;
+import anime from '/animejs/index.js';
 
-c.width = window.innerWidth;
-c.height = window.innerHeight;
+var screen = document.getElementById("screen");
 
-var mouse = {
-    x:0,
-    y:0,
-    moving: false
-};
-function mouseMove(e){
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-    mouse.moving = true;
-    //bgp.src = imageSrc[clamp(Math.round((imageSrc.length) * calculateProgress()),1, 119)];
-    console.log(clamp(Math.round((imageSrc.length) * progress.actual),1, 119));
-    //tweenTime = new Date().getTime();
-    //tweenInitial = progress.actual();
-} 
+var squareSize = window.innerHeight * 0.04; //percent of height (vh) when changed, change tiles AND row size in css
+console.log(window.innerHeight + " " + squareSize);
 
-var progress = {
-    actual: 0.5,
-    target: 0.5,
-    raw:0.5
-};
+var numCols;
+var numRows;
 
-function resizeWindow(e){
-    c.width = window.innerWidth;
-    c.height = window.innerHeight;
-    bgoffset = -(1440-c.height)/2;
-    leftBorder = c.width * 0.25;
-    rightBorder = c.width *0.75;
-    console.log("resized?");
-    run();
-}
+console.log(window.innerWidth);
 
-let imageSrc = [];
-let bgp = [];
-for(var i = 0; i < 240; i++){
-    imageSrc[i] = "frames/"+((i+1).toString()).padStart(4, "0")+".webp";
-    bgp[i] = new Image();
-    bgp[i].src = imageSrc[i];
-    //bg[i].setAttribute("src", "frames/0001.webp");
-    //console.log("frames/"+i.toString().padStart(4, "0")+".webp");
-}
-//bg[0] = new Image();
-//bg[0].src = "frames/0001.webp";
-var bgoffset = -(1440-c.height);
-console.log(c.height);
+numRows = Math.floor(window.innerHeight/squareSize);
+numCols = Math.floor(window.innerWidth/squareSize)+1;
 
-setInterval(run, 16);
-
-function run(){
-    update();
-    draw();
-}
-//socket.on(`updateCanvasImage`, src => {update = false; bg.src = src});
-
-function draw(){
-
-        //console.log(imageSrc[Math.floor((imageSrc.length) * calculateProgress())]);
-        ctx.fillStyle = "#070709";
-        ctx.fillRect(0,0,c.width, c.height);
-        ctx.drawImage(bgp[239 - clamp(Math.round((imageSrc.length) * progress.actual),1, 239)], (1440-c.height)*9/16/2, 0, c.height*16/9, c.height);
-        ctx.font = "20px Arial";
-        ctx.fillText("Target: " + progress.target, 10, 10);
-        ctx.fillText("actual: " + progress.actual, 10, 30);
-        //ctx.fillStyle = "rgba(0,0,255,0.3)";
-        //ctx.fillRect(20,20,500,300);
+screen.style.setProperty("--columns", numCols);
+screen.style.setProperty("--rows", numRows);
     
-    
-
-}
-
-var title = document.getElementById("name");
-
-function update(){
-    mouse.moving = false;
-    //console.log("translate(" + Math.round(calculateProgress()*300) + "px)");
-    var words = document.getElementsByClassName("moving");
-    for(var i = 0; i<words.length; i++){
-        words[i].style.WebkitTransform = "translateX(" + (Math.round(progress.actual*+600)-300) + "px)";
-    // HERE HERHEHRHEHR EHR EHREHHRHEH ERHH EHRHERHEH RHEH RHER HE
-    //EBIFABOIAEB OFIAEBFOI UAEHFBIO UEAHFUIOAEBFOIUEABFOIEAUBFIUAEBF
-    //OIAEUBF UIOAEFBIOU AEBFOIUEBAOIFU ABEOIUFBOIAEUBFOIAEUBFOIAEBF
-    //you wanted to try to highlight the side words when the mouse hits a certain part
-    }
-    words[0].style.fontSize = Math.max(10, 10*(0.5+progress.raw)) +"rem";
-    words[2].style.fontSize = Math.max(10, 10/(0.5+progress.raw)) +"rem";
-    updateProgress();
-    calculateProgress();
-    
-    //progress.actual += Math.pow((progress.target - progress.actual),3)/10;
-}
-
-var tweenLength = 1000;
-var tweenTime = 0;
-var tweenInitial = 0;
-function updateProgress(){
-    var time = new Date().getTime();
-    //progress.actual = (progress.target - tweenInitial)*(1-Math.pow((time - tweenTime)/tweenLength, 2));
-    if(Math.abs((progress.target-progress.actual)/4) > 0.0018){
-    progress.actual += (progress.target-progress.actual)/4;
-    }else{
-        progress.target = progress.actual;
+console.log("hi" + numCols);
+for(var i = 0; i < numRows; i++){
+    for(var j = 0; j < numCols; j++){
+        var tile = document.createElement("div");
+        tile.setAttribute("class", "tiles");
+        tile.setAttribute("id", j+(i*numCols));
+        screen.appendChild(tile);
     }
 }
 
-var leftBorder = c.width * 0.33;
-var rightBorder = c.width *0.66;
-function calculateProgress(){
-    progress.target = clamp((mouse.x - leftBorder)/(rightBorder - leftBorder), 0, 1);
-    progress.raw = mouse.x/c.width;
-    //return clamp((mouse.x - leftBorder)/(rightBorder - leftBorder), 0, 1);
+//console.log(window.innerWidth + " " + window.innerHeight);
+var clickAnim = anime({
+    targets:'#screen .tiles',
+    duration: 1,
+    autoplay: true,
+});
+
+var colorShift = ["#000b4b", "#2a004b"];
+
+document.onclick = function(e){
+    console.log(e.target.id);
+    console.log("start");
+    console.log(document.elementsFromPoint(e.x,e.y));
+    var clickedElements = document.elementsFromPoint(e.x, e.y);
+    var clickedTile = null;
+    for(var i = 0; i < clickedElements.length; i++){
+        if(clickedElements[i].classList.contains("tiles")){
+            clickedTile = clickedElements[i];
+        }
+    }
+
+    if(clickAnim.completed && clickedTile != null){
+        clickAnim = anime({
+            targets:'#screen .tiles',
+            /*scale:[{value: 0.1}, {value: 1}],
+            backgroundColor: colorShift,*/
+            keyframes: [
+                {
+                    scale: 0.1,
+                    backgroundColor: colorShift[0]
+                },
+                {
+                    scale: 1,
+                    backgroundColor: colorShift[1]
+                }
+            ],
+            duration: 100,
+            easing:'easeInQuad',
+            delay: anime.stagger(15, {grid: [numCols, numRows], from: clickedTile.id}),
+            autoplay: true,
+        });
+        var temp = colorShift[0];
+        colorShift[0] = colorShift[1];
+        colorShift[1] = temp;
+    }
+
+    //var clicked = findTileCord(e.x, e.y);
+    //flipTileToggle(clicked, true);
+    //clicked.style.backgroundColor = "red";
+    
 }
 
-function clamp(x, min, max){
-    return Math.min(Math.max(x, min), max);
-}
+/*
+var downAnim = anime({
+    targets:'#screen .tiles',
+    //rotateY: {value: 180, easing: 'linear', duration:1000},
+    rotateY: 180,
+    duration: 750,
+    easing:'linear',
+    delay:anime.stagger(50, {grid: [numCols, numRows], axis: 'y'}),
+    autoplay: true,
+});*/
+
+var leftAnim = anime({
+    targets:'#screen .tiles',
+    //rotateY: {value: 180, easing: 'linear', duration:1000},
+    keyframes: [{scale: 0}, {scale:1}],
+    duration: 500,
+    easing:'easeInSine',
+    delay:anime.stagger(50, {grid: [numCols, numRows], axis: 'x'}),
+    autoplay: false,
+});
+

@@ -1,49 +1,60 @@
-@font-face {
-    font-family: lemonmilk;
-    src: url(old/fonts/LEMONMILK-Medium.otf);
-}
-
-@font-face {
-    font-family: lemonmilklight;
-    src: url(old/fonts/LEMONMILK-Light.otf);
-}
-
-@font-face {
-    font-family: italian;
-    src: url(fonts/italian.otf);
-}
-
-/*@font-face {
-    font-family: thin;
-    src: url(fonts/unisansthin.otf);
-}*/
-
-* {
+body{
+    /*background-color:rgb(151, 214, 255);*/
+    /*background: linear-gradient(90deg, rgba(255,74,255,1) 0%, rgba(218,176,255,1) 50%, rgba(70,224,255,1) 100%);*/
+    /*background: #080919;*/
+    background: linear-gradient(90deg, rgba(56,12,91,1) 0%, rgba(15,59,110,1) 100%);
     margin:0;
-    padding:0;
-    overflow:hidden;
+    overflow-x: hidden;
 }
 
-#backgroundCanvas{
-    position: fixed;
-    z-index:-1;
+.tiles{
+    transform-style: preserve-3d;
+    background-color:#000b4b;
+    width:4vh;
+    height:4vh;
 }
 
-#nameContainer{
-    position:absolute;
-    display: flex;
-    min-height:100%;
-    min-width:100%;
+
+#screen{
     width:100%;
-    align-items: center;
-    align-content: center;
-    justify-content: space-around;
+    height:100%;
+    display:grid;
+    position:absolute;
+    grid-template-columns: repeat(var(--columns), 1fr);
+    grid-template-rows: repeat(var(--rows), 1fr);
+    grid-gap: 2px 2px;
+}
+
+#screenContainer{
+    position: fixed;
+    top:0%;
+    left:0;
+    height:100%;
+    width:100%;
+    z-index:1;
+}
+
+#content{
+    width:30%;
+    position:relative;
+    z-index: 100;
+    display: flex;
+    flex-direction:column;
+    justify-items: center;
+    align-items:center;
+    margin:0 auto;
+    padding:0;
+    border: 0;
+}
+
+#content img{
+    width:100%;
     
 }
 
-.moving{
-    /*font-family: thin;*/
-    color:aliceblue;
-    text-align: center;
-    font-size: 10rem;
+
+.panel{
+    height: 20vh;
+    width: 20vh;
+    background: white;
 }
