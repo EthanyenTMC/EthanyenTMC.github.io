@@ -2,9 +2,9 @@ body{
     /*background-color:rgb(151, 214, 255);*/
     /*background: linear-gradient(90deg, rgba(255,74,255,1) 0%, rgba(218,176,255,1) 50%, rgba(70,224,255,1) 100%);*/
     /*background: #080919;*/
-    background: linear-gradient(90deg, rgba(56,12,91,1) 0%, rgba(15,59,110,1) 100%);
+    background:linear-gradient(90deg, rgba(56,12,91,1) 0%, rgba(15,59,110,1) 100%);
     margin:0;
-    overflow-x: hidden;
+    overflow-x:hidden;
 }
 
 .tiles{
@@ -12,12 +12,14 @@ body{
     background-color:#000b4b;
     width:4vh;
     height:4vh;
+    border-radius: 0vh;
 }
+
+
 
 
 #screen{
     width:100%;
-    height:100%;
     display:grid;
     position:absolute;
     grid-template-columns: repeat(var(--columns), 1fr);
@@ -26,7 +28,7 @@ body{
 }
 
 #screenContainer{
-    position: fixed;
+    position: absolute;
     top:0%;
     left:0;
     height:100%;
@@ -35,7 +37,7 @@ body{
 }
 
 #content{
-    width:30%;
+    width:100%;
     position:relative;
     z-index: 100;
     display: flex;
@@ -47,14 +49,60 @@ body{
     border: 0;
 }
 
-#content img{
+#content .title{
+    height:20vh;
+}
+
+#content p{
+    color: white;
+}
+
+.spacer{
+    max-width:100%;
+    align-self: stretch;
+}
+
+.panelcontainer{
+    display:flex;
     width:100%;
-    
+    height:80vh;
+    justify-items: center;
+    align-items:center;
+    justify-content: center;
+}
+
+.panel{
+    position:relative;
+    height:45vh;
+    display:flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items:center;
+    justify-content: center;
 }
 
 
-.panel{
-    height: 20vh;
-    width: 20vh;
-    background: white;
+.panel .iconcontainer{
+    height:45vh;
+    background: rgba(4, 1, 35, 0.75);
+    display:flex;
+    justify-items: center;
+    align-items:center;
+    border: 1px solid rgba(255,255,255,1);
+    /*border-radius: 10px;*/
+}
+
+.panel .icon{
+    height:100%;
+}
+
+.panel .textpanel{
+    width:70vh;
+    min-height:100%;
+    background: rgb(12, 0, 140);
+}
+
+.active{
+    width:50%;
+
 }
