@@ -11,35 +11,48 @@
     </head>
     
     <body>
-        <div id="screenContainer">
-            <div id="screen">
+
+        <div class="main">
+            <div class="titleContainer">
+                <h1 id="title">Ethan Yen</h1>
             </div>
-        </div>
-
-        <div id="content">
-            <!--<img class="title" src="ethan.png">
-            <img class="title" id="lastname" src="yen.png">-->
-            <img class="title" src="title2.png">
-
-            <div id="panelgrid" class="panelcontainer">
-                
-                <div id="0" class="panel">
-                    <div class="iconcontainer">
-                        <img class="icon" src="evis3.png">
-                    </div>
-                    <div class="titlecontainer">
-                        <p>EVIS</p>
-                    </div>
-
+            <div id="grid">
+                <div class="iconcontainer">
+                    <img id="evis" class="icon" src="evis3.png">
                 </div>
+                <div class="iconcontainer">
+                    <img id="table" class="icon" src="table.png">
+                </div>
+                <div class="iconcontainer">
+                    <img id="game" class="icon" src="wipgame.png">
+                </div>
+                
             </div>
-
         </div>
-
+        <div class="panelContainer">
+            <div id="evisPanel">    
+                <p>The Elegant Visual Impairment Solution</p>
+                <p id="evisBack">back</p>
+            </div>
+            <div id="tablePanel">   
+                <img id="tree" src="tree.png">
+                <h1>Art Projects</h1>
+                <div class="content">
+                    <p>Growing up, I always loved animation. I always wanted to learn how to make some of the things that kept me endlessly entertained.
+                        However, since I was completely incapable of traditional visual arts like drawing, I moved towards 3D software like Blender, Source Film
+                        Maker, Photoshop, Premiere Pro, and After Effects to express my creativity.
+                    </p>
+                </div>
+                <!--<img id="tablePic" src="table2.png">-->
+                <p id="tableBack">back</p>
+            </div>
+        </div>
         <script type="module" src="/animejs/index.js"></script>
         <script type="module" src="script.js"></script>
+        <script type="module" src="table.js"></script>
     </body>
     <link rel="stylesheet" href = 'styles.css'>
+    <link rel="stylesheet" href = 'stylesTable.css'>
 
     
     </html>
