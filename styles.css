@@ -13,9 +13,9 @@ body{
     background:radial-gradient(rgb(30, 23, 34) 0%, rgb(13, 15, 25) 75%);
     /*background:radial-gradient(rgb(255,255,255) 0%, rgb(1, 1, 1) 75%);*/
     margin:0;
-    overflow:hidden;
     height:100vh;
     width:100vw;
+    overflow:hidden;
 }
 
 #title{
@@ -64,7 +64,7 @@ body{
     pointer-events:none;
 }
 
-.panelContainer div{
+.panelContainer > div{
     position:absolute;
     pointer-events:all;
 }

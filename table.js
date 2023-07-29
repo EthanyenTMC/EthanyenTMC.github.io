@@ -34,15 +34,16 @@ for(var i = 0; i < children.length; i++){
             translateY:[75, 0],
             opacity: [0, .3],
             duration: 750
-        }, 250+100*i);
+        }, 250+50*i);
     }else{
         table.anim.add({
             targets: children[i],
             translateY:[75, 0],
             opacity: [.1, 1],
             duration: 750
-        }, 250+100*i);
+        }, 250+50*i);
     }
+    console.log(children[i]);
 }
 
 setup(table);
