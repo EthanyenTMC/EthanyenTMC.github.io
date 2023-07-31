@@ -92,14 +92,6 @@ body{
 }
 
 
-#evisPanel{
-    width:100%;
-    height:90%;
-    background-color:white;
-    left:100%;
-}
-
-
 .ontop{
     z-index: 100;
 }

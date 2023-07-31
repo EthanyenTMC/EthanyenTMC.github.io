@@ -18,10 +18,10 @@
             </div>
             <div id="grid">
                 <div class="iconcontainer">
-                    <img id="evis" class="icon" src="evis3.png">
+                    <img id="evis" class="icon" src="evis/evis3.png">
                 </div>
                 <div class="iconcontainer">
-                    <img id="table" class="icon" src="table.png">
+                    <img id="table" class="icon" src="table/table.png">
                 </div>
                 <div class="iconcontainer">
                     <img id="game" class="icon" src="wipgame.png">
@@ -31,7 +31,20 @@
         </div>
         <div class="panelContainer">
             <div id="evisPanel">    
-                <p>The Elegant Visual Impairment Solution</p>
+                <!--<img id="bg" src="evis/evis5.png">-->
+                <p id="evisTitle">The Elegant Visual Impairment Solution</p>
+                <div id="evisContent">
+                    <div id="evisImages">
+                        <img src="evis/evisFull.png">
+                        <img src="evis/evisCamera.png">
+                        <img src="evis/evisComputer.png">
+                        <img src="evis/evisScreens.png">
+                    </div>
+                    <div id="postit">
+                        <p>In 2022, I started a project with two friends that set out to help university students with visual impairment.</p>
+                    </div>
+                    <!--<canvas id="evisCanvas"></canvas>-->
+                </div>
                 <p id="evisBack">back</p>
             </div>
             <div id="tablePanel">   
@@ -43,8 +56,8 @@
                     </p>
                     <div class="tableGrid">
                         <img src="/raw/evis.png">
-                        <img src="tableEevee.png">
-                        <img src="chair3.png">
+                        <img src="table/tableEevee.png">
+                        <img src="chair/chair3.png">
                     </div>
                     <p id="tableBack">back</p>
             </div>
@@ -52,9 +65,11 @@
         <script type="module" src="/animejs/index.js"></script>
         <script type="module" src="script.js"></script>
         <script type="module" src="table.js"></script>
+        <script type="module" src="evis.js"></script>
     </body>
     <link rel="stylesheet" href = 'styles.css'>
     <link rel="stylesheet" href = 'stylesTable.css'>
+    <link rel="stylesheet" href = 'stylesEvis.css'>
 
     
     </html>

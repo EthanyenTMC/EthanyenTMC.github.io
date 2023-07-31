@@ -13,35 +13,6 @@ anime({
 
 var icons = document.getElementsByClassName("icon");
 
-var evis = {
-    el: document.getElementById("evis"),
-    origPos: {
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0
-    },
-    panel: document.getElementById("evisPanel"),
-    anim: anime({
-        targets: "#evisPanel",
-        left: "3%",
-        easing: 'easeOutQuad',
-        duration: 750,
-        autoplay: false,
-    }),
-    back: document.getElementById("evisBack"),
-    tl: anime.timeline({
-        easings: 'linear',
-        duration: 750
-    })
-}
-/*
-evis.anim.update = function(anim){
-    evis.el.style.left = Math.min(0, evis.panel.getBoundingClientRect().left - evis.origPos.left + evis.el.width + 20);
-    console.log(evis.panel.getBoundingClientRect().left);
-}*/
-setup(evis);
-console.log(evis.origPos.left);
 
 
 
