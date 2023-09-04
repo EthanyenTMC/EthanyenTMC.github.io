@@ -21,7 +21,7 @@ var evis = {
     tl: anime.timeline({
         easings: 'linear',
         duration: 750
-    })
+    }),
 }
 /*
 evis.anim.update = function(anim){

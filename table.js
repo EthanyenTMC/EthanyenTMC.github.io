@@ -24,7 +24,14 @@ table.anim.add({
     top: ["100%", "3%"],
     easing: 'easeOutQuart',
     opacity: [.1, 1],
-    duration: 750
+    duration: 750,
+    begin: function(anim){
+        //table.panel.classList.add("willChange");
+        console.log("applied");
+    },
+    complete: function(anim){
+        //table.panel.classList.remove("willChange");
+    }
 }, 200);
 
 for(var i = 0; i < children.length; i++){

@@ -95,3 +95,7 @@ body{
 .ontop{
     z-index: 100;
 }
+
+.willChange{
+    will-change: transform;
+}
