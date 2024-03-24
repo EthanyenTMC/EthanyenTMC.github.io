@@ -60,6 +60,10 @@ html{
     min-height: 100vh;
 }
 
+#right1{
+    background-color: green;
+}
+
 .rightPanel img{
     width:100%;
     height:100%;
@@ -89,3 +93,16 @@ html{
     align-items: center;
     justify-content: center;
 }
+
+.expanded {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    transition: ease;
+    transition-duration: 1s;
+    background-color: white; /* Or any color */
+    opacity: 25%;
+  }

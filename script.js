@@ -62,3 +62,26 @@ document.addEventListener('scroll', () => {
     console.log("pog")
 }, 17); // Adjust the interval for faster or slower scrolling */
 
+var emptyDiv = document.createElement("div");
+emptyDiv.style.height = "100%";
+emptyDiv.style.width = "100%";
+
+
+document.querySelectorAll('.img-square').forEach(item => {
+    item.addEventListener('click', function() {
+      // Check if the item is already expanded
+      if (this.classList.contains('expanded')) {
+        this.classList.remove('expanded'); // Shrink back
+        this.parentElement.removeChild(emptyDiv);
+      } else {
+        // Remove expanded class from any item that has it
+        const expandedItem = document.querySelector('.expanded');
+        if (expandedItem) {
+          expandedItem.classList.remove('expanded');
+          this.parentElement.removeChild(emptyDiv);
+        }
+        this.classList.add('expanded'); // Expand this item
+        this.parentElement.insertBefore(emptyDiv, this);
+      }
+    });
+  });
