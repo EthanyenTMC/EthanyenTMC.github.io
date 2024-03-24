@@ -21,35 +21,44 @@ var panels = [rightPanel, dupe]
 
 //rightPanel.scrollIntoView();
 
+/* function update(){
+    window.scrollBy({
+        top: 1, // vertical scroll amount
+        left: 0, // horizontal scroll amount
+        behavior: 'smooth' // smooth scroll
+      });
+    requestAnimationFrame(update);
+}
+requestAnimationFrame(update); */
 
 
 let lastScroll = 0;
 
 document.addEventListener('scroll', () => {
-    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
     //console.log(panels)
+    const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     if(isElementInViewport(panels[0]) == -1)
     {
         scrollWrapper.append(panels[0]);
         [panels[0], panels[1]] = [panels[1], panels[0]];
     }
-    else if(panels[0].getBoundingClientRect().top == 0)
+    else if(panels[0].getBoundingClientRect().top >= -50)
     {
         scrollWrapper.insertBefore(panels[1], panels[0]);
         [panels[0], panels[1]] = [panels[1], panels[0]];
         panels[1].scrollIntoView({ behavior: 'instant', block: 'start' });
+        document.scrollTop = -panels[0].getBoundingClientRect().top + 100;
     }
 
-    /* for(let i = 0; i < panels.length; i++){
-        let temp = isElementInViewport(panels[i])
-        if(temp == -1 && currentScroll > lastScroll){
-            scrollWrapper.appendChild(panels[i]);
-        }else if(temp == 1  && currentScroll < lastScroll){
-            scrollWrapper.insertBefore(panels[i], scrollWrapper.firstChild);
-        }
-    } */
+    console.log(panels[0].getBoundingClientRect().top);
+    lastScroll = currentScrollPosition
 
-    
-    lastScroll = currentScroll;
 });
+
+
+/* autoScroll = setInterval(() => {
+    // Check if the user has taken over the scrolling
+    window.scrollBy(0, 1); // Scroll down 1 pixel; adjust as needed
+    console.log("pog")
+}, 17); // Adjust the interval for faster or slower scrolling */
 
