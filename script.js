@@ -1,59 +1,55 @@
-import anime from '/animejs/index.js';
+function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
 
-var title2 = document.getElementById("title2");
-
-//test
-anime({
-    targets: title2,
-    height: "100%",
-    duration: 1000,
-    easing: 'easeInSine'
-});
-
-
-var icons = document.getElementsByClassName("icon");
+    if(rect.bottom >= 0){
+        return 1;
+    }else if (rect.top <= (window.innerHeight || document.documentElement.clientHeight)){
+        return -1;
+    }
+}
 
 
 
+//const rightPanel = document.getElementById('rightPanel');
+const scrollWrapper = document.getElementById("infiniteScroll")
+const rightPanel = document.getElementById("right1")
+console.log(rightPanel)
+var dupe = rightPanel.cloneNode(true);
+dupe.id = "right2";
+scrollWrapper.appendChild(dupe);
+var panels = [rightPanel, dupe]
+
+//rightPanel.scrollIntoView();
 
 
 
-var grid = document.getElementById("grid");
-grid.style.setProperty("--columns", icons.length);
-console.log(document.getElementsByClassName("icon").length);
+let lastScroll = 0;
 
+document.addEventListener('scroll', () => {
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    //console.log(panels)
+    if(isElementInViewport(panels[0]) == -1)
+    {
+        scrollWrapper.append(panels[0]);
+        [panels[0], panels[1]] = [panels[1], panels[0]];
+    }
+    else if(panels[0].getBoundingClientRect().top == 0)
+    {
+        scrollWrapper.insertBefore(panels[1], panels[0]);
+        [panels[0], panels[1]] = [panels[1], panels[0]];
+        panels[1].scrollIntoView({ behavior: 'instant', block: 'start' });
+    }
 
-
-export function setup(proj){
-    var rect = proj.el.getBoundingClientRect()
-    proj.origPos.left = rect.left;
-    proj.origPos.right = rect.right;
-    proj.origPos.top = rect.top;
-    proj.origPos.bottom = rect.bottom;
-
-    proj.el.onclick = function(){
-        console.log("clicked");
-        //proj.el.classList.add("ontop");
-        proj.anim.complete = null;
-        if(proj.anim.reversed){
-            proj.anim.reverse();
+    /* for(let i = 0; i < panels.length; i++){
+        let temp = isElementInViewport(panels[i])
+        if(temp == -1 && currentScroll > lastScroll){
+            scrollWrapper.appendChild(panels[i]);
+        }else if(temp == 1  && currentScroll < lastScroll){
+            scrollWrapper.insertBefore(panels[i], scrollWrapper.firstChild);
         }
-        proj.anim.play();
+    } */
 
-    }
-    proj.back.onclick = function(){
-        proj.anim.reverse();
-        proj.anim.play();
-        /*
-        proj.anim.complete = function(anim){
-            console.log("thing");
-            proj.el.classList.remove("ontop");
-        }*/
-    }
-}
-
-document.onresize = function(e){
-    setup(evis);
-    setup(table);
-}
+    
+    lastScroll = currentScroll;
+});
 
