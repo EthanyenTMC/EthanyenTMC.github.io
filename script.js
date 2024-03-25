@@ -37,17 +37,17 @@ let lastScroll = 0;
 document.addEventListener('scroll', () => {
     //console.log(panels)
     const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-    if(isElementInViewport(panels[0]) == -1)
+    if(isElementInViewport(panels[0]) == -1 && currentScrollPosition > lastScroll)
     {
         scrollWrapper.append(panels[0]);
         [panels[0], panels[1]] = [panels[1], panels[0]];
     }
-    else if(panels[0].getBoundingClientRect().top >= -50)
+    else if(panels[0].getBoundingClientRect().top >= 0 && currentScrollPosition < lastScroll)
     {
         scrollWrapper.insertBefore(panels[1], panels[0]);
         [panels[0], panels[1]] = [panels[1], panels[0]];
         panels[1].scrollIntoView({ behavior: 'instant', block: 'start' });
-        document.scrollTop = -panels[0].getBoundingClientRect().top + 100;
+        document.scrollTop = -panels[0].getBoundingClientRect().top + lastScroll - currentScrollPosition;
     }
 
     console.log(panels[0].getBoundingClientRect().top);
@@ -67,9 +67,13 @@ emptyDiv.style.height = "100%";
 emptyDiv.style.width = "100%";
 
 
-document.querySelectorAll('.img-square').forEach(item => {
+var leftExpanded = false
+const root = document.documentElement;
+
+document.querySelectorAll('.grid-item').forEach(item => {
     item.addEventListener('click', function() {
       // Check if the item is already expanded
+      /*
       if (this.classList.contains('expanded')) {
         this.classList.remove('expanded'); // Shrink back
         this.parentElement.removeChild(emptyDiv);
@@ -82,6 +86,14 @@ document.querySelectorAll('.img-square').forEach(item => {
         }
         this.classList.add('expanded'); // Expand this item
         this.parentElement.insertBefore(emptyDiv, this);
+      }*/
+      if(!leftExpanded){
+        root.style.setProperty('--left-size', '50%');
+        leftExpanded = true;
+      }else{
+        root.style.setProperty('--left-size', '30%');
+        leftExpanded = false;
       }
+
     });
   });
