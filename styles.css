@@ -60,6 +60,16 @@ html{
     min-height: 100vh;
 }
 
+#content{
+    position: fixed;
+    background-color:aqua;
+    width: calc(100% - var(--left-size));
+    height:100vh;
+    left: 100%;
+    backdrop-filter: blur(10px);
+    opacity: 0.5;
+}
+
 .grid-item{
     aspect-ratio: 1 / 1;
 }

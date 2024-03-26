@@ -87,13 +87,39 @@ document.querySelectorAll('.grid-item').forEach(item => {
         this.classList.add('expanded'); // Expand this item
         this.parentElement.insertBefore(emptyDiv, this);
       }*/
-      if(!leftExpanded){
-        root.style.setProperty('--left-size', '50%');
-        leftExpanded = true;
-      }else{
-        root.style.setProperty('--left-size', '30%');
-        leftExpanded = false;
-      }
+      openPanel();
+
 
     });
-  });
+});
+
+
+const rootStyle = getComputedStyle(document.documentElement);
+
+function openPanel(){
+  if(!leftExpanded){
+    //root.style.setProperty('--left-size', '50%');
+    console.log("grow");
+    anime({
+      targets:'#content',
+      easing: "easeInOutQuad",
+      keyframes: [
+        {left: "100vw"},
+        {left: rootStyle.getPropertyValue("--left-size")}
+      ],
+    });
+    leftExpanded = true;
+  }else{
+    //root.style.setProperty('--left-size', '30%');
+    console.log("shrink");
+    leftExpanded = false;
+    anime({
+      targets:'#content',
+      easing: "easeInOutQuad",
+      keyframes: [
+        {left: rootStyle.getPropertyValue("--left-size")},
+        {left: "100vw"},
+      ],
+    });
+  }
+}

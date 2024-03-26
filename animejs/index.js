@@ -218,6 +218,7 @@ const penner = (() => {
 
   const functionEasings = {
     Sine: () => t => 1 - Math.cos(t * Math.PI / 2),
+    Expo: () => t => t ? Math.pow(2, 10 * t - 10) : 0,
     Circ: () => t => 1 - Math.sqrt(1 - t * t),
     Back: () => t => t * t * (3 * t - 2),
     Bounce: () => t => {
@@ -235,7 +236,7 @@ const penner = (() => {
     }
   }
 
-  const baseEasings = ['Quad', 'Cubic', 'Quart', 'Quint', 'Expo'];
+  const baseEasings = ['Quad', 'Cubic', 'Quart', 'Quint'];
 
   baseEasings.forEach((name, i) => {
     functionEasings[name] = () => t => Math.pow(t, i + 2);
@@ -1269,7 +1270,7 @@ function timeline(params = {}) {
   return tl;
 }
 
-anime.version = '3.2.1';
+anime.version = '3.2.2';
 anime.speed = 1;
 // TODO:#review: naming, documentation
 anime.suspendWhenDocumentHidden = true;
