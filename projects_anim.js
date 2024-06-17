@@ -19,7 +19,7 @@ document.querySelectorAll('.pan-button').forEach(function(button) {
 
             anime({
                 targets: projects[currentIndex+1].children[0].children,
-                opacity: [1, 0.5],
+                opacity: [1, 0],
                 translateY: ["0vh", "-10vh"],
                 delay: anime.stagger(75),
                 duration: 1000,
@@ -28,7 +28,7 @@ document.querySelectorAll('.pan-button').forEach(function(button) {
 
             anime({
                 targets: projects[currentIndex].children[0].children,
-                opacity: [0.5, 1],
+                opacity: [0, 1],
                 translateY: ["-10vh","0vh"],
                 delay: anime.stagger(75, {start: 500}),
                 duration: 1000,
@@ -58,7 +58,7 @@ document.querySelectorAll('.pan-button').forEach(function(button) {
 
             anime({
                 targets: projects[currentIndex-1].children[0].children,
-                opacity: [1, 0.5],
+                opacity: [1, 0],
                 translateY: ["0vh", "-10vh"],
                 delay: anime.stagger(75),
                 duration: 1000,
@@ -67,7 +67,7 @@ document.querySelectorAll('.pan-button').forEach(function(button) {
 
             anime({
                 targets: projects[currentIndex].children[0].children,
-                opacity: [0.5, 1],
+                opacity: [0, 1],
                 translateY: ["-10vh","0vh"],
                 delay: anime.stagger(75, {start: 500}),
                 duration: 1000,
