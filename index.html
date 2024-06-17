@@ -13,29 +13,33 @@
             <div id="pannables">
                 <div class="pannable">
                     <div class="pannable-content">
-                        <h1>Ethan Yen</h1>
+                        <h1 id="title">Ethan Yen</h1>
                         <p>I'm driven by passion, fueled by my interests, and steered by my dreams.</p>
                     </div>
                 </div>
                 <div class="pannable">
                     <div id="three-panel" class="pannable-content">
                         <h1>My 3D Work</h1>
-                        <img id="td-main-image" src="3d.png" alt="3D work">
-                        <img id="evis-image" src="evis.png" alt="EVIS Image">
+                        <img id="td-main-image" src="3d.png" srcset="
+                            3d.png_25.0.png 25w,
+                            3d.png_50.0.png 50w,
+                            3d.png_75.0.png 75w,
+                        " alt="3D work">
+                        <img id="evis-image" src="evis.png" srcset="
+                            evis.png_25.0.png 25w,
+                            evis.png_50.0.png 50w,
+                            evis.png_75.0.png 75w,
+                        "  alt="EVIS Image">
                     </div>
                 </div>
                 <div class="pannable">
-                    <div class="pannable-content">
-                        <h1>My Skills</h1>
-                        <ul>
-                            <li>HTML</li>
-                            <li>CSS</li>
-                            <li>JavaScript</li>
-                            <li>React</li>
-                            <li>Node.js</li>
-                            <li>Express</li>
-                            <li>MongoDB</li>
-                        </ul>
+                    <div id="evis-panel" class="pannable-content">
+                        <h1>My 3D Work</h1>
+                        <!-- <img src="evis.png" srcset="
+                            evis.png_25.0.png 25w,
+                            evis.png_50.0.png 50w,
+                            evis.png_75.0.png 75w,
+                        "  alt="EVIS Image"> -->
                     </div>
                 </div>
             </div>

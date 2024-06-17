@@ -1,16 +1,17 @@
-#three-panel{
-    width:100%;
-    height:100%;
+#three-panel {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative; /* Add relative positioning to the parent div */
 }
 
-#td-main-image{
+#td-main-image {
     width: auto;
-    height: 50%;
-    position: relative;
+    height: 75%;
+    position: relative; /* Use absolute positioning for the element */
     top: 0;
     left: 0;
     background-size: cover;
@@ -19,10 +20,10 @@
     z-index: 1;
 }
 
-#evis-image{
+#evis-image {
     height: 20%;
     width: auto;
-    position:relative;
-    top: 0;
-    left: 0;
+    position: absolute; /* Use absolute positioning for the element */
+    top: 10%;
+    left: 10%;
 }

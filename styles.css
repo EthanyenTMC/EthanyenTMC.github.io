@@ -1,9 +1,21 @@
+@font-face {
+    font-family: 'Ghisel';
+    src: url('fonts/GHISEL.ttf') format('truetype');
+    /* Add more font-face declarations for other fonts if needed */
+}
+
+
 body {
     margin: 0;
     padding: 0;
     overflow-y: scroll;
     overflow-x: hidden;
     color: red;
+}
+
+#title{
+    font-family: Ghisel;
+    font-size: 10vw;
 }
 
 #wrapper {
