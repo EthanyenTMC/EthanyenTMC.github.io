@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
     position: relative; /* Add relative positioning to the parent div */
+    background: radial-gradient(rgb(0, 23, 135), rgb(3, 0, 30));
 }
 
 #td-main-image {
@@ -25,5 +26,5 @@
     width: auto;
     position: absolute; /* Use absolute positioning for the element */
     top: 10%;
-    left: 10%;
+    left: 15%;
 }
