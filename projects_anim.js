@@ -13,7 +13,7 @@ document.querySelectorAll('.pan-button').forEach(function(button) {
             anime({
                 targets: document.getElementById('pannables'),
                 scrollLeft: projects[currentIndex].offsetLeft,
-                duration: 1000, // Duration in milliseconds
+                duration: 750, // Duration in milliseconds
                 easing: 'easeInOutQuad' // Easing function
             });
 
@@ -52,7 +52,7 @@ document.querySelectorAll('.pan-button').forEach(function(button) {
             anime({
                 targets: document.getElementById('pannables'),
                 scrollLeft: projects[currentIndex].offsetLeft,
-                duration: 1000, // Duration in milliseconds
+                duration: 750, // Duration in milliseconds
                 easing: 'easeInOutQuad' // Easing function
             });
 
