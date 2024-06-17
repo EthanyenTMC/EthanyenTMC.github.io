@@ -1,127 +1,73 @@
-@font-face {
-    font-family: 'Lemon Milk';
-    src: url('fonts/LEMONMILK-Regular.otf') format('truetype');
-    /* Add more font-face declarations for other fonts if needed */
-}
-
-@font-face {
-    font-family: 'Blacksword';
-    src: url('fonts/Blacksword.otf') format('truetype');
-    /* Add more font-face declarations for other fonts if needed */
-}
-
-@font-face {
-    font-family: 'Magiesta';
-    src: url('fonts/Magiesta.ttf') format('truetype');
-    /* Add more font-face declarations for other fonts if needed */
-}
-
-body{
+body {
     margin: 0;
-    overflow-x: hidden;
+    padding: 0;
     overflow-y: scroll;
-    font: 1rem 'Magiesta', sans-serif;
+    overflow-x: hidden;
+    color: red;
 }
 
-.centered-wrapper,
-#projects-container,
-#aboutme,
-#experience {
-    scroll-snap-align: center;
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Vertically center the elements */
 }
 
-:root {
-    --inset-end: inset(0 0 0 0);
+#stage {
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    display: flex;
+    justify-content: center; /* Horizontally center the text */
+    align-items: center; /* Vertically center the text */
 }
 
-.reveal-header {
-    animation: colors 2s ease-out;
-    /* clip-path: var(--inset-end); */
-    text-shadow: 2px 2px 5px rgb(255, 125, 255), -2px -2px 5px rgb(83, 172, 255);
-}
-
-/* @keyframes reveal {
-    0% {
-        clip-path: inset(0 0 100% 0);
-    }
-    100% {
-        clip-path: var(--inset-end);
-    }
-} */
-
-@keyframes colors {
-    0%{
-        text-shadow: 15px 15px 50px rgb(255, 125, 255), -15px -15px 50px rgb(83, 172, 255);
-    }
-    100%{
-        text-shadow: 2px 2px 5px rgb(255, 125, 255), -2px -2px 5px rgb(83, 172, 255);
-    }
-}
-
-@media only screen and (orientation: landscape) {
-
-    .centered-wrapper{
-        height:100vh;
-        width: 100vw;
-        display: flex;
-        flex-direction: column;
-        align-items: baseline; /* Optional, to center items horizontally */
-        justify-content: center; /* Optional, to center items vertically */
-    }
-
-
-    .main {
-        width: 100vw;
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* Optional, to center items horizontally */
-        justify-content: center; /* Optional, to center items vertically */
-        gap: 0px;
-    
-    }
-
-    .main h1{
-        font-size: 30vh;
-        margin: 0;
-        padding:0;
-        
-    }
-
-    .category-selector {
-        display: flex;
-        flex-direction: row;
-        align-items: center; /* Optional, to align items vertically */
-        justify-content: center; /* Optional, to center items horizontally */
-        gap: 10px;
-    }
-
-
-}
-
-.main{
-    height:100vh;
-    background-color:rgb(2, 0, 21);
-}
-
-.main h3{
+#stage p {
     color: white;
 }
 
-#aboutme{
-    height: 50vh;
-    background-color:blue;
+#about-me {
+    width: 100vw;
+    height: 40vh;
+    background-color: #fff;
+    display: flex;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
 }
 
 
 
-#experience{
-    height:100vh;
-    background-color:darkslategrey;
+#stage-overlay {
+    position: absolute; /* This makes the element stick to the top of its parent */
+    top: 0; /* This positions the element at the top of its parent */
+    height: 100%; /* This makes the element take up the full height of its parent */
+    width: 100%;
+    pointer-events: none; /* This makes the element not respond to or block mouse events */
+    display:flex;
+    flex-direction: row;
+}
+#left-button, #right-button{
+    position: absolute; /* This makes the elements stay in the viewport */
+    pointer-events: auto; /* This allows the buttons to be clickable */
+    background-color: aqua;
+    width: 5vw;
+    height: 5vw;
+    transform: translateY(-50%);
 }
 
-#projects {
+#left-button{
+    left: 0%;
+    top: 50%;
+}
+
+
+#right-button{
+    right: 0%;
+    top: 50%;
+}
+
+#pannables{
     height: 100vh;
-    background-color: rebeccapurple;
+    /* background-color: rebeccapurple; */
     position: relative;
     display: flex;
     flex-direction: row;
@@ -139,52 +85,24 @@ body{
     scrollbar-width: none;  /* Firefox */
 }
 
-.project {
+
+.pannable{
     min-width: 100vw;
     height: 100%;
-    background-color: red;
-}
-
-.projects-overlay {
-    position: absolute; /* This makes the element stick to the top of its parent */
-    top: 0; /* This positions the element at the top of its parent */
-    height: 100%; /* This makes the element take up the full height of its parent */
-    width:100%;
-    pointer-events: none; /* This makes the element not respond to or block mouse events */
-    display:flex;
-    flex-direction: row;
-}
-#left-arrow, #right-arrow{
-    position: absolute; /* This makes the elements stay in the viewport */
-    pointer-events: auto; /* This allows the arrows to be clickable */
-    background-color: aqua;
-    width: 5vw;
-    height: 5vw;
-}
-
-#left-arrow{
-    left: 0%;
-    top: 50%;
+    background-color: blue;
 }
 
 
-#right-arrow{
-    right: 0%;
-    top: 50%;
+.pannable:nth-child(2){
+    background-color: white;
 }
 
-#project-fade {
-    position: absolute; /* This positions the element absolutely relative to the #projects-container div */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 15%, rgba(0,0,0,0) 85%, rgba(0,0,0,0.5) 100%);
-    pointer-events: none;
-}
-
-#projects-container {
-    position: relative; /* This makes the position of the child elements relative to this element */
+.pannable-content{
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
 }

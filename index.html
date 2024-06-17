@@ -1,75 +1,64 @@
-<html>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ethan Yen's Website</title>
-        
-    <!--<link rel="icon" type="image/x-icon" href="/logo transparent.ico">-->
-    </head>
-    
-    <body>
-        <div class="centered-wrapper">
-            <div class="main">
-                <h1 class="reveal-header">Ethan Yen</h1>
-                <h3>Undying passion, applied universally.</h3>
-                <div class="category-selector">
-                    <a class="nav" href="#aboutme">About</a>
-                    <p> | </p>
-                    <a class="nav" href="#projects">Projects</a>
-                    <p> | </p>
-                    <a class="nav" href="#experience">Experience</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="3d.css">
+</head>
+<body>
+    <div id="wrapper">
+        <div id="stage">
+            <div id="pannables">
+                <div class="pannable">
+                    <div class="pannable-content">
+                        <h1>Ethan Yen</h1>
+                        <p>I'm driven by passion, fueled by my interests, and steered by my dreams.</p>
+                    </div>
+                </div>
+                <div class="pannable">
+                    <div id="three-panel" class="pannable-content">
+                        <h1>My 3D Work</h1>
+                        <img id="td-main-image" src="3d.png" alt="3D work">
+                        <img id="evis-image" src="evis.png" alt="EVIS Image">
+                    </div>
+                </div>
+                <div class="pannable">
+                    <div class="pannable-content">
+                        <h1>My Skills</h1>
+                        <ul>
+                            <li>HTML</li>
+                            <li>CSS</li>
+                            <li>JavaScript</li>
+                            <li>React</li>
+                            <li>Node.js</li>
+                            <li>Express</li>
+                            <li>MongoDB</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div id="aboutme">
-            <!-- TODO probably the scrolling ABOUT ME thing is next...?-->
-        </div>
-
-
-        <div id="projects-container">
-
-            <div id="projects">
-                <div class="project">
-                    <img src="project1.jpg" alt="Project 1">
-                    <h2>Project 1</h2>
-                    <p>Description for Project 1</p>
-                </div>
-                <div class="project">
-                    <img src="project2.jpg" alt="Project 2">
-                    <h2>Project 2</h2>
-                    <p>Description for Project 2</p>
-                </div>
-                <div class="project">
-                    <img src="project3.jpg" alt="Project 3">
-                    <h2>Project 3</h2>
-                    <p>Description for Project 3</p>
-                </div>
-                <!-- Add more projects as needed -->
-            </div>
-            <div class="projects-overlay">
-                <div id="left-arrow">
+            <div id="stage-overlay">
+                <div class="pan-button" id="left-button">
                     <p><</p>
                 </div>
-                <div id="project-fade"></div>
-                <div id="right-arrow">
+                <div class="pan-button" id="right-button">
                     <p>></p>
                 </div>
-                <!--TODO add a timeline scroll bar thingy?-->
             </div>
 
         </div>
-        <div id="experience">
-
+        <div id="about-me">
+            <!-- Add your content for the about me section here -->
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.js"></script>
-        <script src="script.js"></script>
-    </body>
-    <link rel="stylesheet" href = 'styles.css'>
-
-
     
+        <div id="experiences">
+            <!-- Add your content for the experiences section here -->
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.js"></script>
+
+    <script src="projects_anim.js"></script>
+</body>
 </html>
