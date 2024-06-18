@@ -118,3 +118,16 @@ body {
     justify-items: center;
     align-content: center;
 }
+
+#about-me{
+    height:20vh;
+    width:100%;
+    background-color:red;
+}
+
+#experiences{
+    height:20vh;
+    
+    width:100%;
+    background-color:green;
+}
