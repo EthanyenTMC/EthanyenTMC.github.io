@@ -1,5 +1,5 @@
 {
     "injectBody": true,
     "injectCss": true,
-    "highlight": true
+    "highlight": false
 }
