@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Personal Website",
+        "description": "I made this website isn't it cool",
+        "image": "https://via.placeholder.com/200",
+        "link": "projects/website.html",
+        "tags": ["Web Dev", "Frontend", "HTML", "JavaScript", "CSS"],
+        "year": 2024
+    },
+    {
+        "title": "Prototype 3D Action Game",
+        "description": "This is a untitled 3d game thing",
+        "image": "https://via.placeholder.com/200",
+        "link": "projects/3dgame.html",
+        "tags": ["Godot", "Game Dev", "GDScript"],
+        "year": 2023
+    },
+    {
+        "title": "Automatic Product Image Uploader",
+        "description": "Uploads images for products automatically on Shopify",
+        "image": "https://via.placeholder.com/200",
+        "link": "",
+        "tags": ["Shopify", "Python", "GraphQL API"],
+        "year": 2024
+    }
+]

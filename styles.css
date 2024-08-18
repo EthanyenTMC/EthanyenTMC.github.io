@@ -1,8 +1,8 @@
 body{
     padding: 0;
     margin: 0;
-    color: white;
-    background-color: #080021;
+    color: #DFDFDF;
+    background-color: #0d0e1b;
     overflow-x: hidden;
 }
 .wrapper {
@@ -19,7 +19,7 @@ body{
 .hero-section {
     padding-top: 20vh;
     padding-bottom: 20vh;
-    width: 50%;
+    width: 70vw;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -46,21 +46,86 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 1vh;
 }
 
 .work{
     height: auto;
-    width: 50vw;
-    padding: 5vh;
-    border-top: 1px solid white;
+    width: 70vw;
+    padding: 1.5vh;
+    border: 1px solid rgba(255, 255, 255, 0.066);
+    /* border-top: 1px solid white; */
     display:flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     justify-items: center;
     align-content: center;
+
+}
+
+.work img{
+    height: 90%;
+    width: auto;
+    padding: 0% 5% 0% 5%;
+}
+
+.work h3, .work p{
+    padding: 0;
+    margin: 0;
 }
 
 .work-text{
-    
+    padding-top: 1%;
+    width: 80%;
+    height: 100%;
+    padding-left: 5%;
+    display:flex;
+    flex-direction: column;
+    gap: 2vh;
+    align-items: flex-start;
+}
+
+.work-tags{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.5%;
+    flex-wrap: wrap;
+
+}
+
+.tag{
+    font-size: 70%;
+    padding: 1%;
+    border: 1px solid white;
+    font-weight: 700;
+    border-radius: 5px;
+    color: white;
+    text-wrap: nowrap;
+}
+
+.tag-color1{
+    border-color: #2eabff;
+}
+
+.tag-color2{
+    border-color: #FF5722;
+}
+
+.tag-color3{
+    border-color: #4CAF50;
+}
+
+.project-link{
+    color: white;
+    text-decoration: none;
+    font-size: 80%;
+    padding: 1%;
+    border: 1px solid white;
+    font-weight: 700;
+    border-radius: 5px;
+    color: white;
+    text-wrap: nowrap;
 }
