@@ -1,54 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Personal Website</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="load_projects.js"></script>
-  </head>
-  <body>
-    <div class="wrapper">
-      <div class="hero-section">
-        <h1>My Name is Ethan Yen.</h1>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis
-          scelerisque velit, blandit ultrices lectus. Donec sollicitudin elit
-          nec laoreet tincidunt. Nunc ligula ante, porta ac malesuada eu,
-          fermentum vitae nunc. Maecenas quis augue nec lectus rutrum tincidunt.
-          Curabitur dictum, enim sit amet ultricies eleifend, urna ligula
-          ultricies dui, ac imperdiet sem sem et magna.
-        </p>
-        <p>
-          I just finished 8 months at my first job, and am returning to the
-          University of Waterloo to complete my computer science degree.
-        </p>
-      </div>
-
-      <div class="works-section">
-        <h2>My Works</h2>
-        <div class="filter-wrapper">
-            <div class="filter-section">
-                <div class="dropdown">
-                  <button class="dropdown-btn">Date</button>
-                  <div class="dropdown-content-years dropdown-content">
-                    <button class="years-filter-btn" data-filter="all">All</button>
-                  </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Ethan Yen</title>
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="landscape.css" />
+        <script type="module" src="load_projects.js"></script>
+    </head>
+    <body>
+        <canvas id="fullpage-canvas"></canvas>
+        <div class="wrapper">
+            <div class="header">
+                <img id="game-start" src="https://via.placeholder.com/50" />
+                <div class="half-spacer"></div>
+                <p data-scroll-target="hero-section">Home</p>
+                <p data-scroll-target="works-section">Works</p>
+                <p data-scroll-target="experience-section">Experience</p>
+                <p data-scroll-target="contact-section">Contact</p>
+            </div>
+            <div class="hero-section">
+                <h1>I'm Ethan Yen</h1>
+                <h2>
+                    A jack of all passions, working to make my dreams come true.
+                </h2>
+                <!-- <p>
+                    Welcome to my website. Though I am working on building my
+                    resume, the traits that I believe elevate me are ones that
+                    cannot really be shown on a resume. I created this website
+                    to showcase my passion, personality, and unyielding desire
+                    to make things that are unique to me.
+                </p>
+                <p>
+                    I just finished 8 months at my first job, and am returning
+                    to the University of Waterloo to complete my computer
+                    science degree.
+                </p> -->
+            </div>
+            <div class="experience-section">
+                <h2>Experience</h2>
+                <div class="experiences">
+                    <div class="experience">
+                        <h2>Demon Powersports, Demon Electric, TGB Canada</h2>
+                        <h3>Parkdick Enterprises - My First Job</h3>
+                        <p>my first job blah blah blah</p>
+                    </div>
+                    <div class="experience">
+                        <h2>Student at the University of Waterloo</h2>
+                        <h3>Bachelor's Degree, Computer Science</h3>
+                        <p>2022-2028 thing ajksdhfkajdhfasdf</p>
+                    </div>
+                    <div class="experience">
+                        <h2>Student at St. Andrew's College</h2>
+                        <h3>Head of Boarding House, Honor Student</h3>
+                        <p>2022-2028 thing ajksdhfkajdhfasdf</p>
+                    </div>
                 </div>
-              </div>
-              <div class="filter-section">
-                <div class="dropdown">
-                  <button class="dropdown-btn">Category</button>
-                  <div class="dropdown-content-tags dropdown-content">
-                    <button class="tags-filter-btn" data-filter="all">All</button>
-                  </div>
+            </div>
+            <div class="works-section">
+                <h2>My Works</h2>
+                <div class="filter-wrapper">
+                    <div class="filter-section">
+                        <div class="dropdown">
+                            <button class="dropdown-btn years-btn">Date</button>
+                            <div
+                                class="dropdown-content-years dropdown-content"
+                            ></div>
+                        </div>
+                    </div>
+                    <div class="filter-section">
+                        <div class="dropdown">
+                            <button class="dropdown-btn tags-btn">
+                                Category
+                            </button>
+                            <div
+                                class="dropdown-content-tags dropdown-content"
+                            ></div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+                <div class="works"></div>
+            </div>
+            <div class="contact-section">
+                <p>hey guys contact me</p>
+                <a
+                    href="mailto:ethanytmc@gmail.com?subject=Website Inquiry&body=Hi Ethan,"
+                >
+                    <button id="btnOutlook">Email Me!</button>
+                </a>
+            </div>
         </div>
-        <div class="works"></div>
-      </div>
-    </div>
-
-    <script src="script.js"></script>
-  </body>
+        <script src="script.js"></script>
+        <script src="canvas.js"></script>
+    </body>
 </html>

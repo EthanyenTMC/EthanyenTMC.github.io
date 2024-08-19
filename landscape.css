@@ -1,0 +1,105 @@
+:root {
+    --general-width: 80vw;
+}
+
+@media (orientation: landscape) {
+    .wrapper {
+        height: auto;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .hero-section {
+        width: var(--general-width);
+        height: 90vh;
+    }
+
+    .hero-section h1 {
+        font-size: 3.5em;
+        margin: 0;
+    }
+
+    .works-section {
+        height: auto;
+        width: 100vw;
+        gap: 20px;
+    }
+
+    .works {
+        height: auto;
+        width: 100%;
+        gap: 1vh;
+    }
+
+    .work {
+        height: auto;
+        width: var(--general-width);
+        padding: 1.5vh;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+        justify-items: center;
+        align-content: center;
+    }
+
+    .work img {
+        height: 90%;
+        width: auto;
+        padding: 0% 5% 0% 5%;
+    }
+
+    .work-text {
+        padding-top: 1%;
+        width: 80%;
+        height: 100%;
+        padding-left: 5%;
+        gap: 2vh;
+    }
+
+    .work-tags {
+        gap: 1.5%;
+    }
+
+    .tag {
+        font-size: 70%;
+        padding: 1%;
+        font-weight: 700;
+        border-radius: 5px;
+    }
+
+    .project-link {
+        font-size: 80%;
+        padding: 1%;
+        font-weight: 700;
+        border-radius: 5px;
+    }
+
+    .header {
+        width: 90%;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .half-spacer {
+        min-width: 50%;
+    }
+    .contact-section {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .experience-section {
+        width: var(--general-width);
+        height: auto;
+    }
+
+    .experiences {
+        width: 100%;
+        height: auto;
+    }
+
+    .experience {
+        width: var(--general-width);
+    }
+}

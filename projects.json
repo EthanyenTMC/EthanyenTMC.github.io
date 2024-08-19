@@ -1,10 +1,10 @@
 [
     {
         "title": "Personal Website",
-        "description": "I made this website isn't it cool",
+        "description": "I made this website to better showcase my experiences, projects, and most importantly, my personality. I find infinite passion and joy in the things I do, and want to convey that to you as best I can. I hope you enjoy this showcase of my skills and passions.",
         "image": "https://via.placeholder.com/200",
         "link": "projects/website.html",
-        "tags": ["Web Development"],
+        "tags": ["Web Development", "Design"],
         "year": "2024"
     },
     {
@@ -29,6 +29,22 @@
         "image": "https://via.placeholder.com/200",
         "link": "",
         "tags": ["Business"],
-        "year": "2024"
+        "year": "2022"
+    },
+    {
+        "title": "EVIS, Elegant Visual Impairment Solution",
+        "description": "A prototype augmented reality headset for the visually impaired",
+        "image": "https://via.placeholder.com/200",
+        "link": "",
+        "tags": ["Hardware Development"],
+        "year": "2022"
+    },
+    {
+        "title": "Android 2D Physics Engine",
+        "description": "A simple physics engine for Android app created with Android Studio",
+        "image": "https://via.placeholder.com/200",
+        "link": "",
+        "tags": ["Software Development"],
+        "year": "2022"
     }
 ]

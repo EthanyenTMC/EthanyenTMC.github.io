@@ -27,8 +27,7 @@ function fancy_contains(array, element_array) {
     for (var i in element_array) {
         if (element_array[i] == "all") {
             continue;
-        }
-        else if (!array.contains(element_array[i])) {
+        } else if (!array.contains(element_array[i])) {
             return false;
         }
     }
@@ -36,91 +35,96 @@ function fancy_contains(array, element_array) {
 }
 
 function createWorkDiv(element) {
-  // Create the main div with class 'work'
-  const workDiv = document.createElement("div");
-  workDiv.className = "work";
+    // Create the main div with class 'work'
+    const workDiv = document.createElement("div");
+    workDiv.className = "work";
 
-  // Create the nested div with class 'work-text'
-  const workTextDiv = document.createElement("div");
-  workTextDiv.className = "work-text";
+    // Create the nested div with class 'work-text'
+    const workTextDiv = document.createElement("div");
+    workTextDiv.className = "work-text";
 
-  const tagsDiv = document.createElement("div");
-  tagsDiv.className = "work-tags";
+    const tagsDiv = document.createElement("div");
+    tagsDiv.className = "work-tags";
 
-  // Create the h3 element and set its text content
-  const h3 = document.createElement("h3");
-  h3.textContent = element.title;
+    // Create the h3 element and set its text content
+    const h3 = document.createElement("h3");
+    h3.textContent = element.title;
 
-  // Create the p element and set its text content
-  const p = document.createElement("p");
-  p.textContent = element.description;
+    // Create the p element and set its text content
+    const p = document.createElement("p");
+    p.textContent = element.description;
 
-  // Append h3 and p to the work-text div
-  workTextDiv.appendChild(h3);
-  workTextDiv.appendChild(p);
+    // Append h3 and p to the work-text div
+    workTextDiv.appendChild(h3);
+    workTextDiv.appendChild(p);
 
-  for (var i in element.tags) {
-    const tag = document.createElement("span");
-    tag.textContent = element.tags[i];
-    tag.className = "tag";
-    tag.className += " " + tags_color_array[Math.floor(Math.random() * 3)];
-    var thing = element.tags[i].replace(" ", "-");
-    workDiv.className += " " + thing;
-    if (all_tags.indexOf(thing) == -1) {
-      all_tags.push(thing);
+    for (var i in element.tags) {
+        const tag = document.createElement("span");
+        tag.textContent = element.tags[i];
+        tag.className = "tag";
+        tag.className += " " + tags_color_array[Math.floor(Math.random() * 3)];
+        var thing = element.tags[i].replace(" ", "-");
+        workDiv.className += " " + thing;
+        if (all_tags.indexOf(thing) == -1) {
+            all_tags.push(thing);
+        }
+        tagsDiv.appendChild(tag);
     }
-    tagsDiv.appendChild(tag);
-  }
 
-  workDiv.className += " " + element.year;
-  if (all_years.indexOf(element.year) == -1) {
-    all_years.push(element.year);
-  }
-  // Create the img element and set its attributes
-  const img = document.createElement("img");
-  img.src = element.image;
+    workDiv.className += " " + element.year;
+    if (all_years.indexOf(element.year) == -1) {
+        all_years.push(element.year);
+    }
+    // Create the img element and set its attributes
+    const img = document.createElement("img");
+    img.src = element.image;
 
-  // Create the button element
+    // Create the button element
 
-  // Append the button to the work di
+    // Append the button to the work di
 
-  // Append the work-text div and img to the main work div
-  workTextDiv.appendChild(tagsDiv);
-  if (element.link != "") {
-    const button = document.createElement("a");
-    button.textContent = "Learn More";
-    button.className = "project-link";
-    button.addEventListener("click", () => {
-      window.location.href = element.link;
-    });
-    workTextDiv.appendChild(button);
-  }
+    // Append the work-text div and img to the main work div
+    workTextDiv.appendChild(tagsDiv);
+    if (element.link != "") {
+        const button = document.createElement("a");
+        button.textContent = "Learn More";
+        button.className = "project-link";
+        button.addEventListener("click", () => {
+            window.location.href = element.link;
+        });
+        workTextDiv.appendChild(button);
+    }
 
-  workDiv.appendChild(workTextDiv);
-  workDiv.appendChild(img);
+    workDiv.appendChild(workTextDiv);
+    workDiv.appendChild(img);
 
-  // Return the constructed work div
-  return workDiv;
+    // Return the constructed work div
+    return workDiv;
 }
 
 // Function to load projects from a JSON file
-async function loadProjects() {
-  try {
-    const response = await fetch("projects.json"); // Replace with your file path or URL
-    if (!response.ok) {
-      throw new Error("Network response was not ok " + response.statusText);
-    }
-    const jsonData = await response.json();
+export async function loadProjects() {
+    try {
+        const response = await fetch("projects.json"); // Replace with your file path or URL
+        if (!response.ok) {
+            throw new Error(
+                "Network response was not ok " + response.statusText
+            );
+        }
+        const jsonData = await response.json();
 
-    // Process the array of elements
-    jsonData.forEach((element) => {
-      const workDiv = createWorkDiv(element);
-      document.querySelector(".works").appendChild(workDiv);
-      all_works.push(workDiv);
-    });
-  } catch (error) {
-    console.error("There has been a problem with your fetch operation:", error);
-  }
+        // Process the array of elements
+        jsonData.forEach((element) => {
+            const workDiv = createWorkDiv(element);
+            document.querySelector(".works").appendChild(workDiv);
+            all_works.push(workDiv);
+        });
+    } catch (error) {
+        console.error(
+            "There has been a problem with your fetch operation:",
+            error
+        );
+    }
 }
 
 // Call the function to load projects
@@ -128,60 +132,121 @@ async function loadProjects() {
 var curr_filters = ["all", "all"];
 
 loadProjects().then(() => {
-  // Code to run after loadProjects() is completed
-  // Add your code here
-  for (var i in all_tags) {
-    const button = document.createElement("button");
-    button.className = "tags-filter-btn";
-    button.setAttribute("data-filter", all_tags[i]);
-    button.textContent = all_tags[i];
-    document.querySelector(".dropdown-content-tags").appendChild(button);
-  }
+    // Code to run after loadProjects() is completed
+    // Add your code here
+    for (var i in all_tags) {
+        const button = document.createElement("button");
+        button.className = "tags-filter-btn";
+        button.setAttribute("data-filter", all_tags[i]);
+        button.textContent = all_tags[i];
+        document.querySelector(".dropdown-content-tags").appendChild(button);
+    }
 
-  for (var i in all_years) {
-    const button = document.createElement("button");
-    button.className = "years-filter-btn";
-    button.setAttribute("data-filter", all_years[i]);
-    button.textContent = all_years[i];
-    document.querySelector(".dropdown-content-years").appendChild(button);
-  }
+    for (var i in all_years) {
+        const button = document.createElement("button");
+        button.className = "years-filter-btn";
+        button.setAttribute("data-filter", all_years[i]);
+        button.textContent = all_years[i];
+        document.querySelector(".dropdown-content-years").appendChild(button);
+    }
 
-  const yearsFilterButtons = document.querySelectorAll(".years-filter-btn");
-  /* console.log(all_works); */
+    const yearsFilterButtons = document.querySelectorAll(".years-filter-btn");
+    /* console.log(all_works); */
 
-  yearsFilterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const filter = button.getAttribute("data-filter");
-      curr_filters = [filter, curr_filters[1]];
-      all_works.forEach((work) => {
-        if (fancy_contains(work.classList, curr_filters)) {
-          work.style.display = "flex";
-        } else {
-          work.style.display = "none";
-        }
-      });
+    yearsFilterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const filter = button.getAttribute("data-filter");
+            curr_filters = [filter, curr_filters[1]];
+            document.querySelector(".years-btn").textContent = `x ${filter} x`;
+            all_works.forEach((work) => {
+                console.log(work.classList);
+                if (fancy_contains(work.classList, curr_filters)) {
+                    work.style.display = "flex";
+                } else {
+                    work.style.display = "none";
+                }
+            });
+        });
     });
-  });
 
-  const tagsFilterButtons = document.querySelectorAll(".tags-filter-btn");
+    const tagsFilterButtons = document.querySelectorAll(".tags-filter-btn");
 
-  tagsFilterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const filter = button.getAttribute("data-filter");
-      curr_filters = [curr_filters[0], filter];
-      all_works.forEach((work) => {
-        console.log(work.classList);
-        if (fancy_contains(work.classList, curr_filters)) {
-          work.style.display = "flex";
-        } else {
-          work.style.display = "none";
-        }
-      });
+    tagsFilterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const filter = button.getAttribute("data-filter");
+            curr_filters = [curr_filters[0], filter];
+            document.querySelector(".tags-btn").textContent = `x ${filter} x`;
+            all_works.forEach((work) => {
+                console.log(work.classList);
+                if (fancy_contains(work.classList, curr_filters)) {
+                    work.style.display = "flex";
+                } else {
+                    work.style.display = "none";
+                }
+            });
+        });
     });
-  });
+    const event = new CustomEvent("projectsLoaded");
+    window.dispatchEvent(event);
 });
 
 /* document.addEventListener("click", () => {
   console.log(curr_filters);
 }); */
 // Ensure that all_tags and all_years arrays are populated before running the loops
+
+document.addEventListener("DOMContentLoaded", () => {
+    function configureDropdown(key, dropdownBtn, dropdownContent) {
+        dropdownBtn.addEventListener("click", () => {
+            if (key == "years") {
+                if (curr_filters[0] == "all") {
+                    years_filters.classList.toggle("show");
+                } else {
+                    curr_filters = ["all", curr_filters[1]];
+                    document.querySelector(".years-btn").textContent = "Date";
+                }
+                all_works.forEach((work) => {
+                    console.log(work.classList);
+                    if (fancy_contains(work.classList, curr_filters)) {
+                        work.style.display = "flex";
+                    } else {
+                        work.style.display = "none";
+                    }
+                });
+            } else if (key == "tags") {
+                if (curr_filters[1] == "all") {
+                    tags_filters.classList.toggle("show");
+                } else {
+                    curr_filters = [curr_filters[0], "all"];
+                    document.querySelector(".tags-btn").textContent =
+                        "Category";
+                }
+                all_works.forEach((work) => {
+                    console.log(work.classList);
+                    if (fancy_contains(work.classList, curr_filters)) {
+                        work.style.display = "flex";
+                    } else {
+                        work.style.display = "none";
+                    }
+                });
+            }
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        window.addEventListener("click", (event) => {
+            if (!event.target.matches(".dropdown-btn")) {
+                if (dropdownContent.classList.contains("show")) {
+                    dropdownContent.classList.remove("show");
+                }
+            }
+        });
+    }
+    const buttons = ["years", "tags"];
+    const dropdownBtns = document.querySelectorAll(".dropdown-btn");
+    const dropdownContents = document.querySelectorAll(".dropdown-content");
+
+    dropdownBtns.forEach((dropdownBtn, index) => {
+        const dropdownContent = dropdownContents[index];
+        configureDropdown(buttons[index], dropdownBtn, dropdownContent);
+    });
+});
