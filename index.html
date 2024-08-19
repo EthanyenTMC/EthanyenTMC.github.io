@@ -1,25 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Personal Website</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <script type="module" src="load_projects.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="wrapper">
-        <div class="hero-section"> 
-            <h1>My Name is Ethan Yen.</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis scelerisque velit, blandit ultrices lectus. Donec sollicitudin elit nec laoreet tincidunt. Nunc ligula ante, porta ac malesuada eu, fermentum vitae nunc. Maecenas quis augue nec lectus rutrum tincidunt. Curabitur dictum, enim sit amet ultricies eleifend, urna ligula ultricies dui, ac imperdiet sem sem et magna.</p>
-            <p>I just finished 8 months at my first job, and am returning to the University of Waterloo to complete my computer science degree.</p>
+      <div class="hero-section">
+        <h1>My Name is Ethan Yen.</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis
+          scelerisque velit, blandit ultrices lectus. Donec sollicitudin elit
+          nec laoreet tincidunt. Nunc ligula ante, porta ac malesuada eu,
+          fermentum vitae nunc. Maecenas quis augue nec lectus rutrum tincidunt.
+          Curabitur dictum, enim sit amet ultricies eleifend, urna ligula
+          ultricies dui, ac imperdiet sem sem et magna.
+        </p>
+        <p>
+          I just finished 8 months at my first job, and am returning to the
+          University of Waterloo to complete my computer science degree.
+        </p>
+      </div>
+
+      <div class="works-section">
+        <h2>My Works</h2>
+        <div class="filter-wrapper">
+            <div class="filter-section">
+                <div class="dropdown">
+                  <button class="dropdown-btn">Date</button>
+                  <div class="dropdown-content-years dropdown-content">
+                    <button class="years-filter-btn" data-filter="all">All</button>
+                  </div>
+                </div>
+              </div>
+              <div class="filter-section">
+                <div class="dropdown">
+                  <button class="dropdown-btn">Category</button>
+                  <div class="dropdown-content-tags dropdown-content">
+                    <button class="tags-filter-btn" data-filter="all">All</button>
+                  </div>
+                </div>
+              </div>
         </div>
-        <div class="works-section">
-            <h2>My Works</h2>
-            <div class="works"></div>
-        </div>
-        </div>
-    
+        <div class="works"></div>
+      </div>
+    </div>
+
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

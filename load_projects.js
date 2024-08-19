@@ -8,9 +8,33 @@
     </div>
     <img src="https://via.placeholder.com/200" alt="work3">
 </div>
+
+<!-- <button class="filter-btn" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="2024">2024</button>
+                <button class="filter-btn" data-filter="2023">2023</button> -->
 */
 
+const tags_filters = document.querySelector(".dropdown-content-tags");
+const years_filters = document.querySelector(".dropdown-content-years");
+
 var tags_color_array = ["tag-color1", "tag-color2", "tag-color3"];
+
+var all_works = [];
+var all_years = [];
+var all_tags = [];
+
+function fancy_contains(array, element_array) {
+    for (var i in element_array) {
+        if (element_array[i] == "all") {
+            continue;
+        }
+        else if (!array.contains(element_array[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
 function createWorkDiv(element) {
   // Create the main div with class 'work'
   const workDiv = document.createElement("div");
@@ -40,9 +64,18 @@ function createWorkDiv(element) {
     tag.textContent = element.tags[i];
     tag.className = "tag";
     tag.className += " " + tags_color_array[Math.floor(Math.random() * 3)];
+    var thing = element.tags[i].replace(" ", "-");
+    workDiv.className += " " + thing;
+    if (all_tags.indexOf(thing) == -1) {
+      all_tags.push(thing);
+    }
     tagsDiv.appendChild(tag);
   }
 
+  workDiv.className += " " + element.year;
+  if (all_years.indexOf(element.year) == -1) {
+    all_years.push(element.year);
+  }
   // Create the img element and set its attributes
   const img = document.createElement("img");
   img.src = element.image;
@@ -83,7 +116,7 @@ async function loadProjects() {
     jsonData.forEach((element) => {
       const workDiv = createWorkDiv(element);
       document.querySelector(".works").appendChild(workDiv);
-      console.log(element);
+      all_works.push(workDiv);
     });
   } catch (error) {
     console.error("There has been a problem with your fetch operation:", error);
@@ -91,4 +124,64 @@ async function loadProjects() {
 }
 
 // Call the function to load projects
-loadProjects();
+
+var curr_filters = ["all", "all"];
+
+loadProjects().then(() => {
+  // Code to run after loadProjects() is completed
+  // Add your code here
+  for (var i in all_tags) {
+    const button = document.createElement("button");
+    button.className = "tags-filter-btn";
+    button.setAttribute("data-filter", all_tags[i]);
+    button.textContent = all_tags[i];
+    document.querySelector(".dropdown-content-tags").appendChild(button);
+  }
+
+  for (var i in all_years) {
+    const button = document.createElement("button");
+    button.className = "years-filter-btn";
+    button.setAttribute("data-filter", all_years[i]);
+    button.textContent = all_years[i];
+    document.querySelector(".dropdown-content-years").appendChild(button);
+  }
+
+  const yearsFilterButtons = document.querySelectorAll(".years-filter-btn");
+  /* console.log(all_works); */
+
+  yearsFilterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const filter = button.getAttribute("data-filter");
+      curr_filters = [filter, curr_filters[1]];
+      all_works.forEach((work) => {
+        if (fancy_contains(work.classList, curr_filters)) {
+          work.style.display = "flex";
+        } else {
+          work.style.display = "none";
+        }
+      });
+    });
+  });
+
+  const tagsFilterButtons = document.querySelectorAll(".tags-filter-btn");
+
+  tagsFilterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const filter = button.getAttribute("data-filter");
+      curr_filters = [curr_filters[0], filter];
+      all_works.forEach((work) => {
+        console.log(work.classList);
+        if (fancy_contains(work.classList, curr_filters)) {
+          work.style.display = "flex";
+        } else {
+          work.style.display = "none";
+        }
+      });
+    });
+  });
+});
+
+/* document.addEventListener("click", () => {
+  console.log(curr_filters);
+}); */
+// Ensure that all_tags and all_years arrays are populated before running the loops
