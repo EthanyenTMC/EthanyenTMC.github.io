@@ -1,9 +1,24 @@
 body {
-    padding: 0;
-    margin: 0;
-    color: #dfdfdf;
     background-color: #0d0e1b;
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: white;
+}
+
+h2 {
+    color: rgb(216, 211, 230);
+}
+
+h3 {
+    color: rgb(172, 163, 199);
+}
+
+p {
+    color: rgb(154, 144, 182);
 }
 
 .wrapper {
@@ -17,8 +32,21 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     color: white;
+}
+
+.hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: white;
+}
+
+.hero-text h1 {
+    -webkit-text-stroke: 1px #ffffff;
+    color: rgba(0, 0, 0, 0);
 }
 
 .works-section {
@@ -33,12 +61,25 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 0.5vh;
 }
 
 .work {
     border: 1px solid rgba(255, 255, 255, 0.066);
     /* border-top: 1px solid white; */
     display: flex;
+    background-color: #2d2a3567;
+    backdrop-filter: blur(10px);
+    border-radius: 1px;
+    transition: 0.5s ease;
+}
+
+.work:hover {
+    border: 1px solid rgba(255, 255, 255, 0.268);
+    background-color: #3a3448b9;
+    border-radius: 10px;
+    scale: 1.01;
+    z-index: 1;
 }
 
 .work img {
@@ -145,17 +186,19 @@ body {
 .filter-wrapper {
     display: flex;
     flex-direction: row;
+    width: var(--general-width);
 }
 
 .header {
     position: sticky;
-    background-color: #06060c;
+    background-color: #1a1a1a67;
     top: 0;
     display: flex;
     flex-direction: row;
-
     align-items: center;
     justify-content: space-between;
+    backdrop-filter: blur(10px);
+    z-index: 2;
 }
 
 .contact-section {
@@ -179,10 +222,12 @@ body {
 
 .experiences > div:nth-child(odd) {
     align-items: flex-start;
+    text-align: left;
 }
 
 .experiences > div:nth-child(even) {
     align-items: flex-end;
+    text-align: right;
 }
 
 .experience h2 {
@@ -198,4 +243,39 @@ body {
     top: 0;
     left: 0;
     z-index: 99; /* Ensure the canvas is behind other content */
+}
+
+#header-home:hover,
+#header-works:hover,
+#header-contact:hover,
+#header-exp:hover {
+    background-color: #2d2a3567;
+    transition: background-color 0.3s ease;
+}
+
+#header-home,
+#header-works,
+#header-contact,
+#header-exp {
+    border-radius: 5px;
+    margin: 0 1% 0 1%;
+}
+
+.blurry-circle {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.2);
+    pointer-events: none; /* Ensure the circle doesn't interfere with mouse events */
+    /* transition: transform 0.1s ease-out; /* Smooth transition */
+    border-radius: 50%;
+    z-index: -2;
+    will-change: transform;
+}
+
+.trail {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    pointer-events: none; /* Ensure the circle doesn't interfere with mouse events */
+    transition: transform 0.1s ease-out; /* Smooth transition */
+    border-radius: 50%;
+    z-index: -2;
 }

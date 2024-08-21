@@ -6,24 +6,43 @@
         <title>Ethan Yen</title>
         <link rel="stylesheet" href="styles.css" />
         <link rel="stylesheet" href="landscape.css" />
+        <link rel="stylesheet" href="portrait.css" />
         <script type="module" src="load_projects.js"></script>
     </head>
     <body>
-        <canvas id="fullpage-canvas"></canvas>
+        <!-- <canvas id="fullpage-canvas"></canvas> -->
+        <!-- <div class="blurry-circle"></div> -->
+        <!-- <div class="scroll-trail">
+            <div class="trail"></div>
+            <div class="trail"></div>
+            <div class="trail"></div>
+        </div> -->
         <div class="wrapper">
             <div class="header">
                 <img id="game-start" src="https://via.placeholder.com/50" />
-                <div class="half-spacer"></div>
-                <p data-scroll-target="hero-section">Home</p>
-                <p data-scroll-target="works-section">Works</p>
-                <p data-scroll-target="experience-section">Experience</p>
-                <p data-scroll-target="contact-section">Contact</p>
+
+                <div data-scroll-target="hero-section" id="header-home">
+                    <p>Home</p>
+                </div>
+                <div data-scroll-target="works-section" id="header-works">
+                    <p>Works</p>
+                </div>
+                <div data-scroll-target="experience-section" id="header-exp">
+                    <p>Experience</p>
+                </div>
+                <div data-scroll-target="contact-section" id="header-contact">
+                    <p>Contact</p>
+                </div>
             </div>
             <div class="hero-section">
-                <h1>I'm Ethan Yen</h1>
-                <h2>
-                    A jack of all passions, working to make my dreams come true.
-                </h2>
+                <div class="hero-text">
+                    <h1>I'm<br />Ethan Yen</h1>
+                    <h2>
+                        A jack of all passions, working to make my dreams come
+                        true.
+                    </h2>
+                </div>
+
                 <!-- <p>
                     Welcome to my website. Though I am working on building my
                     resume, the traits that I believe elevate me are ones that
@@ -36,6 +55,24 @@
                     to the University of Waterloo to complete my computer
                     science degree.
                 </p> -->
+            </div>
+            <div class="extended-hero-section">
+                <div class="cool-block">
+                    <h2>Many Interests, Many Passions</h2>
+                    <p>
+                        I have found a passion in learning itself. Whether it's
+                        animation, science, or programming, I love learning
+                        about it all and applying it wherever I can.
+                    </p>
+                </div>
+                <div class="cool-block">
+                    <h2>Finding the Fun</h2>
+                    <p>
+                        I may not be the best at anything I do, but when
+                        learning and doing is my favorite pasttime, nothing will
+                        stop me from achieving any goals I have.
+                    </p>
+                </div>
             </div>
             <div class="experience-section">
                 <h2>Experience</h2>
@@ -91,6 +128,6 @@
             </div>
         </div>
         <script src="script.js"></script>
-        <script src="canvas.js"></script>
+        <!-- <script src="canvas.js"></script> -->
     </body>
 </html>

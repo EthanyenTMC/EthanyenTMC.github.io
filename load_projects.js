@@ -76,8 +76,13 @@ function createWorkDiv(element) {
         all_years.push(element.year);
     }
     // Create the img element and set its attributes
+    const img_div = document.createElement("div");
+    img_div.className = "work-img";
+
     const img = document.createElement("img");
     img.src = element.image;
+
+    img_div.appendChild(img);
 
     // Create the button element
 
@@ -96,7 +101,7 @@ function createWorkDiv(element) {
     }
 
     workDiv.appendChild(workTextDiv);
-    workDiv.appendChild(img);
+    workDiv.appendChild(img_div);
 
     // Return the constructed work div
     return workDiv;

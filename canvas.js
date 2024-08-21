@@ -111,6 +111,4 @@ window.addEventListener("projectsLoaded", () => {
 
     // Start the game
     /* update(); */
-
-    update();
 });
