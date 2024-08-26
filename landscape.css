@@ -16,10 +16,22 @@
     .hero-section {
         width: var(--general-width);
         height: 90vh;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
     }
 
     .hero-text {
         width: 50%;
+    }
+
+    .hero-display {
+        width: 50%;
+    }
+
+    .hero-display img {
+        width: 100%;
+        height: auto;
     }
 
     .hero-text h1 {
@@ -94,6 +106,7 @@
     }
 
     .experience-section {
+        padding-top: 7.5vh;
         width: var(--general-width);
         height: auto;
     }
@@ -105,6 +118,23 @@
 
     .experience {
         width: var(--general-width);
+        height: 20vh;
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+    }
+
+    .experience-text {
+        width: 50%;
+    }
+
+    .experience-img {
+        width: 50%;
+        gap: 1vw;
+    }
+
+    .experience-img img {
+        height: auto;
+        width: 33%;
     }
 
     .header > div {

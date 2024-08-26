@@ -3,7 +3,7 @@
         "title": "Personal Website",
         "description": "I made this website to better showcase my experiences, projects, and most importantly, my personality. I find infinite passion and joy in the things I do, and want to convey that to you as best I can. I hope you enjoy this showcase of my skills and passions.",
         "image": "https://via.placeholder.com/200",
-        "link": "projects/website.html",
+        "link": "projects/website/index.html",
         "tags": ["Web Development", "Design"],
         "year": "2024"
     },

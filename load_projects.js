@@ -94,9 +94,10 @@ function createWorkDiv(element) {
         const button = document.createElement("a");
         button.textContent = "Learn More";
         button.className = "project-link";
-        button.addEventListener("click", () => {
+        /* button.addEventListener("click", () => {
             window.location.href = element.link;
-        });
+        }); */
+        button.href = element.link;
         workTextDiv.appendChild(button);
     }
 
@@ -133,6 +134,49 @@ export async function loadProjects() {
 }
 
 // Call the function to load projects
+
+function goAway(link) {
+    const bodyChildren = document.querySelector(".wrapper").children;
+    console.log(bodyChildren);
+    var aniList = [];
+    /* console.log("------------------------");
+    console.log(window.scrollY + " " + (window.scrollY + window.innerHeight));
+    console.log("------------------------"); */
+    for (let i = 0; i < bodyChildren.length; i++) {
+        const child = bodyChildren[i];
+        const rect = child.getBoundingClientRect();
+        /* console.log(child.className + " " + rect.top + " " + rect.bottom); */
+        if (
+            (rect.top > 0 && rect.top < window.innerHeight) ||
+            (rect.bottom > 0 && rect.bottom < window.innerHeight) ||
+            (rect.top < 0 && rect.bottom > window.innerHeight)
+        ) {
+            console.log(child.className);
+            if (
+                child.className != "header" &&
+                aniList.indexOf(child.className) == -1
+            ) {
+                aniList.push("." + child.className);
+            }
+        }
+    }
+    console.log(aniList);
+    anime({
+        targets: aniList,
+        opacity: [1, 0],
+        duration: 1000,
+        easing: "linear",
+        begin: function (anim) {
+            console.log("targets " + anim.targets);
+        },
+        /* update: function (anim) {
+            console.log("progress : " + Math.round(anim.progress) + "%");
+        }, */
+        complete: function () {
+            window.location.href = link;
+        },
+    });
+}
 
 var curr_filters = ["all", "all"];
 
@@ -193,6 +237,18 @@ loadProjects().then(() => {
     });
     const event = new CustomEvent("projectsLoaded");
     window.dispatchEvent(event);
+
+    const button_links = document.querySelectorAll(".project-link");
+    console.log(button_links);
+
+    for (let i = 0; i < button_links.length; i++) {
+        const button = button_links[i];
+
+        button.addEventListener("click", (event) => {
+            event.preventDefault();
+            goAway(button.href);
+        });
+    }
 });
 
 /* document.addEventListener("click", () => {

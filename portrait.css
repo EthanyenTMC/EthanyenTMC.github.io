@@ -29,6 +29,7 @@
     .hero-section {
         width: var(--general-width);
         height: 90vh;
+        flex-direction: column;
     }
 
     .hero-text {

@@ -30,7 +30,7 @@ p {
 
 .hero-section {
     display: flex;
-    flex-direction: column;
+
     justify-content: center;
     align-items: flex-start;
     color: white;
@@ -47,6 +47,42 @@ p {
 .hero-text h1 {
     -webkit-text-stroke: 1px #ffffff;
     color: rgba(0, 0, 0, 0);
+}
+
+.extended-hero-section {
+    height: auto;
+}
+
+.cool-block {
+    display: flex;
+    flex-direction: row;
+    width: var(--general-width);
+    height: 15vh;
+    gap: 1vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.cool-block > * {
+    width: 50%;
+    padding: 0;
+    margin: 0;
+}
+
+.cool-block > *:nth-child(1) {
+    text-align: right;
+}
+
+.cool-block > *:nth-child(2) {
+    text-align: left;
+}
+
+.cool-block > h2 {
+    font-size: 100%;
+}
+
+.cool-block > p {
+    font-size: 100%;
 }
 
 .works-section {
@@ -186,7 +222,9 @@ p {
 .filter-wrapper {
     display: flex;
     flex-direction: row;
-    width: var(--general-width);
+    width: 35%;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .header {
@@ -215,19 +253,58 @@ p {
     align-items: center;
 }
 
-.experience {
+.experiences {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.experiences > div:nth-child(odd) {
+.experience {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.experience:not(:first-child) {
+    border-top: solid 1px rgba(172, 163, 199, 0.3);
+}
+
+.experience-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.experience-img {
+    display: flex;
+    flex-direction: row;
+    max-width: 50%;
+}
+
+.experience-img img {
+    width: auto;
+    object-fit: contain;
+}
+
+.experiences > div:nth-child(odd) > .experience-text {
     align-items: flex-start;
     text-align: left;
 }
 
-.experiences > div:nth-child(even) {
+.experiences > div:nth-child(even) > .experience-text {
     align-items: flex-end;
     text-align: right;
+}
+
+.experiences > div:nth-child(odd) > .experience-img {
+    justify-content: flex-start;
+}
+
+.experiences > div:nth-child(even) > .experience-img {
+    justify-content: flex-end;
 }
 
 .experience h2 {
