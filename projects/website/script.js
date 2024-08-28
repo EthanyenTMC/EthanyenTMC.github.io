@@ -4,5 +4,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         targets: ".wrapper > *",
         opacity: [0, 1],
         duration: 3000,
+        delay: anime.stagger(500),
     });
 });

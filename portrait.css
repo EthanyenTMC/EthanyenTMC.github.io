@@ -1,5 +1,5 @@
 :root {
-    --general-width: 85vw;
+    --portrait-width: 85vw;
 }
 
 @media (orientation: portrait) {
@@ -17,7 +17,7 @@
         font-size: 3vh;
     }
     .extended-hero-section {
-        width: var(--general-width);
+        width: var(--portrait-width);
     }
     .wrapper {
         height: auto;
@@ -27,7 +27,7 @@
     }
 
     .hero-section {
-        width: var(--general-width);
+        width: var(--portrait-width);
         height: 90vh;
         flex-direction: column;
     }
@@ -59,7 +59,7 @@
 
     .work {
         height: auto;
-        width: var(--general-width);
+        width: var(--portrait-width);
         margin: 2vh 0 2vh, 0;
         padding-top: 5%;
         flex-direction: column;
@@ -140,7 +140,7 @@
     }
 
     .experience-section {
-        width: var(--general-width);
+        width: var(--portrait-width);
         height: auto;
     }
 
@@ -150,7 +150,7 @@
     }
 
     .experience {
-        width: var(--general-width);
+        width: var(--portrait-width);
     }
 
     .header > div {

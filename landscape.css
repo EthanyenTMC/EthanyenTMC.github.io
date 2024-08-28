@@ -1,10 +1,10 @@
 :root {
-    --general-width: 80vw;
+    --landscape-width: 70vw;
 }
 
 @media (orientation: landscape) {
     .extended-hero-section {
-        width: var(--general-width);
+        width: var(--landscape-width);
     }
     .wrapper {
         height: auto;
@@ -13,8 +13,18 @@
         padding: 0;
     }
 
+    .cool-block {
+        width: var(--landscape-width);
+        height: 15vh;
+        gap: 1vw;
+    }
+
+    .cool-block > * {
+        width: var(--landscape-width);
+    }
+
     .hero-section {
-        width: var(--general-width);
+        width: var(--landscape-width);
         height: 90vh;
         flex-direction: row;
         justify-content: space-around;
@@ -39,6 +49,21 @@
         margin: 0;
     }
 
+    .skills-section {
+        width: 100%;
+    }
+
+    .skill {
+        width: var(--landscape-width);
+    }
+
+    .skill-gallery {
+        width: 100%;
+    }
+    .skill-item {
+        width: 10%;
+    }
+
     .works-section {
         height: auto;
         width: 100vw;
@@ -48,12 +73,12 @@
     .works {
         height: auto;
         width: 100%;
-        gap: 1vh;
+        gap: 2vh;
     }
 
     .work {
         height: auto;
-        width: var(--general-width);
+        width: var(--landscape-width);
         padding: 1.5vh;
         flex-direction: row;
         justify-content: space-around;
@@ -101,13 +126,13 @@
     }
 
     .contact-section {
-        width: 100vw;
+        width: var(--landscape-width);
         height: 100vh;
     }
 
     .experience-section {
         padding-top: 7.5vh;
-        width: var(--general-width);
+        width: var(--landscape-width);
         height: auto;
     }
 
@@ -117,7 +142,7 @@
     }
 
     .experience {
-        width: var(--general-width);
+        width: var(--landscape-width);
         height: 20vh;
         padding-top: 5vh;
         padding-bottom: 5vh;

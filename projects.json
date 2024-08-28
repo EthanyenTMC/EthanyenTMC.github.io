@@ -3,7 +3,7 @@
         "title": "Personal Website",
         "description": "I made this website to better showcase my experiences, projects, and most importantly, my personality. I find infinite passion and joy in the things I do, and want to convey that to you as best I can. I hope you enjoy this showcase of my skills and passions.",
         "image": "https://via.placeholder.com/200",
-        "link": "projects/website/index.html",
+        "link": "projects/website/",
         "tags": ["Web Development", "Design"],
         "year": "2024"
     },
@@ -11,7 +11,7 @@
         "title": "Prototype 3D Action Game",
         "description": "This is a untitled 3d game thing",
         "image": "https://via.placeholder.com/200",
-        "link": "projects/3dgame.html",
+        "link": "projects/3dgame/",
         "tags": ["Game Development"],
         "year": "2023"
     },
@@ -25,7 +25,7 @@
     },
     {
         "title": "Wealthsimple Case Competition",
-        "description": "Achieved within the top 10% of participants",
+        "description": "Achieved within the top 5% of participants. My team and I created a customer base expansion strategy according to Wealthsimple's objectives and specifications using real world research.",
         "image": "https://via.placeholder.com/200",
         "link": "",
         "tags": ["Business"],
@@ -33,15 +33,15 @@
     },
     {
         "title": "EVIS, Elegant Visual Impairment Solution",
-        "description": "A prototype augmented reality headset for the visually impaired",
+        "description": "A prototype augmented reality headset for the visually impaired. Combining my skills in programming, animation, and 3D modelling, I worked with 2 friends to create a virtual reality headset designed for the visually impaired to be able to zoom in onto reality. We presented this project to mock investors.",
         "image": "https://via.placeholder.com/200",
-        "link": "",
+        "link": "/projects/evis",
         "tags": ["Hardware Development", "Software Development"],
         "year": "2022"
     },
     {
         "title": "Android 2D Physics Engine",
-        "description": "A simple physics engine for Android app created with Android Studio",
+        "description": "I developed an app that had a simple 2D physics engine using Java and Android Studio. The demo I created had a character on the screen move with constant acceleration, friction, and a particle system.",
         "image": "https://via.placeholder.com/200",
         "link": "",
         "tags": ["Software Development"],

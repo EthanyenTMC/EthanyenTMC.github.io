@@ -152,7 +152,14 @@ function goAway(link) {
             (rect.top < 0 && rect.bottom > window.innerHeight)
         ) {
             console.log(child.className);
-            if (
+            if (child.className == "works-section") {
+                const works = child.querySelector(".works");
+                for (let j = 0; j < works.children.length; j++) {
+                    //console.log(child);
+                    aniList;
+                    aniList.push(works.children[j]);
+                }
+            } else if (
                 child.className != "header" &&
                 aniList.indexOf(child.className) == -1
             ) {
@@ -160,12 +167,13 @@ function goAway(link) {
             }
         }
     }
-    console.log(aniList);
+    //console.log(aniList);
     anime({
         targets: aniList,
         opacity: [1, 0],
-        duration: 1000,
+        duration: 500,
         easing: "linear",
+        delay: anime.stagger(100),
         begin: function (anim) {
             console.log("targets " + anim.targets);
         },
