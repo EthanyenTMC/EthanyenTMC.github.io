@@ -17,10 +17,18 @@
     },
     {
         "title": "Automatic Product Image Uploader",
-        "description": "Uploads images for products automatically on Shopify",
+        "description": "Utilized Shopify's GraphQL Admin API and Python to simplify the product image upload process and reduced human labor and mistakes by 10 times.",
         "image": "https://via.placeholder.com/200",
         "link": "",
         "tags": ["Software Development", "E-Commerce"],
+        "year": "2024"
+    },
+    {
+        "title": "Automatic Updating Power Bi Sales Dashboard",
+        "description": "Used Power BI and Shopify's GraphQL API to query and display all sales data.",
+        "image": "https://via.placeholder.com/200",
+        "link": "",
+        "tags": ["Data Visualization", "E-Commerce"],
         "year": "2024"
     },
     {

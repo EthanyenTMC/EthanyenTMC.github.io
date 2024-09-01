@@ -13,6 +13,15 @@
         padding: 0;
     }
 
+    .cool-block h2 {
+        width: 100%;
+        font-size: 150%;
+    }
+
+    .cool-block p {
+        font-size: 120%;
+    }
+
     .cool-block {
         width: var(--landscape-width);
         height: 15vh;
@@ -51,6 +60,7 @@
 
     .skills-section {
         width: 100%;
+        padding-top: 5vh;
     }
 
     .skill {
@@ -62,6 +72,11 @@
     }
     .skill-item {
         width: 10%;
+    }
+
+    .skill-item img {
+        width: 100%;
+        height: auto;
     }
 
     .works-section {

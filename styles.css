@@ -45,8 +45,8 @@ p {
 }
 
 .hero-text h1 {
-    -webkit-text-stroke: 1px #ffffff;
     color: rgba(0, 0, 0, 0);
+    -webkit-text-stroke: 1px #ff002f;
 }
 
 .extended-hero-section {
@@ -63,15 +63,12 @@ p {
 }
 
 .cool-block h2 {
-    width: 100%;
     text-align: center;
-    font-size: 250%;
-    -webkit-text-stroke: 1px rgb(216, 211, 230);
-    color: rgba(0, 0, 0, 0);
+    /* -webkit-text-stroke: 1px rgba(216, 211, 230, 0.7);
+    color: rgba(0, 0, 0, 0); */
 }
 
 .cool-block p {
-    font-size: 120%;
     text-shadow: #0d0e1b;
 }
 
@@ -83,6 +80,11 @@ p {
     text-align: center;
 }
 
+.skills-section h2 {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
 .skills-gallery {
     display: flex;
     flex-direction: row;
@@ -92,8 +94,12 @@ p {
 .skill-item {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
+}
+
+.skill-item {
+    aspect-ratio: 1/1;
 }
 
 /* .cool-block > * {
@@ -139,7 +145,6 @@ p {
     display: flex;
     background-color: #2d2a3567;
     backdrop-filter: blur(10px);
-    border-radius: 1px;
     transition: 0.5s ease;
 }
 

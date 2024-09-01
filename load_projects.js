@@ -104,6 +104,20 @@ function createWorkDiv(element) {
     workDiv.appendChild(workTextDiv);
     workDiv.appendChild(img_div);
 
+    workDiv.addEventListener("click", () => {
+        const headerHeight = document.querySelector(".header").offsetHeight;
+        /* const targetOffset =
+            workDiv.offsetTop +
+            headerHeight -
+            (window.innerHeight - headerHeight) / 2; */
+        const targetOffset =
+            workDiv.offsetTop - headerHeight - window.innerHeight / 55;
+        window.scrollTo({
+            top: targetOffset,
+            behavior: "smooth",
+        });
+    });
+
     // Return the constructed work div
     return workDiv;
 }
@@ -154,9 +168,10 @@ function goAway(link) {
             console.log(child.className);
             if (child.className == "works-section") {
                 const works = child.querySelector(".works");
+                aniList.push(child.querySelector("h2"));
+                aniList.push(document.querySelector(".filter-wrapper"));
                 for (let j = 0; j < works.children.length; j++) {
                     //console.log(child);
-                    aniList;
                     aniList.push(works.children[j]);
                 }
             } else if (

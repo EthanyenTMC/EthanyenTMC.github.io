@@ -26,13 +26,13 @@ for (let i = 0; i < headerChildren.length; i++) {
 
 // HEADER NAVIGATION SETUP /\/\/\/\/\/\/\
 
-/* const circle = document.querySelector(".blurry-circle");
+const circle = document.querySelector(".blurry-circle");
 
 // Get the dimensions of the circle
 const circleRect = circle.getBoundingClientRect();
 const circleWidth = circleRect.width;
 const circleHeight = circleRect.height;
- */
+
 /* const trail = document.querySelectorAll(".trail");
 console.log(trail);
 let trailCoordinates = [
@@ -50,7 +50,7 @@ const endColor = [234, 0, 255]; // Blue
 window.addEventListener("resize", () => {
     screenWidth = window.innerWidth;
 });
-/* 
+
 function moveBlurryCircle(event) {
     mouseX = event.clientX;
     mouseY = event.clientY;
@@ -92,7 +92,7 @@ document.addEventListener("scroll", () => {
     circle.style.transform = `translate(${mouseX - circleWidth / 2}px, ${
         mouseY - circleHeight / 2 + scrollY
     }px)`;
-}); */
+});
 
 // Calculate the distance moved by the mouse
 /* const distanceX = Math.abs(mouseX - trailCoordinates[0].x);
