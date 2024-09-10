@@ -28,7 +28,7 @@
         "description": "Used Power BI and Shopify's GraphQL API to query and display all sales data.",
         "image": "https://via.placeholder.com/200",
         "link": "",
-        "tags": ["Data Visualization", "E-Commerce"],
+        "tags": ["Data Management", "E-Commerce"],
         "year": "2024"
     },
     {
@@ -44,7 +44,7 @@
         "description": "A prototype augmented reality headset for the visually impaired. Combining my skills in programming, animation, and 3D modelling, I worked with 2 friends to create a virtual reality headset designed for the visually impaired to be able to zoom in onto reality. We presented this project to mock investors.",
         "image": "https://via.placeholder.com/200",
         "link": "/projects/evis",
-        "tags": ["Hardware Development", "Software Development"],
+        "tags": ["Software Development"],
         "year": "2022"
     },
     {

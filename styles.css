@@ -1,24 +1,46 @@
+html {
+    scroll-behavior: smooth;
+}
+
+
 body {
-    background-color: #0d0e1b;
+    background-color: #00010e;
     overflow-x: hidden;
     margin: 0;
     padding: 0;
+    /* background-image: radial-gradient(circle, rgb(162, 135, 202) 1%, transparent 5%);
+    background-size: 50px 50px; */
+
+    font-family: "Noto Sans Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+
 }
+
 
 h1 {
     color: white;
 }
 
 h2 {
-    color: rgb(216, 211, 230);
+    color: rgb(134, 98, 218);
 }
 
 h3 {
-    color: rgb(172, 163, 199);
+    color: rgb(132, 147, 224)
 }
 
 p {
-    color: rgb(154, 144, 182);
+    color: rgb(173, 198, 224)
+}
+
+.text3d {
+  text-shadow: 0 1px 0 #17202A, 0 2px 0 #17202A,
+    0 7px 0 #17202A, 0 8px 0 #17202A,
+    0 11px 0 #17202A, 0 12px 0 #17202A;
 }
 
 .wrapper {
@@ -30,9 +52,11 @@ p {
 
 .hero-section {
     display: flex;
-
+    width: 100%;
     justify-content: center;
-    align-items: flex-start;
+    align-items: column;
+    justify-content: center;
+    align-items: center;
     color: white;
 }
 
@@ -40,14 +64,23 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     color: white;
 }
 
 .hero-text h1 {
     color: rgba(0, 0, 0, 0);
-    -webkit-text-stroke: 1px #ff002f;
+    -webkit-text-stroke: 2px rgb(76, 0, 255);
+    padding: 0;
+    margin: 0;
 }
+
+#name{
+    /* color:rgb(255, 0, 0); */
+    -webkit-text-stroke: 10px rgb(76, 0, 255);
+}
+
 
 .extended-hero-section {
     height: auto;
@@ -63,13 +96,14 @@ p {
 }
 
 .cool-block h2 {
-    text-align: center;
+    text-align: left;
     /* -webkit-text-stroke: 1px rgba(216, 211, 230, 0.7);
     color: rgba(0, 0, 0, 0); */
 }
 
 .cool-block p {
     text-shadow: #0d0e1b;
+    text-align: left;
 }
 
 .skills-section {
@@ -140,21 +174,21 @@ p {
 }
 
 .work {
-    border: 1px solid rgba(255, 255, 255, 0.066);
+    /* border: 1px solid rgba(255, 255, 255, 0.066); */
     /* border-top: 1px solid white; */
     display: flex;
-    background-color: #2d2a3567;
+    /* background-color: #2d2a3567; */
     backdrop-filter: blur(10px);
     transition: 0.5s ease;
 }
 
-.work:hover {
+/* .work:hover {
     border: 1px solid rgba(255, 255, 255, 0.268);
     background-color: #3a3448b9;
     border-radius: 10px;
     scale: 1.01;
     z-index: 1;
-}
+} */
 
 .work img {
     width: auto;
@@ -235,6 +269,7 @@ p {
     opacity: 0;
     transition: opacity 0.3s ease, visibility 0.3s ease;
     visibility: hidden;
+
 }
 
 /* Style the buttons inside the dropdown */
@@ -252,7 +287,10 @@ p {
 
 /* Show the dropdown content when the dropdown button is clicked */
 .dropdown-content.show {
-    display: block;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     opacity: 1;
     visibility: visible;
 }
@@ -267,7 +305,7 @@ p {
 
 .header {
     position: sticky;
-    background-color: #1a1a1a67;
+    background-color: #03001b67;
     top: 0;
     display: flex;
     flex-direction: row;
@@ -393,4 +431,52 @@ p {
     transition: transform 0.1s ease-out; /* Smooth transition */
     border-radius: 50%;
     z-index: -2;
+}
+
+.menu-button{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5vh;
+    width: 5vh;
+    padding: 1vh;
+    margin: 0;
+    padding: 0;
+    z-index: 99;
+}
+
+.menu{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 30vw;
+    background-color: rgb(76, 0, 255);
+    display:flex;
+    z-index: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 98;
+}
+
+.bg-dimmer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+    z-index: 0;
+    transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
+}
+
+.bg-dimmer-on {
+    will-change: auto;
+    background-color: rgba(0, 0, 0, 0.432);
+    z-index: 97;
+    /* backdrop-filter: blur(2px); */
+}
+
+.active{
+    will-change: auto;
 }

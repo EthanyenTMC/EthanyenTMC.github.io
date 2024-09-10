@@ -15,11 +15,11 @@
 
     .cool-block h2 {
         width: 100%;
-        font-size: 150%;
+        font-size: 200%;
     }
 
     .cool-block p {
-        font-size: 120%;
+        font-size: 100%;
     }
 
     .cool-block {
@@ -34,14 +34,14 @@
 
     .hero-section {
         width: var(--landscape-width);
-        height: 90vh;
+        height: 100vh;
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
     }
 
     .hero-text {
-        width: 50%;
+        /* width: 50%; */
     }
 
     .hero-display {
@@ -56,6 +56,10 @@
     .hero-text h1 {
         font-size: 5em;
         margin: 0;
+    }
+
+    #name{
+        font-size: 10em;
     }
 
     .skills-section {

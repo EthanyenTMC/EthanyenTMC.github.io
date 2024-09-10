@@ -1,0 +1,41 @@
+body {
+    background-color: #00010e;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    /* background-image: radial-gradient(circle, rgb(162, 135, 202) 1%, transparent 5%);
+    background-size: 50px 50px; */
+
+    font-family: "Noto Sans Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+
+}
+
+h1 {
+    color: rgb(76, 0, 255);
+}
+
+h2 {
+    color: rgb(134, 98, 218);
+}
+
+h3 {
+    color: rgb(164, 149, 199)
+}
+
+p {
+    color: rgb(163, 154, 184)
+}
+
+.main{
+    display:flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}

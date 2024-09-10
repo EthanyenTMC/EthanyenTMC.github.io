@@ -4,22 +4,26 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Ethan Yen</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="styles.css" />
         <link rel="stylesheet" href="landscape.css" />
         <link rel="stylesheet" href="portrait.css" />
         <script src="anime.min.js"></script>
         <script type="module" src="load_projects.js"></script>
+        
     </head>
     <body>
         <!-- <canvas id="fullpage-canvas"></canvas> -->
-        <div class="blurry-circle"></div>
+        <!-- <div class="blurry-circle"></div> -->
         <!-- <div class="scroll-trail">
             <div class="trail"></div>
             <div class="trail"></div>
             <div class="trail"></div>
         </div> -->
         <div class="wrapper">
-            <div class="header">
+            <!-- <div class="header">
                 <img id="game-start" src="https://via.placeholder.com/50" />
 
                 <div data-scroll-target="hero-section" id="header-home">
@@ -34,18 +38,38 @@
                 <div data-scroll-target="contact-section" id="header-contact">
                     <p>Contact</p>
                 </div>
+            </div> -->
+            <div class="menu-button">
+                <p>menu</p>
             </div>
+            <div class="menu" style="transform: translateX(-101%);">
+                <div data-scroll-target="hero-section" id="header-home">
+                    <p>Home</p>
+                </div>
+                <div data-scroll-target="works-section" id="header-works">
+                    <p>Works</p>
+                </div>
+                <div data-scroll-target="experience-section" id="header-exp">
+                    <p>Experience</p>
+                </div>
+                <div data-scroll-target="contact-section" id="header-contact">
+                    <p>Contact</p>
+                </div>
+            </div>
+            <div class="bg-dimmer">
+            </div>
+
             <div class="hero-section">
                 <div class="hero-text">
-                    <h1>I'm<br />Ethan Yen</h1>
+                    <h1>My name is</h1>
+                    <h1 class="text3d" id="name">Ethan Yen</h1>
                     <h2>
-                        Creatively applying my skills to be more than the sum of
-                        my parts.
+                        and I'm creatively combining skills to achieve more
                     </h2>
                 </div>
-                <div class="hero-display">
+                <!-- <div class="hero-display">
                     <img src="controller.webp" />
-                </div>
+                </div> -->
 
                 <!-- <p>
                     Welcome to my website. Though I am working on building my
@@ -64,17 +88,13 @@
                 <div class="cool-block">
                     <h2>Countless Interests, Infinite Passion</h2>
                     <p>
-                        I have found a passion in learning itself. Whether it's
-                        animation, science, or programming, I love learning
-                        about it all and applying it wherever I can.
+                        I’m passionate about learning, whether it’s animation, science, or programming, and love applying what I learn wherever I can
                     </p>
                 </div>
                 <div class="cool-block">
-                    <h2>Always Finding Fun</h2>
-                    <p>
-                        I may not be the best at anything I do, but when
-                        learning and doing is my favorite pasttime, nothing will
-                        stop me from achieving any goals I have.
+                    <h2 style="text-align: right;">Always Finding Fun</h2>
+                    <p style="text-align: right;">
+                        I may not be the best at everything I do, but with learning and doing as my favorite pastime, nothing will stop me from reaching my goals.
                     </p>
                 </div>
             </div>
