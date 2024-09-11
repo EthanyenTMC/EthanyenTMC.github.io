@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Ethan Yen</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="styles.css" />
-        <link rel="stylesheet" href="landscape.css" />
-        <link rel="stylesheet" href="portrait.css" />
-        <script src="anime.min.js"></script>
-        <script type="module" src="load_projects.js"></script>
-        
-    </head>
-    <body>
-        <!-- <canvas id="fullpage-canvas"></canvas> -->
-        <!-- <div class="blurry-circle"></div> -->
-        <!-- <div class="scroll-trail">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ethan Yen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="landscape.css" />
+    <link rel="stylesheet" href="portrait.css" />
+    <script src="anime.min.js"></script>
+    <script type="module" src="load_projects.js"></script>
+
+</head>
+
+<body>
+    <!-- <canvas id="fullpage-canvas"></canvas> -->
+    <!-- <div class="blurry-circle"></div> -->
+    <!-- <div class="scroll-trail">
             <div class="trail"></div>
             <div class="trail"></div>
             <div class="trail"></div>
         </div> -->
-        <div class="wrapper">
-            <!-- <div class="header">
+    <div class="wrapper">
+        <!-- <div class="header">
                 <img id="game-start" src="https://via.placeholder.com/50" />
 
                 <div data-scroll-target="hero-section" id="header-home">
@@ -39,10 +41,11 @@
                     <p>Contact</p>
                 </div>
             </div> -->
-            <div class="menu-button">
-                <p>menu</p>
-            </div>
-            <div class="menu" style="transform: translateX(-101%);">
+        <div class="menu-button">
+            <p>menu</p>
+        </div>
+        <div class="menu" style="transform: translateX(-101%);">
+            <div class="menu-wrapper">
                 <div data-scroll-target="hero-section" id="header-home">
                     <p>Home</p>
                 </div>
@@ -56,22 +59,24 @@
                     <p>Contact</p>
                 </div>
             </div>
-            <div class="bg-dimmer">
-            </div>
 
-            <div class="hero-section">
-                <div class="hero-text">
-                    <h1>My name is</h1>
-                    <h1 class="text3d" id="name">Ethan Yen</h1>
-                    <h2>
-                        and I'm creatively combining skills to achieve more
-                    </h2>
-                </div>
-                <!-- <div class="hero-display">
+        </div>
+        <div class="bg-dimmer">
+        </div>
+
+        <div class="hero-section">
+            <div class="hero-text">
+                <h1>My name is</h1>
+                <h1 data-text="Ethan Yen" id="name">Ethan Yen</h1>
+                <h2>
+                    and I'm creatively combining skills to achieve more
+                </h2>
+            </div>
+            <!-- <div class="hero-display">
                     <img src="controller.webp" />
                 </div> -->
 
-                <!-- <p>
+            <!-- <p>
                     Welcome to my website. Though I am working on building my
                     resume, the traits that I believe elevate me are ones that
                     cannot really be shown on a resume. I created this website
@@ -83,172 +88,185 @@
                     to the University of Waterloo to complete my computer
                     science degree.
                 </p> -->
-            </div>
-            <div class="extended-hero-section">
-                <div class="cool-block">
-                    <h2>Countless Interests, Infinite Passion</h2>
-                    <p>
-                        I’m passionate about learning, whether it’s animation, science, or programming, and love applying what I learn wherever I can
-                    </p>
-                </div>
-                <div class="cool-block">
-                    <h2 style="text-align: right;">Always Finding Fun</h2>
-                    <p style="text-align: right;">
-                        I may not be the best at everything I do, but with learning and doing as my favorite pastime, nothing will stop me from reaching my goals.
-                    </p>
-                </div>
-            </div>
-            <div class="skills-section">
-                <h2>My Skills</h2>
-                <div class="skill">
-                    <h3>Programming in Various Languages</h3>
-                    <div class="skills-gallery">
-                        <div class="skill-item">
-                            <img src="images/html.png" />
-                            <p>HTML</p>
-                        </div>
-                        <div class="skill-item">
-                            <img src="images/css.png" />
-                            <p>CSS</p>
-                        </div>
-                        <div class="skill-item">
-                            <img src="images/js.png" />
-                            <p>JavaScript</p>
-                        </div>
-
-                        <div class="skill-item">
-                            <img src="images/python.png" />
-                            <p>Python</p>
-                        </div>
-
-                        <div class="skill-item">
-                            <img src="images/java.png" />
-                            <p>Java</p>
-                        </div>
-                        <div class="skill-item">
-                            <img src="images/cpp.png" />
-                            <p>C++</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <h3>Graphic Design, Animation, 3D Modelling and More!</h3>
-                    <div class="skills-gallery">
-                        <div class="skill-item">
-                            <img src="images/photoshop.png" />
-                            <p>Photoshop</p>
-                        </div>
-                        <div class="skill-item">
-                            <img src="images/premierepro.png" />
-                            <p>Premiere Pro</p>
-                        </div>
-                        <div class="skill-item">
-                            <img src="images/aftereffects.png" />
-                            <p>After Effects</p>
-                        </div>
-                        <div class="skill-item">
-                            <img src="images/blender.png" />
-                            <p>Blender</p>
-                        </div>
-                        <div class="skill-item">
-                            <img src="images/godot.png" />
-                            <p>Godot</p>
-                        </div>
-                        <div class="skill-item">
-                            <img src="images/unity.png" />
-                            <p>Unity</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="works-section">
-                <h2>My Works</h2>
-                <div class="filter-wrapper">
-                    <div class="filter-section">
-                        <div class="dropdown">
-                            <button class="dropdown-btn years-btn">Date</button>
-                            <div
-                                class="dropdown-content-years dropdown-content"
-                            ></div>
-                        </div>
-                    </div>
-                    <div class="filter-section">
-                        <div class="dropdown">
-                            <button class="dropdown-btn tags-btn">
-                                Category
-                            </button>
-                            <div
-                                class="dropdown-content-tags dropdown-content"
-                            ></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="works"></div>
-            </div>
-            <div class="experience-section">
-                <h2>Experience</h2>
-                <div class="experiences">
-                    <div class="experience">
-                        <div class="experience-text">
-                            <h2>
-                                Demon Powersports, Demon Electric, TGB Canada
-                            </h2>
-                            <h3>Parkdick Enterprises - My First Job</h3>
-                            <p>my first job blah blah blah</p>
-                        </div>
-                        <div class="experience-img">
-                            <img src="images/powersports.png" />
-                            <img src="images/electric.png" />
-                            <img src="images/tgb.png" />
-                        </div>
-                    </div>
-                    <div class="experience">
-                        <div class="experience-img">
-                            <img src="images/waterloo.png" />
-                        </div>
-                        <div class="experience-text">
-                            <h2>Student at the University of Waterloo</h2>
-                            <h3>Bachelor's Degree, Computer Science</h3>
-                            <p>2022-2028 thing ajksdhfkajdhfasdf</p>
-                        </div>
-                    </div>
-                    <div class="experience">
-                        <div class="experience-text">
-                            <h2>Student at St. Andrew's College</h2>
-                            <h3>Head of Boarding House, Honor Student</h3>
-                            <p>2022-2028 thing ajksdhfkajdhfasdf</p>
-                        </div>
-                        <div class="experience-img"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="contact-section">
-                <h1>Contact Me</h1>
+        </div>
+        <div class="extended-hero-section">
+            <div class="cool-block">
+                <h2>Countless Interests, Infinite Passion</h2>
                 <p>
-                    Here are a couple ways to contact me. If you're interested
-                    in learning more about me, working together, or just want to
-                    talk, don't hesitate to reach out!
+                    I’m passionate about learning, whether it’s animation, science, or programming, and love applying
+                    what I learn wherever I can
                 </p>
-                <div class="emails">
-                    <a
-                        href="mailto:ethanytmc@gmail.com?subject=Inquiry from Website&body=Hi Ethan,"
-                    >
-                        <!-- <button id="btnOutlook">Email Me!</button> -->
-                        <p id="btnOutlook">Email Me</p>
-                    </a>
+            </div>
+            <div class="cool-block">
+                <h2 style="text-align: right;">Always Finding Fun</h2>
+                <p style="text-align: right;">
+                    I may not be the best at everything I do, but with learning and doing as my favorite pastime,
+                    nothing will stop me from reaching my goals.
+                </p>
+            </div>
+        </div>
+        <div class="skills-section">
+            <h2>My Skills</h2>
+            <div class="skill">
+                <h3>Programming in Various Languages</h3>
+                <div class="skills-gallery">
+                    <div class="skill-item">
+                        <img src="images/html.png" />
+                        <p>HTML</p>
+                    </div>
+                    <div class="skill-item">
+                        <img src="images/css.png" />
+                        <p>CSS</p>
+                    </div>
+                    <div class="skill-item">
+                        <img src="images/js.png" />
+                        <p>JavaScript</p>
+                    </div>
+
+                    <div class="skill-item">
+                        <img src="images/python.png" />
+                        <p>Python</p>
+                    </div>
+
+                    <div class="skill-item">
+                        <img src="images/java.png" />
+                        <p>Java</p>
+                    </div>
+                    <div class="skill-item">
+                        <img src="images/cpp.png" />
+                        <p>C++</p>
+                    </div>
                 </div>
-                <div class="phone">
-                    <p>Here is my phone number:</p>
-                    <p>+1 (647) 203-0588</p>
-                    <p>(It's a Canadian number)</p>
-                </div>
-                <div>
-                    <p>The absolute best way to contact me:</p>
-                    <p>Discord, Ethanyentmc</p>
+            </div>
+            <div class="skill">
+                <h3>Graphic Design, Animation, 3D Modelling and More!</h3>
+                <div class="skills-gallery">
+                    <div class="skill-item">
+                        <img src="images/photoshop.png" />
+                        <p>Photoshop</p>
+                    </div>
+                    <div class="skill-item">
+                        <img src="images/premierepro.png" />
+                        <p>Premiere Pro</p>
+                    </div>
+                    <div class="skill-item">
+                        <img src="images/aftereffects.png" />
+                        <p>After Effects</p>
+                    </div>
+                    <div class="skill-item">
+                        <img src="images/blender.png" />
+                        <p>Blender</p>
+                    </div>
+                    <div class="skill-item">
+                        <img src="images/godot.png" />
+                        <p>Godot</p>
+                    </div>
+                    <div class="skill-item">
+                        <img src="images/unity.png" />
+                        <p>Unity</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <script src="script.js"></script>
-        <!-- <script src="canvas.js"></script> -->
-    </body>
+        <div class="experience-section">
+            <h2>Experience</h2>
+            <div class="experiences">
+                <div class="experience">
+                    <div class="experience-text">
+                        <h2>
+                            Demon Powersports, Demon Electric, TGB Canada
+                        </h2>
+                        <h3>Parkdick Enterprises - My First Job</h3>
+                        <p>my first job blah blah blah</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="images/powersports.png" />
+                        <img src="images/electric.png" />
+                        <img src="images/tgb.png" />
+                    </div>
+                </div>
+                <div class="experience">
+                    <div class="experience-img">
+                        <img src="images/waterloo.png" />
+                    </div>
+                    <div class="experience-text">
+                        <h2>Student at the University of Waterloo</h2>
+                        <h3>Bachelor's Degree, Computer Science</h3>
+                        <p>2022-2028 thing ajksdhfkajdhfasdf</p>
+                    </div>
+                </div>
+                <div class="experience">
+                    <div class="experience-text">
+                        <h2>Student at St. Andrew's College</h2>
+                        <h3>Head of Boarding House, Honor Student</h3>
+                        <p>2022-2028 thing ajksdhfkajdhfasdf</p>
+                    </div>
+                    <div class="experience-img"></div>
+                </div>
+            </div>
+        </div>
+        <div class="works-section">
+            <h2>My Works</h2>
+            <div class="filter-wrapper">
+                <div class="filter-section">
+                    <div class="dropdown">
+                        <button class="dropdown-btn years-btn">Date</button>
+                        <div class="dropdown-content-years dropdown-content"></div>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <div class="dropdown">
+                        <button class="dropdown-btn tags-btn">
+                            Category
+                        </button>
+                        <div class="dropdown-content-tags dropdown-content"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="works"></div>
+        </div>
+
+        <div class="contact-section">
+            <h1>Let's Work Together!</h1>
+            <p style="text-align:center">
+                Don't hesitate to reach out for any reason!
+            </p>
+            <div class="comm-wrapper">
+                <div class="comm">
+                    <img src="images/email.png">
+                    <h2>Email</h2>
+                    <div class="button-wrapper">
+                        <a href="mailto:ethanytmc@gmail.com" class="contact-btn">Personal Email</a>
+                        <a href="mailto:eyen@uwaterloo.ca" class="contact-btn">School Email</a>
+                    </div>
+                </div>
+                <div class="comm">
+                    <img src="images/linkedin.png">
+                    <h2>LinkedIn</h2>
+                    <div class="button-wrapper">
+                        <a href="mailto:ethanytmc@gmail.com" class="contact-btn">My Profile</a>
+                    </div>
+                </div>
+                <div class="comm">
+                    <img src="images/phone.png">
+                    <h2>Phone</h2>
+                    <div class="button-wrapper">
+                        <a class="contact-btn">+1(647)203-0588</a>
+                    </div>
+                </div>
+                <div class="comm">
+                    <img src="images/discord.png">
+                    <h2>Add me on Discord</h2>
+                    <div class="button-wrapper">
+                        <a class="contact-btn">EthanyenTMC</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <!-- <script src="canvas.js"></script> -->
+</body>
+
 </html>

@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    const menuChildren = menu.children;
+    const menuChildren = document.querySelector(".menu-wrapper").children;
 // Loop through each child element
 for (let i = 0; i < menuChildren.length; i++) {
     const child = menuChildren[i];
