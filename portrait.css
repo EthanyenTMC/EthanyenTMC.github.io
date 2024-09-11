@@ -30,7 +30,7 @@
 
     .hero-section {
         width: var(--portrait-width);
-        height: 90vh;
+        height: 100vh;
         flex-direction: column;
     }
 
@@ -40,15 +40,40 @@
 
     .hero-text {
         width: 100%;
+        height: 100%;
     }
 
     .hero-text h1 {
-        font-size: 15vh;
+        font-size: 5vh;
         margin: 0;
     }
 
+    #name {
+        transition: all 0.5s ease-in-out;
+        -webkit-text-stroke: 3px rgb(76, 0, 255);
+        font-size: 15rem;
+        text-align: center;
+        color: transparent;
+        font-family: "Meta", sans-serif;
+        text-shadow: 1vw 1vw 0px #7307cc82,
+            1.5vw 1.5vw 0px #018ae6,
+            2vw 2vw 0px #01bfe9,
+            2.5vw 2.5vw 0px #002c6a;
+        cursor: pointer;
+        z-index: 1;
+        font-size: 25vw;
+    }
+
+    #name:hover {
+        -webkit-text-stroke: 2px rgb(112, 210, 255);
+        text-shadow: none;
+        color: #2b01e9;
+    }
+
+
+
     .hero-text h2 {
-        font-size: 4vh;
+        font-size: 3vh;
     }
 
     .skill {
@@ -94,6 +119,14 @@
         align-items: flex-start;
         justify-items: center;
         align-content: center;
+    }
+
+    .work h3 {
+        font-size: 4vh;
+    }
+
+    .work p {
+        font-size: 1.8vh;
     }
 
     .work-img {
@@ -171,6 +204,22 @@
         height: auto;
     }
 
+    .experience-section img {
+        display: none;
+    }
+
+    .experience-section h2 {
+        font-size: 2.5vh;
+    }
+
+    .experience-section h3 {
+        font-size: 2.3vh;
+    }
+
+    .experience-section p {
+        font-size: 2vh;
+    }
+
     .experiences {
         width: 100%;
         height: auto;
@@ -212,5 +261,29 @@
     .trail {
         width: 10px;
         height: 10px;
+    }
+
+    .menu {
+        height: 100vh;
+        width: 50vw;
+    }
+
+    .menu p {
+        font-size: 1.5em;
+    }
+
+    .menu-wrapper {
+        width: 95%;
+        height: 95%;
+        padding: 1% 2.5% 4% 2.5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .menu-wrapper>div {
+        padding-left: 1vw;
+        width: 95%;
     }
 }

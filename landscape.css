@@ -59,8 +59,27 @@
         margin: 0;
     }
 
+
     #name {
+        transition: all 0.5s ease-in-out;
+        -webkit-text-stroke: 3px rgb(76, 0, 255);
+        font-size: 15rem;
+        text-align: center;
+        color: transparent;
+        font-family: "Meta", sans-serif;
+        text-shadow: 10px 10px 0px #7307cc82,
+            15px 15px 0px #018ae6,
+            20px 20px 0px #01bfe9,
+            25px 25px 0px #002c6a;
+        cursor: pointer;
+        z-index: 1;
         font-size: 10em;
+    }
+
+    #name:hover {
+        -webkit-text-stroke: 2px rgb(112, 210, 255);
+        text-shadow: none;
+        color: #2b01e9;
     }
 
     .skills-section {
@@ -94,13 +113,12 @@
     .works {
         height: auto;
         width: 100%;
-        gap: 0vh;
+        gap: 1vh;
     }
 
     .work {
         height: auto;
         width: var(--landscape-width);
-        padding-bottom: 1.5vh;
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
@@ -110,6 +128,10 @@
         height: 90%;
         padding-top: 1vh;
         padding-right: 5%;
+    }
+
+    .work:not(:last-child)::after {
+        bottom: -.5vh;
     }
 
     .work-text {
