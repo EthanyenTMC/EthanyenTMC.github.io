@@ -106,14 +106,44 @@
 
     .works-section {
         height: auto;
-        width: 100vw;
+        width: var(--landscape-width);
         gap: 20px;
+        transition: 0.5s ease-in-out;
+    }
+
+
+    .more-btn {
+        z-index: 1;
     }
 
     .works {
-        height: auto;
+        max-height: 75vh;
+        overflow: hidden;
         width: 100%;
         gap: 1vh;
+        position: relative;
+        transition: 2s ease;
+    }
+
+    .show-more {
+        max-height: 200vh;
+    }
+
+    .show-more::before {
+        --gradient-length: 0%;
+        background: linear-gradient(to top, #00010e 0%, #ffffff00 var(--gradient-length));
+    }
+
+    .works::before {
+        --gradient-length: 50%;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top, #00010e 0%, #ffffff00 var(--gradient-length));
+        z-index: 1;
     }
 
     .work {

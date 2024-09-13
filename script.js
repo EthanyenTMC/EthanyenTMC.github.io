@@ -92,31 +92,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const menuChildren = document.querySelector(".menu-wrapper").children;
 // Loop through each child element
-for (let i = 0; i < menuChildren.length; i++) {
-    const child = menuChildren[i];
-    console.log("sog");
-    // Check if the child element has a value in "data-scroll-target"
-    const scrollTarget = child.getAttribute("data-scroll-target");
-    if (scrollTarget) {
-        // Create a click event listener for the child element
-        child.addEventListener("click", () => {
-            // Scroll the window to the div with the class name given in "data-scroll-target"
-            const targetElement = document.querySelector(`.${scrollTarget}`);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop,
-                    behavior: "smooth",
-                });
-                if(menu.classList.contains("active")){
-                    menu.classList.toggle("active");
-                    bg_dimmer.classList.remove("bg-dimmer-on");
-                    closeMenu.play();
+    for (let i = 0; i < menuChildren.length; i++) {
+        const child = menuChildren[i];
+        console.log("sog");
+        // Check if the child element has a value in "data-scroll-target"
+        const scrollTarget = child.getAttribute("data-scroll-target");
+        if (scrollTarget) {
+            // Create a click event listener for the child element
+            child.addEventListener("click", () => {
+                // Scroll the window to the div with the class name given in "data-scroll-target"
+                const targetElement = document.querySelector(`.${scrollTarget}`);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: "smooth",
+                    });
+                    if(menu.classList.contains("active")){
+                        menu.classList.toggle("active");
+                        bg_dimmer.classList.remove("bg-dimmer-on");
+                        closeMenu.play();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
-}
+
+
+    const work_section = document.querySelector(".works");
+    const more_btn = document.querySelector(".more-btn");
+
+    more_btn.addEventListener("click", () => {
+        work_section.classList.toggle("show-more");
+        console.log("ahjksdjlfhasdf");
+    });
+    
 });
+
+
 
 
 
