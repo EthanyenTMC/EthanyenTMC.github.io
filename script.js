@@ -123,6 +123,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     more_btn.addEventListener("click", () => {
         work_section.classList.toggle("show-more");
+        if (work_section.classList.contains("show-more")) {
+            more_btn.textContent = "Show Less";
+        }else{
+            more_btn.textContent = "Show All Projects";
+        }
         console.log("ahjksdjlfhasdf");
     });
     

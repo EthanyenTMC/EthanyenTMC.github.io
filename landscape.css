@@ -62,24 +62,24 @@
 
     #name {
         transition: all 0.5s ease-in-out;
-        -webkit-text-stroke: 3px rgb(76, 0, 255);
+        /* -webkit-text-stroke: 3px rgb(76, 0, 255); */
+        -webkit-text-stroke: 0px;
         font-size: 15rem;
         text-align: center;
-        color: transparent;
+        font-weight: 100;
+        text-shadow: 0 0 5px #009dff, 0 0 15px #6600ff, 0 0 20px #009dff, 0 0 40px #71c4ff, 0 0 60px #59d0ff, 0 0 10px #1e00ff, 0 0 98px #6f00ff;
+        color: #ffffff;
         font-family: "Meta", sans-serif;
-        text-shadow: 10px 10px 0px #7307cc82,
-            15px 15px 0px #018ae6,
-            20px 20px 0px #01bfe9,
-            25px 25px 0px #002c6a;
+
         cursor: pointer;
-        z-index: 1;
+        z-index: 0;
         font-size: 10em;
     }
 
     #name:hover {
-        -webkit-text-stroke: 2px rgb(112, 210, 255);
-        text-shadow: none;
-        color: #2b01e9;
+        -webkit-text-stroke: 2px rgb(255, 255, 255);
+        text-shadow: 0 0 5px #009dff, 0 0 15px #6600ff, 0 0 20px #009dff;
+        color: #67aeff;
     }
 
     .skills-section {
@@ -105,10 +105,15 @@
     }
 
     .works-section {
+        padding-top: 5vh;
         height: auto;
         width: var(--landscape-width);
         gap: 20px;
         transition: 0.5s ease-in-out;
+    }
+
+    .works-section>h2 {
+        font-size: 2.5em;
     }
 
 
@@ -129,9 +134,9 @@
         max-height: 200vh;
     }
 
-    .show-more::before {
-        --gradient-length: 0%;
-        background: linear-gradient(to top, #00010e 0%, #ffffff00 var(--gradient-length));
+    .works.show-more::before {
+        height: 200%;
+        transition: height 3s ease;
     }
 
     .works::before {
@@ -144,6 +149,8 @@
         height: 100%;
         background: linear-gradient(to top, #00010e 0%, #ffffff00 var(--gradient-length));
         z-index: 1;
+        transition: height 2s ease;
+        pointer-events: none;
     }
 
     .work {
@@ -208,17 +215,55 @@
         height: auto;
     }
 
+    .experience-section>h2 {
+        font-size: 2.5em;
+    }
+
     .experiences {
         width: 100%;
         height: auto;
+        gap: 1vh;
     }
 
     .experience {
         width: var(--landscape-width);
         height: 20vh;
-        padding-top: 5vh;
-        padding-bottom: 5vh;
+        text-shadow: 0px 0px 10px rgb(47, 0, 255);
     }
+
+    .experience::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.671);
+        z-index: -1;
+    }
+
+    #waterloo-exp {
+        background-image: url("images/waterloo.jpg");
+        background-size: cover;
+        background-position: center;
+        z-index: -2;
+    }
+
+    #sac-exp {
+        background-image: url("images/sac.jpg");
+        background-size: cover;
+        background-position: center;
+        z-index: -2;
+    }
+
+    #pdi-exp {
+        background-image: url("images/pdi.webp");
+        background-size: cover;
+        background-position: center;
+        z-index: -2;
+    }
+
+
 
     .experience-text {
         width: 50%;

@@ -148,6 +148,9 @@ export async function loadProjects() {
 }
 
 // Call the function to load projects
+const work_section = document.querySelector(".works");
+const more_btn = document.querySelector(".more-btn");
+
 
 function goAway(link) {
     const bodyChildren = document.querySelector(".wrapper").children;
@@ -222,6 +225,9 @@ loadProjects().then(() => {
         document.querySelector(".dropdown-content-years").appendChild(button);
     }
 
+    const work_section = document.querySelector(".works");
+    const more_btn = document.querySelector(".more-btn");
+
     const yearsFilterButtons = document.querySelectorAll(".years-filter-btn");
     /* console.log(all_works); */
 
@@ -230,6 +236,8 @@ loadProjects().then(() => {
             const filter = button.getAttribute("data-filter");
             curr_filters = [filter, curr_filters[1]];
             document.querySelector(".years-btn").textContent = `x ${filter} x`;
+            more_btn.style.display = "none";
+            work_section.classList.add("show-more");
             all_works.forEach((work) => {
                 console.log(work.classList);
                 if (fancy_contains(work.classList, curr_filters)) {
@@ -248,6 +256,8 @@ loadProjects().then(() => {
             const filter = button.getAttribute("data-filter");
             curr_filters = [curr_filters[0], filter];
             document.querySelector(".tags-btn").textContent = `x ${filter} x`;
+            more_btn.style.display = "none";
+            work_section.classList.add("show-more");
             all_works.forEach((work) => {
                 console.log(work.classList);
                 if (fancy_contains(work.classList, curr_filters)) {
@@ -288,6 +298,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     curr_filters = ["all", curr_filters[1]];
                     document.querySelector(".years-btn").textContent = "Date";
+                    more_btn.style.display = "block";
+                    work_section.classList.remove("show-more");
                 }
                 all_works.forEach((work) => {
                     console.log(work.classList);
@@ -304,6 +316,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     curr_filters = [curr_filters[0], "all"];
                     document.querySelector(".tags-btn").textContent =
                         "Category";
+                    more_btn.style.display = "block";
+                    work_section.classList.remove("show-more");
                 }
                 all_works.forEach((work) => {
                     console.log(work.classList);
